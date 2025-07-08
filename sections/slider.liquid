@@ -1,75 +1,131 @@
 <section class="slider-section">
   <div class="slider-container">
     <div class="slider-wrapper">
-      {% for block in section.blocks %}
-        <div class="slide" {{ block.shopify_attributes }}>
-          {% if block.settings.slide_image != blank %}
-            <div class="slide-image">
-              <img
-                src="{{ block.settings.slide_image | image_url: width: 1920 }}"
-                alt="{{ block.settings.heading1 | escape }} {{ block.settings.heading2 | escape }}"
-                loading="lazy"
-                width="1920"
-                height="600"
-              >
-            </div>
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <div class="slide" {{ block.shopify_attributes }}>
+            {% if block.settings.slide_image != blank %}
+              <div class="slide-image">
+                <img
+                  src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+                  alt="{{ block.settings.heading1 | escape }} {{ block.settings.heading2 | escape }}"
+                  loading="lazy"
+                  width="1920"
+                  height="600"
+                >
+              </div>
             {% else %}
-            <div class="slide-image">
-              <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" loading="lazy" width="1920" height="810">
+              <div class="slide-image">
+                <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" loading="lazy" width="1920" height="810">
+              </div>
+            {% endif %}
+
+            <div
+              class="slide-content {{ section.settings.content_position }}"
+              style="
+                padding: {{ block.settings.padding_top | default: 40 }}px {{ block.settings.padding_right | default: 26 }}px {{ block.settings.padding_bottom | default: 40 }}px {{ block.settings.padding_left | default: 20 }}px;
+                margin: {{ block.settings.margin_top | default: 0 }}px {{ block.settings.margin_right | default: 0 }}px {{ block.settings.margin_bottom | default: 0 }}px {{ block.settings.margin_left | default: 0 }}px;
+              "
+            >
+              <div class="slide-text">
+                {% if block.settings.heading1 != blank or block.settings.heading2 != blank %}
+                  <h2
+                    class="slide-heading"
+                    style="color: {{ block.settings.color_text }}; font-size: {{ block.settings.heading_font_size | default: 80 }}px;"
+                  >
+                    {% if block.settings.heading1 != blank -%}
+                      <span>
+                        {{- block.settings.heading1 -}}
+                        <br>
+                      </span>
+                    {%- endif %}
+                    {% if block.settings.heading2 != blank -%}
+                      <span>{{ block.settings.heading2 }}</span>
+                    {%- endif %}
+                  </h2>
+                {% endif %}
+
+                {% if block.settings.subheading != blank %}
+                  <p
+                    class="slide-subheading"
+                    style="color: {{ block.settings.color_text }}; font-size: {{ block.settings.subheading_font_size | default: 16 }}px;"
+                  >
+                    {{ block.settings.subheading }}
+                  </p>
+                {% endif %}
+
+                {% if block.settings.button_text != blank %}
+                  <a
+                    href="#"
+                    class="slide-button"
+                    aria-label="{{ block.settings.button_text }}"
+                    style="background: {{ block.settings.button_bg }}; color: {{ block.settings.button_color }};"
+                  >
+                    {{ block.settings.button_text }}
+                  </a>
+                {% endif %}
+              </div>
             </div>
-          {% endif %}
-
-          <div
-            class="slide-content {{ section.settings.content_position }}"
-            style="
-              padding: {{ block.settings.padding_top | default: 40 }}px {{ block.settings.padding_right | default: 26 }}px {{ block.settings.padding_bottom | default: 40 }}px {{ block.settings.padding_left | default: 20 }}px;
-              margin: {{ block.settings.margin_top | default: 0 }}px {{ block.settings.margin_right | default: 0 }}px {{ block.settings.margin_bottom | default: 0 }}px {{ block.settings.margin_left | default: 0 }}px;
-            "
-          >
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="slide">
+          <div class="slide-image">
+            <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" loading="lazy" width="1920" height="810">
+          </div>
+          <div class="slide-content {{ section.settings.content_position }}">
             <div class="slide-text">
-              {% if block.settings.heading1 != blank or block.settings.heading2 != blank %}
-                <h2
-                  class="slide-heading"
-                  style="color: {{ block.settings.color_text }}; font-size: {{ block.settings.heading_font_size | default: 80 }}px;"
-                >
-                  {% if block.settings.heading1 != blank -%}
-                    <span>
-                      {{- block.settings.heading1 -}}
-                      <br>
-                    </span>
-                  {%- endif %}
-                  {% if block.settings.heading2 != blank -%}
-                    <span>{{ block.settings.heading2 }}</span>
-                  {%- endif %}
-                </h2>
-              {% endif %}
-
-              {% if block.settings.subheading != blank %}
-                <p
-                  class="slide-subheading"
-                  style="color: {{ block.settings.color_text }}; font-size: {{ block.settings.subheading_font_size | default: 16 }}px;"
-                >
-                  {{ block.settings.subheading }}
-                </p>
-              {% endif %}
-
-              {% if block.settings.button_text != blank %}
-                <a
-                  href="#"
-                  class="slide-button"
-                  aria-label="{{ block.settings.button_text }}"
-                  style="background: {{ block.settings.button_bg }}; color: {{ block.settings.button_color }};"
-                >
-                  {{ block.settings.button_text }}
-                </a>
-              {% endif %}
+              <h2 class="slide-heading" style="color: #000; font-size: 80px;">
+                <span>Stylish<br></span>
+                <span>Top Trending</span>
+              </h2>
+              <p class="slide-subheading" style="color: #000; font-size: 16px;">
+                So soft you don't want to take it off.
+              </p>
+              <a href="#" class="slide-button" aria-label="Explore Now" style="background: #000; color: #fff;">
+                Explore Now
+              </a>
             </div>
           </div>
         </div>
-      {% endfor %}
+        <div class="slide">
+          <div class="slide-image">
+            <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" loading="lazy" width="1920" height="810">
+          </div>
+          <div class="slide-content {{ section.settings.content_position }}">
+            <div class="slide-text">
+              <h2 class="slide-heading" style="color: #111; font-size: 80px;">
+                <span>New Arrivals<br></span>
+                <span>Fresh Looks</span>
+              </h2>
+              <p class="slide-subheading" style="color: #111; font-size: 16px;">
+                Discover the latest trends in fashion.
+              </p>
+              <a href="#" class="slide-button" aria-label="Shop Now" style="background: #111; color: #fff;">
+                Shop Now
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide-image">
+            <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" loading="lazy" width="1920" height="810">
+          </div>
+          <div class="slide-content {{ section.settings.content_position }}">
+            <div class="slide-text">
+              <h2 class="slide-heading" style="color: #222; font-size: 80px;">
+                <span>Accessories<br></span>
+                <span>Complete Your Style</span>
+              </h2>
+              <p class="slide-subheading" style="color: #222; font-size: 16px;">Find the perfect finishing touch.</p>
+              <a href="#" class="slide-button" aria-label="Browse" style="background: #222; color: #fff;"> Browse </a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
     </div>
 
-    {% if section.blocks.size > 1 %}
+    {% if section.blocks.size > 1 or section.blocks.size == 0 %}
       <div class="slider-controls">
         <button class="slider-prev" aria-label="Previous slide">
           <svg width="6" height="11" viewBox="0 0 6 11" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
@@ -84,11 +140,19 @@
       </div>
 
       <div class="slider-dots">
-        {% for block in section.blocks %}
-          <button class="slider-dot" data-slide="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}">
-            <span></span>
-          </button>
-        {% endfor %}
+        {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+            <button class="slider-dot" data-slide="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}">
+              <span></span>
+            </button>
+          {% endfor %}
+        {% else %}
+          {% for i in (0..2) %}
+            <button class="slider-dot" data-slide="{{ i }}" aria-label="Go to slide {{ i | plus: 1 }}">
+              <span></span>
+            </button>
+          {% endfor %}
+        {% endif %}
       </div>
     {% endif %}
   </div>

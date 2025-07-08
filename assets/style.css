@@ -5,6 +5,7 @@
     justify-content: space-between;
     align-items: center;
     list-style-type: none;
+    gap: 30px;
 }
 
 ul {
@@ -43,7 +44,6 @@ ul {
 
 .submenu-icon {
     vertical-align: middle;
-    margin-left: 4px;
     transition: transform 0.3s ease;
 }
 
@@ -56,11 +56,10 @@ ul {
     position: absolute;
     top: 100%;
     left: 0;
-    min-width: 180px;
     background: #fff;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     opacity: 0;
-    visibility: hidden;
+    visibility: visible;
     pointer-events: none;
     z-index: 1001;
     transition: opacity 0.3s, visibility 0.3s;
@@ -70,8 +69,16 @@ ul {
     display: block;
 }
 
-.header-menu-item:hover>.header-menu-item-wrapper+.header-menu-sublist,
-.header-menu-item.active>.header-menu-item-wrapper+.header-menu-sublist {
+/* Show submenu on li hover or active */
+.header-menu-item:hover > .header-menu-sublist,
+.header-menu-item.active > .header-menu-sublist {
+    opacity: 1;
+    visibility: visible !important;
+    pointer-events: auto;
+}
+
+/* Optional: show submenu on focus for accessibility */
+.header-menu-item:focus-within > .header-menu-sublist {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
