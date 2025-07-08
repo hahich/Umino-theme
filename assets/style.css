@@ -397,8 +397,8 @@ ul {
 .featured-collection-grid {
     display: grid;
     grid-template-areas:
-    "clothing sunglesses sneaker"
-    "clothing bag sneaker";
+        "clothing sunglesses sneaker"
+        "clothing bag sneaker";
     gap: 30px;
     border-radius: 10px;
     overflow: hidden;
@@ -410,9 +410,9 @@ ul {
     height: 730px;
     overflow: hidden;
     position: relative;
-}   
+}
 
-.featured-collection-img img{
+.featured-collection-img img {
     object-fit: contain;
     object-position: bottom;
     position: absolute;
@@ -441,4 +441,80 @@ ul {
     background-color: #000;
     color: #fff;
     cursor: pointer;
+}
+
+/* New Arrivals */
+.new-arrivals {
+    width: 1410px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+}
+
+.new-arrivals-item {
+    width: 350px;
+    height: 558px;
+}
+
+.new-arrivals-slider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.carousel-controls {
+    display: none;
+}
+
+.product-image {
+    border-radius: 10px;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+.product-price {
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+.product-compare-price {
+    text-decoration: line-through;
+    color: rgba(153, 153, 153, 1);
+}
+
+.product-info {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.product-colors {
+    display: flex;
+    gap: 5px;
+}
+
+.color-swatch-wrapper {
+    display: flex;
+    padding: 2px;
+    border: 1px solid rgba(221, 221, 221, 1);
+    border-radius: 50%;
+    
+}
+
+.color-swatch-wrapper.selected {
+    border-color: rgba(17, 17, 17, 1);
+}
+
+.color-swatch {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background-size: cover;
+    display: inline-block;
+    border: 1px solid #ccc;
 }

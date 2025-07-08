@@ -4,14 +4,119 @@
     <p>{{ section.settings.description }}</p>
   </div>
 
-  <div class="new-arrivals-grid">
-    {% for product in collections.all.products limit: 4 %}
-      <div class="new-arrivals-item">
-        <a href="{{ product.url }}">
-          <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title }}" width="300" height="300">
-        </a>
-      </div>
-    {% endfor %}
+  <div class="new-arrivals-slider-wrapper">
+    <div class="carousel-controls">
+      <button class="carousel-prev slider-prev" aria-label="Previous">
+        <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5.46875 8.86328C5.60417 8.9987 5.67188 9.16016 5.67188 9.34766C5.67188 9.52474 5.60417 9.67578 5.46875 9.80078C5.34375 9.9362 5.1875 10.0039 5 10.0039C4.8125 10.0039 4.65625 9.9362 4.53125 9.80078L0.53125 5.80078C0.395833 5.67578 0.328125 5.52474 0.328125 5.34766C0.328125 5.16016 0.395833 4.9987 0.53125 4.86328L4.53125 0.863281C4.65625 0.738281 4.8125 0.675781 5 0.675781C5.1875 0.675781 5.34375 0.738281 5.46875 0.863281C5.60417 0.998698 5.67188 1.16016 5.67188 1.34766C5.67188 1.52474 5.60417 1.67578 5.46875 1.80078L1.9375 5.33203L5.46875 8.86328Z" fill="#000"/>
+        </svg>
+      </button>
+      <button class="carousel-next slider-next" aria-label="Next">
+        <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.46875 9.80078C1.34375 9.9362 1.1875 10.0039 1 10.0039C0.8125 10.0039 0.65625 9.9362 0.53125 9.80078C0.395833 9.67578 0.328125 9.52474 0.328125 9.34766C0.328125 9.16016 0.395833 8.9987 0.53125 8.86328L4.0625 5.33203L0.53125 1.80078C0.395833 1.67578 0.328125 1.52474 0.328125 1.34766C0.328125 1.16016 0.395833 0.998698 0.53125 0.863281C0.65625 0.738281 0.8125 0.675781 1 0.675781C1.1875 0.675781 1.34375 0.738281 1.46875 0.863281L5.46875 4.86328C5.60417 4.9987 5.67188 5.16016 5.67188 5.34766C5.67188 5.52474 5.60417 5.67578 5.46875 5.80078L1.46875 9.80078Z" fill="#000"/>
+        </svg>
+      </button>
+    </div>
+    <div class="new-arrivals-slider">
+      {% for product in collections.clothes.products reversed limit: 4 %}
+        <div class="new-arrivals-item">
+          <a href="{{ product.url }}">
+            <img
+              class="product-image"
+              src="{{ product.featured_image | image_url: width: 330 }}"
+              alt="{{ product.title }}"
+              width="330"
+              height="440"
+              data-black="{{ product.featured_image | image_url: width: 330 }}"
+              data-red="{{ product.featured_image | image_url: width: 330 }}"
+              data-white="{{ product.featured_image | image_url: width: 330 }}"
+            >
+          </a>
+          <div class="product-info">
+            <div class="product-title">{{ product.title }}</div>
+            <div class="product-rating">
+              {% assign mod = forloop.index0 | modulo: 2 %}
+              {% if mod == 0 %}
+                {% assign rating = 5 %}
+              {% else %}
+                {% assign rating = 4 %}
+              {% endif %}
+
+              {% for i in (1..5) %}
+                {% if i <= rating %}
+                  <span>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.96853 3.78143C10.0011 3.88335 10.0043 3.98868 9.9783 4.0974C9.95226 4.20612 9.89692 4.29785 9.81228 4.37259L7.63455 6.37033L8.27908 9.32616C8.29861 9.43488 8.28885 9.5402 8.24978 9.64213C8.21723 9.74405 8.15864 9.82899 8.074 9.89694C7.98286 9.96489 7.8852 9.99887 7.78103 9.99887C7.67687 10.0057 7.57921 9.98188 7.48806 9.92752L4.99783 8.36806L2.5076 9.92752C2.46853 9.94791 2.42296 9.96489 2.37088 9.97848C2.3253 9.99207 2.27973 9.99887 2.23416 9.99887C2.18207 9.99887 2.12674 9.98868 2.06814 9.96829C2.01606 9.9547 1.96723 9.93092 1.92166 9.89694C1.83702 9.82899 1.77517 9.74405 1.73611 9.64213C1.70356 9.5402 1.69705 9.43488 1.71658 9.32616L2.36111 6.37033L0.183377 4.37259C0.0987413 4.29785 0.0434028 4.20612 0.0173611 4.0974C-0.00868056 3.98868 -0.00542535 3.88335 0.0271267 3.78143C0.0596788 3.67271 0.115017 3.58437 0.193142 3.51642C0.277778 3.44847 0.372179 3.4077 0.476345 3.39411L3.36697 3.12911L4.50955 0.336353C4.54861 0.234428 4.61372 0.152888 4.70486 0.0917327C4.79601 0.0305776 4.89366 0 4.99783 0C5.102 0 5.19965 0.0305776 5.2908 0.0917327C5.38194 0.152888 5.44705 0.234428 5.48611 0.336353L6.62869 3.12911L9.51931 3.39411C9.62348 3.4077 9.71463 3.44847 9.79275 3.51642C9.87739 3.58437 9.93598 3.67271 9.96853 3.78143Z" fill="#111111"/>
+                    </svg>
+                  </span>
+                {% else %}
+                  <span>
+                    <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8.75027 9.99886C8.85519 10.0006 8.95737 9.96365 9.03897 9.89449C9.12544 9.83625 9.18905 9.74734 9.21816 9.64399C9.2475 9.54189 9.2475 9.43298 9.21816 9.33088L8.60094 6.36671L10.7712 4.3732C10.861 4.30709 10.9275 4.21168 10.9603 4.10183C10.9852 3.99556 10.9852 3.88455 10.9603 3.77828C10.9317 3.6719 10.8683 3.57951 10.7811 3.51734C10.7041 3.45067 10.6111 3.40736 10.5123 3.3921L7.60544 3.13117L6.47056 0.333991C6.42964 0.234198 6.36003 0.150279 6.27145 0.093935C6.18628 0.0332073 6.08576 0.000500933 5.98276 0V8.34978L8.46157 9.9258C8.54847 9.98039 8.64919 10.0059 8.75027 9.99886Z" fill="#C8C8C8"/>
+                      <path d="M3.21134 9.99886C3.10642 10.0006 3.00424 9.96365 2.92264 9.89449C2.83616 9.83625 2.77256 9.74734 2.74345 9.64399C2.71411 9.54189 2.71411 9.43298 2.74345 9.33088L3.36066 6.36671L1.19046 4.3732C1.10059 4.30709 1.03409 4.21168 1.00131 4.10183C0.97642 3.99556 0.97642 3.88455 1.00131 3.77828C1.0299 3.6719 1.09335 3.57951 1.1805 3.51734C1.25752 3.45067 1.35047 3.40736 1.44929 3.3921L4.35617 3.13117L5.49105 0.333991C5.53197 0.234198 5.60157 0.150279 5.69015 0.093935C5.77533 0.0332073 5.87585 0.000500933 5.97885 0V8.34978L3.50004 9.9258C3.41314 9.98039 3.31242 10.0059 3.21134 9.99886Z" fill="#111111"/>
+                    </svg>
+                  </span>
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            {% assign index_mod = forloop.index0 | modulo: 2 %}
+            {% if product.compare_at_price > product.price %}
+              <div class="product-price" style="color: {% if index_mod == 0 %}black{% else %}red{% endif %};">
+                {{ product.price | money }}
+                <span class="product-compare-price">{{ product.compare_at_price | money }}</span>
+              </div>
+            {% else %}
+              <div class="product-price" style="color: {% if index_mod == 0 %}black{% else %}red{% endif %};">
+                {{ product.price | money }}
+              </div>
+            {% endif %}
+
+            <div class="product-colors">
+              {% assign color_option_index = null %}
+              {% for option in product.options_with_values %}
+                {% if option.name == 'Color' or option.name == 'Colour' %}
+                  {% assign color_option_index = forloop.index0 %}
+                {% endif %}
+              {% endfor %}
+              {% if color_option_index != null %}
+                {% assign color_values_string = '' %}
+                {% for variant in product.variants %}
+                  {% assign color = variant.options[color_option_index] %}
+                  {% unless color_values_string contains color %}
+                    {% if color_values_string == '' %}
+                      {% assign color_values_string = color %}
+                    {% else %}
+                      {% assign color_values_string = color_values_string | append: ',' | append: color %}
+                    {% endif %}
+                  {% endunless %}
+                {% endfor %}
+                {% assign color_values = color_values_string | split: ',' %}
+                {% for color in color_values %}
+                  {% assign variant_image = '' %}
+                  {% for variant in product.variants %}
+                    {% assign color_option = variant.options[color_option_index] %}
+                    {% if color_option == color %}
+                      {% assign variant_image = variant.featured_image | image_url: width: 330 %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                  <span class="color-swatch-wrapper{% if forloop.first %} selected{% endif %}">
+                    <span
+                      class="color-swatch"
+                      data-color="{{ color | handleize }}"
+                      data-image="{{ variant_image }}"
+                      title="{{ color }}"
+                      style="background: {{ color | downcase }};"
+                    ></span>
+                  </span>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 </section>
 
@@ -39,3 +144,7 @@
   ]
 }
 {% endschema %}
+
+<script>
+  
+</script>
