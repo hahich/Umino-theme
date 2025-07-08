@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="{{ settings.color_primary }}">
+    <meta name="description" content="{{ shop.description | default: 'Cửa hàng quần áo toàn quốc' }}">
+    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'responsive.css' | asset_url }}">
+    {% render 'meta-tags' %}
+
+    {{ content_for_header }}
+
+    <title>
+      {{ page_title }}
+      |
+      {{ shop.name }}
+    </title>
+  </head>
+
+  <body class="template-{{ template.name }}">
+    {% section 'header' %}
+
+    <main id="main" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% comment %} {% section 'footer' %} {% endcomment %}
+
+    <script src="{{ 'main.js' | asset_url }}" defer></script>
+  </body>
+</html>

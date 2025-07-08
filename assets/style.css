@@ -1,0 +1,444 @@
+/* header */
+.header,
+ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+}
+
+.header-logo a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-menu-item-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.header-menu-item a {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0;
+    color: #000;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.submenu-icon {
+    vertical-align: middle;
+    margin-left: 4px;
+    transition: transform 0.3s ease;
+}
+
+.header-menu-item.active .submenu-icon {
+    transform: rotate(180deg);
+}
+
+/* Desktop submenu styles */
+.header-menu-item:hover .header-menu-sublist {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.header-menu-sublist li {
+    padding: 8px 0;
+}
+
+.header-menu-sublist a {
+    font-size: 1.4rem;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.header-menu-sublist a:hover {
+    color: #000;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-icons a:not(:last-child) {
+    margin-right: 20px;
+}
+
+.mobile-menu-icons {
+    display: none;
+}
+
+.header-icon-mobile-hide {
+    display: block;
+}
+
+/* Mobile */
+.overlay {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.overlay.active {
+    display: block;
+}
+
+.mobile-menu-icon {
+    display: none;
+    cursor: pointer;
+}
+
+.close-btn {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Badge styles for icon */
+.icon-badge-container {
+    position: relative;
+    display: inline-block;
+}
+
+.icon-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: rgba(215, 63, 15, 1);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    border-radius: 50%;
+    padding: 2px 6px;
+    min-width: 18px;
+    min-height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    z-index: 3;
+    line-height: 1;
+}
+
+/* Heromain */
+.slider-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 100px;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    flex: 0 0 100%;
+    position: relative;
+    min-height: 810px;
+    height: 810px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 40px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    right: 20%;
+}
+
+/* Content position classes */
+.slide-content.middle {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-content.middle-left {
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.slide-content.middle-right {
+    justify-content: center;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.slide-content.middle-top {
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-content.middle-bottom {
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+}
+
+.slide-heading {
+    text-transform: capitalize;
+    font-size: 3.2rem;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+    line-height: 80px;
+}
+
+.slide-subheading {
+    font-size: 1.8rem;
+    margin: 0 0 50px 0;
+    line-height: 1.5;
+    opacity: 0.9;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.slide-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.slide-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding: 10px; */
+    width: 200px;
+    height: 55px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.6rem;
+    border-radius: 30px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.slide-button:hover {
+    opacity: 0.7;
+}
+
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 3;
+}
+
+.slider-prev,
+.slider-next {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #000;
+    transition: background 0.5s ease;
+}
+
+.slider-prev svg,
+.slider-next svg {
+    fill: #000;
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+    background: rgba(17, 17, 17, 1);
+}
+
+.slider-prev:hover svg,
+.slider-next:hover svg {
+    fill: #fff;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 3;
+}
+
+.slider-dot {
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider-dot.active {
+    background: #111111;
+    transform: scale(1.2);
+}
+
+/* Featured Collection */
+.featured-collection {
+    width: 1410px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+}
+
+.fc-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.fc-container h2 {
+    font-size: 4.5rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: capitalize;
+    margin-bottom: 25px;
+}
+
+.fc-container p {
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: rgba(85, 85, 85, 1);
+}
+
+.clothing {
+    grid-area: clothing;
+}
+
+.sunglesses {
+    grid-area: sunglesses;
+    width: 450px !important;
+    height: 350px !important;
+}
+
+.bag {
+    grid-area: bag;
+    width: 450px !important;
+    height: 350px !important;
+}
+
+.sneaker {
+    grid-area: sneaker;
+}
+
+.featured-collection-grid {
+    display: grid;
+    grid-template-areas:
+    "clothing sunglesses sneaker"
+    "clothing bag sneaker";
+    gap: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.featured-collection-img {
+    background-color: rgba(236, 237, 239, 1);
+    width: 450px;
+    height: 730px;
+    overflow: hidden;
+    position: relative;
+}   
+
+.featured-collection-img img{
+    object-fit: contain;
+    object-position: bottom;
+    position: absolute;
+}
+
+.fc-img {
+    left: -25px;
+}
+
+.fc-btn {
+    position: absolute;
+    width: 160px;
+    height: 50px;
+    bottom: 30px;
+    margin: 0 auto;
+    border-radius: 30px;
+    border: none;
+    transform: translateX(100%);
+    background-color: #fff;
+    transition: all 0.3s ease;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.fc-btn:hover {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}

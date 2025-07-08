@@ -1,0 +1,58 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+/* jost-regular - latin */
+@font-face {
+    font-display: swap;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    src: url("{{ 'jost-v19-latin-regular.woff2' | asset_url }}") format('woff2');
+}
+
+/* jost-500 - latin */
+@font-face {
+    font-display: swap;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 500;
+    src: url("{{ 'jost-v19-latin-500.woff2' | asset_url }}") format('woff2');
+}
+
+/* jost-600 - latin */
+@font-face {
+    font-display: swap;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 600;
+    src: url("{{ 'jost-v19-latin-600.woff2' | asset_url }}") format('woff2');
+}
+
+/* jost-700 - latin */
+@font-face {
+    font-display: swap;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    src: url("{{ 'jost-v19-latin-700.woff2' | asset_url }}") format('woff2');
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.5;   
+    letter-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}

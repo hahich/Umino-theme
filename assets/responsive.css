@@ -1,0 +1,222 @@
+@media (max-width: 768px) {
+
+    /* header */
+    .header {
+        padding: 15px 20px;
+        height: auto;
+        min-height: 60px;
+    }
+
+    .header-container {
+        order: 2;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+        order: 1;
+    }
+
+    .header-menu {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: #fff;
+        z-index: 1000;
+        transition: left 0.5s ease;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header-menu.active {
+        left: 0;
+    }
+
+    .menu-items-list {
+        display: block;
+        flex-direction: column;
+        padding: 60px 20px 20px;
+        flex: 1;
+    }
+
+    .mobile-menu-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 30px;
+        padding: 20px;
+        margin-top: auto;
+    }
+
+    .mobile-menu-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-menu-item {
+        padding: 5px;
+        border-bottom: 1px solid #eee;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .header-menu-item a {
+        font-size: 1.4rem;
+        width: 100%;
+        pointer-events: none;
+    }
+
+    .submenu-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .header-menu-item.active .submenu-icon {
+        transform: rotate(180deg);
+    }
+
+    .header-menu-sublist {
+        position: static;
+        width: 100%;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        max-height: 0;
+        overflow: hidden;
+        background: none;
+        padding: 0 0 0 20px;
+        box-shadow: none;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        margin-top: 0;
+    }
+
+    .header-menu-sublist.active {
+        max-height: 200px;
+        /* padding: 10px 0 0 20px; */
+    }
+
+    .header-menu-sublist li {
+        padding: 8px 0;
+    }
+
+    .close-btn {
+        display: block;
+    }
+
+    .header-icons {
+        order: 3;
+    }
+
+    .header-icons a:not(:last-child) {
+        margin-right: 15px;
+    }
+
+    .header-icon-mobile-hide {
+        display: none;
+    }
+
+    /* Hero main */
+    .slider-section {
+        margin-bottom: 60px;
+    }
+
+    .slide {
+        min-height: 550px;
+        height: 550px;
+    }
+
+    .slide-text {
+        justify-content: flex-start;
+        align-items: flex-start;
+        text-align: left;
+        margin-left: 21px;
+    }
+
+    .slide-heading {
+        font-size: 40px !important;
+        line-height: 45px !important;
+        font-weight: 400 !important;
+        text-align: left !important;
+        margin-bottom: 10px;
+    }
+
+    .slide-content {
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+
+    .slide-subheading {
+        font-size: 1.6rem !important;
+        text-align: left !important;
+        margin-bottom: 30px;
+    }
+
+    .slide-button {
+        padding: 10px;
+        font-size: 1.4rem;
+        width: 180px;
+        height: 55px;
+    }
+
+    .slider-controls {
+        padding: 0 10px;
+        display: none !important;
+    }
+
+    .slider-prev,
+    .slider-next {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Featured Collection */
+    .featured-collection {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .fc-container {
+        margin-bottom: 20px;
+    }
+
+    .fc-container h2 {
+        font-size: 3.6rem;
+        margin-bottom: 15px;
+    }
+
+    .clothing,
+    .sneaker {
+        width: 185px;
+        height: 300px;
+    }
+
+    .sunglesses,
+    .bag {
+        width: 185px !important;
+        height: 144px !important;
+    }
+
+    .featured-collection-grid {
+        grid-template-areas:
+            "clothing bag"
+            "clothing sneaker"
+            "sunglesses sneaker";
+        gap: 20px;
+    }
+
+    .fc-btn {
+        width: 120px;
+        height: 40px;
+        font-weight: 500;
+        font-size: 1.6rem;
+        line-height: 1.4;
+        transform: translateX(25%);
+        bottom: 20px;
+    }
+}

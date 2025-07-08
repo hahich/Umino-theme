@@ -1,0 +1,239 @@
+<section class="header">
+  <div class="mobile-menu-icon">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 14H21C21.2812 14 21.5156 13.9062 21.7031 13.7188C21.9062 13.5156 22.0078 13.2734 22.0078 12.9922C22.0078 12.7266 21.9062 12.5 21.7031 12.3125C21.5156 12.1094 21.2812 12.0078 21 12.0078H3C2.71875 12.0078 2.47656 12.1094 2.27344 12.3125C2.08594 12.5 1.99219 12.7266 1.99219 12.9922C1.99219 13.2734 2.08594 13.5156 2.27344 13.7188C2.47656 13.9062 2.71875 14 3 14ZM3 8H21C21.2812 8 21.5156 7.90625 21.7031 7.71875C21.9062 7.51563 22.0078 7.27344 22.0078 6.99219C22.0078 6.72656 21.9062 6.5 21.7031 6.3125C21.5156 6.10938 21.2812 6.00781 21 6.00781H3C2.71875 6.00781 2.47656 6.10938 2.27344 6.3125C2.08594 6.5 1.99219 6.72656 1.99219 6.99219C1.99219 7.27344 2.08594 7.51563 2.27344 7.71875C2.47656 7.90625 2.71875 8 3 8ZM3 20H21C21.2812 20 21.5156 19.9062 21.7031 19.7188C21.9062 19.5156 22.0078 19.2734 22.0078 18.9922C22.0078 18.7266 21.9062 18.5 21.7031 18.3125C21.5156 18.1094 21.2812 18.0078 21 18.0078H3C2.71875 18.0078 2.47656 18.1094 2.27344 18.3125C2.08594 18.5 1.99219 18.7266 1.99219 18.9922C1.99219 19.2734 2.08594 19.5156 2.27344 19.7188C2.47656 19.9062 2.71875 20 3 20Z" fill="#111111"/>
+    </svg>
+  </div>
+
+  <div class="header-container">
+    <div class="header-logo">
+      <a href="{{ shop.url }}">
+        {% if section.settings.logo != blank %}
+          <img
+            src="{{ section.settings.logo | image_url }}"
+            alt="{{ shop.name }}"
+            class="header-logo-image"
+            width="92"
+            height="20"
+          >
+        {% else %}
+          <img
+            src="{{ 'Logo.svg' | asset_url }}"
+            alt="{{ shop.name }}"
+            class="header-logo-image"
+            width="92"
+            height="20"
+          >
+        {% endif %}
+      </a>
+    </div>
+  </div>
+
+  <div class="header-menu">
+    <nav>
+      <ul class="menu-items-list">
+        {% assign menu = linklists[section.settings.menu_navbar] | default: 'Main menu' %}
+        {% assign menu_limit = menu.links.size | minus: 2 %}
+        {% if menu.links.size > 0 %}
+          {% for link in menu.links %}
+            <li class="header-menu-item">
+              <div class="header-menu-item-wrapper">
+                <a href="{{ link.url }}">{{ link.title }}</a>
+                {% if link.links.size > 0 %}
+                  <svg
+                    class="submenu-icon"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 10 5"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M1.08984 1.32227C0.971354 1.21289 0.912109 1.08073 0.912109 0.925781C0.912109 0.761719 0.971354 0.620443 1.08984 0.501953C1.19922 0.392578 1.33594 0.337891 1.5 0.337891C1.66406 0.337891 1.80078 0.392578 1.91016 0.501953L5 3.5918L8.08984 0.501953C8.19922 0.392578 8.33594 0.337891 8.5 0.337891C8.66406 0.337891 8.80078 0.392578 8.91016 0.501953C9.02865 0.620443 9.08789 0.761719 9.08789 0.925781C9.08789 1.08073 9.02865 1.21289 8.91016 1.32227L5.41016 4.82227C5.30078 4.94076 5.16406 5 5 5C4.83594 5 4.69922 4.94076 4.58984 4.82227L1.08984 1.32227Z" fill="#555555" />
+                  </svg>
+                {% endif %}
+              </div>
+              <ul class="header-menu-sublist">
+                {% for child_link in link.links %}
+                  <li>
+                    <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        {% endif %}
+        <div class="close-btn">X</div>
+      </ul>
+
+      <!-- Mobile menu icons -->
+      <div class="mobile-menu-icons">
+        <div class="icon-badge-container">
+          <a href="#">
+            <img
+              src="{{ 'account.svg' | asset_url }}"
+              alt="Account"
+              width="17"
+              height="17"
+            >
+          </a>
+        </div>
+        <div class="icon-badge-container">
+          <a href="#">
+            <img
+              src="{{ 'icon-recently-viewed.svg' | asset_url }}"
+              alt="Recently viewed"
+              width="17"
+              height="17"
+            >
+          </a>
+        </div>
+        <div class="icon-badge-container">
+          <a href="#">
+            <img
+              src="{{ 'whishlist.svg' | asset_url }}"
+              alt="Wishlist"
+              width="20"
+              height="17"
+            >
+            <span class="icon-badge">2</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="header-icons">
+    <div class="icon-badge-container">
+      <a href="#">
+        <img
+          src="{{ 'Search.svg' | asset_url }}"
+          alt="Search"
+          width="17"
+          height="17"
+        >
+      </a>
+    </div>
+    <div class="icon-badge-container header-icon-mobile-hide">
+      <a href="#">
+        <img
+          src="{{ 'account.svg' | asset_url }}"
+          alt="account"
+          width="17"
+          height="17"
+        >
+      </a>
+    </div>
+    <div class="icon-badge-container header-icon-mobile-hide">
+      <a href="#">
+        <img
+          src="{{ 'icon-recently-viewed.svg' | asset_url }}"
+          alt="account"
+          width="17"
+          height="17"
+        >
+      </a>
+    </div>
+    <div class="icon-badge-container header-icon-mobile-hide">
+      <a href="#">
+        <img
+          src="{{ 'whishlist.svg' | asset_url }}"
+          alt="whishlist"
+          width="20"
+          height="17"
+        >
+        <span class="icon-badge">2</span>
+      </a>
+    </div>
+    <div class="icon-badge-container">
+      <a href="#">
+        <img
+          src="{{ 'cart.svg' | asset_url }}"
+          alt="cart"
+          width="20"
+          height="17"
+        >
+        <span class="icon-badge">2</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .header-menu-item {
+      {% if section.settings.submenu_width=='200px' %}
+      position: relative;
+      {% else %}
+      position: static;
+      {% endif %}
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding-right: 30px;
+      letter-spacing: 0;
+      line-height: 1.5;
+      cursor: pointer;
+  }
+
+  .header {
+    padding: 25px 30px;
+    height: 70px;
+    {% if section.settings.submenu_width=='full' %}
+    position: relative;
+    {% else %}
+    position: static;
+    {% endif %}
+  }
+
+  .header-menu-sublist {
+    {% if section.settings.submenu_width=='full' %}
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    top: 70px;
+    z-index: 1001;
+    border-radius: 0;
+    {% else %}
+    width: 100%;
+    left: 0;
+    {% endif %}
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu_navbar",
+      "label": "Menu",
+      "default": "Main menu"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "select",
+      "id": "submenu_width",
+      "label": "Submenu width",
+      "options": [
+        {
+          "value": "200px",
+          "label": "200px"
+        },
+        {
+          "value": "full",
+          "label": "Full width"
+        }
+      ],
+      "default": "200px"
+    }
+  ]
+}
+{% endschema %}

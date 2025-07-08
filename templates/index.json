@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "slider": {
+      "type": "slider",
+      "settings": {}
+    },
+    "featured_collection": {
+      "type": "featured_collection",
+      "settings": {}
+    },
+    "new_arrivals": {
+      "type": "new_arrivals",
+      "settings": {}
+    }
+  },
+  "order": [
+    "slider",
+    "featured_collection",
+    "new_arrivals"
+  ]
+}

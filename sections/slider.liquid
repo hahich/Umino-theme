@@ -1,0 +1,301 @@
+<section class="slider-section">
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      {% for block in section.blocks %}
+        <div class="slide" {{ block.shopify_attributes }}>
+          {% if block.settings.slide_image != blank %}
+            <div class="slide-image">
+              <img
+                src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+                alt="{{ block.settings.heading1 | escape }} {{ block.settings.heading2 | escape }}"
+                loading="lazy"
+                width="1920"
+                height="600"
+              >
+            </div>
+            {% else %}
+            <div class="slide-image">
+              <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" loading="lazy" width="1920" height="810">
+            </div>
+          {% endif %}
+
+          <div
+            class="slide-content {{ section.settings.content_position }}"
+            style="
+              padding: {{ block.settings.padding_top | default: 40 }}px {{ block.settings.padding_right | default: 26 }}px {{ block.settings.padding_bottom | default: 40 }}px {{ block.settings.padding_left | default: 20 }}px;
+              margin: {{ block.settings.margin_top | default: 0 }}px {{ block.settings.margin_right | default: 0 }}px {{ block.settings.margin_bottom | default: 0 }}px {{ block.settings.margin_left | default: 0 }}px;
+            "
+          >
+            <div class="slide-text">
+              {% if block.settings.heading1 != blank or block.settings.heading2 != blank %}
+                <h2
+                  class="slide-heading"
+                  style="color: {{ block.settings.color_text }}; font-size: {{ block.settings.heading_font_size | default: 80 }}px;"
+                >
+                  {% if block.settings.heading1 != blank -%}
+                    <span>
+                      {{- block.settings.heading1 -}}
+                      <br>
+                    </span>
+                  {%- endif %}
+                  {% if block.settings.heading2 != blank -%}
+                    <span>{{ block.settings.heading2 }}</span>
+                  {%- endif %}
+                </h2>
+              {% endif %}
+
+              {% if block.settings.subheading != blank %}
+                <p
+                  class="slide-subheading"
+                  style="color: {{ block.settings.color_text }}; font-size: {{ block.settings.subheading_font_size | default: 16 }}px;"
+                >
+                  {{ block.settings.subheading }}
+                </p>
+              {% endif %}
+
+              {% if block.settings.button_text != blank %}
+                <a
+                  href="#"
+                  class="slide-button"
+                  aria-label="{{ block.settings.button_text }}"
+                  style="background: {{ block.settings.button_bg }}; color: {{ block.settings.button_color }};"
+                >
+                  {{ block.settings.button_text }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.blocks.size > 1 %}
+      <div class="slider-controls">
+        <button class="slider-prev" aria-label="Previous slide">
+          <svg width="6" height="11" viewBox="0 0 6 11" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.77754 9.66675L1.80488 5.69409L5.77754 1.72144C5.92988 1.58081 6.00605 1.41089 6.00605 1.21167C6.00605 1.00073 5.92988 0.819092 5.77754 0.666748C5.63691 0.526123 5.46113 0.455811 5.25019 0.455811C5.03926 0.455811 4.86348 0.526123 4.72285 0.666748L0.222851 5.16675C0.070507 5.31909 -0.00566483 5.50073 -0.00566483 5.71167C-0.00566483 5.91089 0.070507 6.08081 0.222851 6.22144L4.72285 10.7214C4.86348 10.8738 5.03926 10.95 5.25019 10.95C5.46113 10.95 5.63691 10.8738 5.77754 10.7214C5.92988 10.5808 6.00605 10.4109 6.00605 10.2117C6.00605 10.0007 5.92988 9.81909 5.77754 9.66675Z"/>
+          </svg>
+        </button>
+        <button class="slider-next" aria-label="Next slide">
+          <svg width="6" height="11" viewBox="0 0 6 11" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27754 10.7214C1.13691 10.8738 0.961132 10.95 0.750195 10.95C0.539257 10.95 0.363476 10.8738 0.222851 10.7214C0.070507 10.5808 -0.00566483 10.4109 -0.00566483 10.2117C-0.00566483 10.0007 0.070507 9.81909 0.222851 9.66675L4.19551 5.69409L0.222851 1.72144C0.070507 1.58081 -0.00566483 1.41089 -0.00566483 1.21167C-0.00566483 1.00073 0.070507 0.819092 0.222851 0.666748C0.363476 0.526123 0.539257 0.455811 0.750195 0.455811C0.961132 0.455811 1.13691 0.526123 1.27754 0.666748L5.77754 5.16675C5.92988 5.31909 6.00605 5.50073 6.00605 5.71167C6.00605 5.91089 5.92988 6.08081 5.77754 6.22144L1.27754 10.7214Z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="slider-dots">
+        {% for block in section.blocks %}
+          <button class="slider-dot" data-slide="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}">
+            <span></span>
+          </button>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Slider",
+  "settings": [
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content position",
+      "options": [
+        { "value": "middle-left", "label": "Middle Left" },
+        { "value": "middle", "label": "Middle Center" },
+        { "value": "middle-right", "label": "Middle Right" },
+        { "value": "middle-top", "label": "Middle Top" },
+        { "value": "middle-bottom", "label": "Middle Bottom" }
+      ],
+      "default": "middle"
+    }
+  ],
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide image"
+        },
+        {
+          "type": "text",
+          "id": "heading1",
+          "label": "Heading 1",
+          "default": "Stylish"
+        },
+        {
+          "type": "text",
+          "id": "heading2",
+          "label": "Heading 2",
+          "default": "Top Trending"
+        },
+        {
+          "type": "color",
+          "id": "color_text",
+          "label": "Color text",
+          "default": "#000"
+        },
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "So soft you don't want to take it off."
+        },
+        {
+          "type": "header",
+          "content": "Text Heading & Subheading"
+        },
+        {
+          "type": "range",
+          "id": "heading_font_size",
+          "label": "Heading font size",
+          "min": 16,
+          "max": 80,
+          "step": 2,
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "range",
+          "id": "subheading_font_size",
+          "label": "Subheading font size",
+          "min": 16,
+          "max": 80,
+          "step": 2,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Explore Now"
+        },
+        {
+          "type": "color",
+          "id": "button_bg",
+          "label": "Button background",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button text color",
+          "default": "#fff"
+        },
+        {
+          "type": "header",
+          "content": "Padding"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "padding_right",
+          "label": "Right",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "padding_left",
+          "label": "Left",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "header",
+          "content": "Margin"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Top",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_right",
+          "label": "Right",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_left",
+          "label": "Left",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slider",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

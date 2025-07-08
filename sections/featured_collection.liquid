@@ -1,0 +1,136 @@
+<section class="featured-collection">
+  <div class="fc-container">
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.description }}</p>
+  </div>
+
+  <div class="featured-collection-grid">
+    <div class="featured-collection-img clothing">
+      {% if section.settings.collection_img != blank %}
+        <img
+          src="{{ section.settings.collection_img | asset_url }}"
+          alt="{{ section.settings.title | escape }}"
+          width="100%"
+          height="100%"
+          loading="lazy"
+        >
+        <button class="fc-btn">{{ section.settings.collection_btn_text }}</button>
+      {% else %}
+        <img
+          src="{{ 'clothe.png' | asset_url }}"
+          alt="{{ section.settings.title | escape }}"
+          width="100%"
+          height="100%"
+          loading="lazy"
+          class="fc-img"
+        >
+        <button class="fc-btn">Clothing</button>
+      {% endif %}
+    </div>
+
+    <div class="featured-collection-img sunglesses">
+      {% if section.settings.collection_img != blank %}
+        <img
+          src="{{ section.settings.collection_img | asset_url }}"
+          alt="{{ section.settings.title | escape }}"
+          width="100%"
+          height="100%"
+          loading="lazy"
+        >
+        <button class="fc-btn">{{ section.settings.collection_btn_text }}</button>
+      {% else %}
+        <img
+          src="{{ 'sunglass.png' | asset_url }}"
+          alt="{{ section.settings.title | escape }}"
+          width="100%"
+          height="100%"
+          loading="lazy"
+        >
+        <button class="fc-btn">Sunglasses</button>
+      {% endif %}
+    </div>
+
+    <div class="featured-collection-img bag">
+      {% if section.settings.collection_img != blank %}
+        <img
+          src="{{ section.settings.collection_img | asset_url }}"
+          alt="{{ section.settings.title | escape }}"
+          width="100%"
+          height="100%"
+          loading="lazy"
+        >
+        <button class="fc-btn">{{ section.settings.collection_btn_text }}</button>
+      {% else %}
+        <img
+          src="{{ 'bag.png' | asset_url }}"
+          alt="{{ section.settings.title | escape }}"
+          width="100%"
+          height="100%"
+          loading="lazy"
+        >
+        <button class="fc-btn">Bags</button>
+      {% endif %}
+    </div>
+
+    <div class="featured-collection-img sneaker">
+      {% if section.settings.collection_img != blank %}
+        <img
+          src="{{ section.settings.collection_img | asset_url }}"
+          alt="{{ section.settings.title | escape }}"
+          width="100%"
+          height="100%"
+          loading="lazy"
+        >
+        <button class="fc-btn">{{ section.settings.collection_btn_text }}</button>
+      {% else %}
+        <img
+          src="{{ 'sneaker.png' | asset_url }}"
+          alt="{{ section.settings.title | escape }}"
+          width="100%"
+          height="100%"
+          loading="lazy"
+        >
+        <button class="fc-btn">Sneakers</button>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured Collection"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Elevate your style with our chic featured collection—where fashion meets flair effortlessly."
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_img",
+      "label": "Choose Image"
+    },
+    {
+      "type": "text",
+      "id": "collection_btn_text",
+      "label": "Button Text",
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}
