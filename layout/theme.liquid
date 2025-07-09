@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
     <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
     <link rel="stylesheet" href="{{ 'responsive.css' | asset_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    >
     {% render 'meta-tags' %}
 
     {{ content_for_header }}
@@ -25,7 +31,7 @@
       {{ content_for_layout }}
     </main>
 
-    {% comment %} {% section 'footer' %} {% endcomment %}
+    {% section 'footer' %}
 
     <script src="{{ 'main.js' | asset_url }}" defer></script>
   </body>

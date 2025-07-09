@@ -1,0 +1,488 @@
+<footer class="footer-section">
+  <div class="footer-container">
+    <div class="footer-row">
+      <!-- Column 1: Logo, Address, Email, Social -->
+      <div class="footer-col footer-col--brand">
+        <div class="footer-logo">
+          <a href="/">
+            <img src="{{ 'Logo.svg' | asset_url }}" alt="{{ shop.name }}" width="120" height="40">
+          </a>
+        </div>
+        <div class="footer-address">
+          {% if shop.address.street %}
+            <p>{{ shop.address.street }}, {{ shop.address.city }}, {{ shop.address.country }}</p>
+            <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>
+          {% else %}
+            <p>268 St, South New York/NY 98944, United States</p>
+            <p>+222-1800-2628</p>
+            <a href="mailto:blueskytechcompany@gmail.com">blueskytechcompany@gmail.com</a>
+          {% endif %}
+        </div>
+        <div class="footer-social">
+          {% render 'social-icons' %}
+        </div>
+        <div class="footer-follow">
+          <div class="follow-icon">
+            <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.706 2.30859C13.5117 1.85176 13.2285 1.43891 12.873 1.09452C12.1514 0.392385 11.1878 0 10.185 0C9.18226 0 8.21863 0.392385 7.49705 1.09452L7.00005 1.58156L6.50306 1.09452C5.78148 0.392385 4.81784 0 3.81508 0C2.81232 0 1.84869 0.392385 1.12711 1.09452C0.771646 1.43891 0.488383 1.85176 0.294113 2.30859C0.100036 2.76838 0 3.26294 0 3.76265C0 4.26235 0.100036 4.75692 0.294113 5.21671C0.486502 5.67459 0.770012 6.0878 1.12711 6.43077L6.60806 11.8376C6.66002 11.8863 6.71903 11.9268 6.78305 11.9576C6.92229 12.0141 7.07782 12.0141 7.21705 11.9576C7.28108 11.9268 7.34008 11.8863 7.39205 11.8376L12.873 6.43077C13.2301 6.08604 13.5141 5.67183 13.7078 5.21322C13.9015 4.75461 14.0009 4.26113 14 3.76265C14.0012 3.26283 13.9011 2.76804 13.706 2.30859Z" fill="white"/>
+            </svg>
+          </div>
+          <div class="follow-text">
+            <p>
+              Follow on
+              <svg width="40" height="16" viewBox="0 0 40 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M32.5073 4.67605C33.1404 3.8897 34.1227 3.23781 35.2953 3.23781C37.928 3.23781 40.0018 5.42702 40.0001 8.12829C40.0001 10.9428 37.9158 13.0258 35.4151 13.0258C34.0856 13.0258 33.068 12.3422 32.696 11.7718H32.6606V15.9059C32.6606 15.9309 32.6508 15.9547 32.6332 15.9723C32.6157 15.9899 32.592 15.9998 32.5671 15.9998H30.2235C30.1985 15.9998 30.1745 15.9901 30.1567 15.9725C30.139 15.9548 30.1286 15.9311 30.1282 15.9059V3.33013C30.1282 3.30481 30.1382 3.28043 30.1562 3.26251C30.174 3.24458 30.1982 3.23451 30.2235 3.23451H32.4137C32.4388 3.23498 32.4624 3.24521 32.4799 3.26313C32.4975 3.28106 32.5072 3.30513 32.5072 3.33013V4.67605H32.5073ZM35.0952 10.629C34.9009 10.6352 34.7055 10.6185 34.5131 10.5786C34.0289 10.4779 33.5858 10.2346 33.2401 9.87965C32.8945 9.52469 32.6622 9.07427 32.5728 8.58595C32.5469 8.44566 32.5335 8.30396 32.5319 8.16273C32.5302 8.00436 32.5433 7.84536 32.5718 7.68809C32.6603 7.20008 32.8914 6.74966 33.2357 6.39423C33.58 6.0388 34.022 5.7944 34.5052 5.69233C34.6988 5.65144 34.8953 5.63414 35.0908 5.64012C35.4087 5.64405 35.7226 5.71026 36.0152 5.83513C36.3116 5.96174 36.5803 6.1459 36.8056 6.3774C37.0308 6.60875 37.2082 6.88255 37.3277 7.1831C37.447 7.48364 37.5058 7.80495 37.5011 8.12861C37.5063 8.45274 37.4476 8.77499 37.3284 9.07632C37.2093 9.37765 37.032 9.6524 36.8069 9.88485C36.5817 10.1173 36.313 10.3027 36.0165 10.4304C35.7253 10.5556 35.4123 10.6232 35.0952 10.629Z" fill="#111111"/>
+                <path d="M17.2926 5.11883C16.7511 3.97815 15.7248 3.24134 14.1783 3.24134C13.7036 3.24968 13.2371 3.36732 12.815 3.58545C12.3927 3.80343 12.026 4.11608 11.7431 4.49888L11.6867 4.56792V0.0973508C11.6867 0.0715585 11.6765 0.0467092 11.6584 0.0284659C11.6402 0.0102225 11.6155 0 11.5898 0H9.40306C9.37769 0.000471811 9.35343 0.0110109 9.33558 0.029097C9.31773 0.0473404 9.30786 0.0718731 9.30786 0.0973508V12.9212C9.30786 12.9465 9.31788 12.9709 9.33573 12.9888C9.35358 13.0067 9.37785 13.0168 9.40306 13.0168H11.7448C11.7702 13.0168 11.7946 13.0067 11.8128 12.989C11.8309 12.971 11.8412 12.9468 11.8417 12.9212V7.45335C11.8417 6.39052 12.5471 5.63783 13.6757 5.63783C14.9101 5.63783 15.2222 6.65804 15.2222 7.69775V12.9212C15.2222 12.9465 15.2322 12.9709 15.25 12.9888C15.2679 13.0067 15.2922 13.0168 15.3174 13.0168H17.6538C17.6793 13.0168 17.7037 13.0067 17.7217 12.989C17.7399 12.971 17.7504 12.9468 17.7509 12.9212V7.38604C17.7509 7.19653 17.7509 7.01048 17.7261 6.82994C17.6862 6.23781 17.5392 5.65796 17.2926 5.11883Z" fill="#111111"/>
+                <path d="M5.59935 7.01945C5.59935 7.01945 4.40734 6.73777 3.96815 6.62454C3.52911 6.51115 2.76189 6.27021 2.76189 5.68753C2.76189 5.10484 3.38083 4.91879 4.0087 4.91879C4.63657 4.91879 5.33473 5.07118 5.38938 5.77072C5.39157 5.79588 5.40316 5.81932 5.42179 5.83646C5.44042 5.85344 5.46469 5.86288 5.4899 5.86288L7.79813 5.85407C7.81175 5.85407 7.82522 5.8514 7.83759 5.84589C7.85011 5.84039 7.86123 5.83253 7.87047 5.82262C7.87971 5.81271 7.88691 5.80092 7.89145 5.78802C7.89599 5.77512 7.89787 5.76144 7.89677 5.74792C7.75398 3.50902 5.79835 2.70851 3.99429 2.70851C1.85532 2.70851 0.291135 4.12552 0.291135 5.68768C0.291135 6.82836 0.612114 7.89812 3.13548 8.64216C3.57812 8.77144 4.17937 8.93972 4.70483 9.08676C5.33614 9.26385 5.67654 9.53137 5.67654 9.95285C5.67654 10.4416 4.97117 10.7818 4.27817 10.7818C3.27483 10.7818 2.56241 10.4081 2.50417 9.73676C2.50119 9.71223 2.48929 9.68958 2.47066 9.67323C2.45219 9.65687 2.42823 9.64806 2.40365 9.64822L0.100583 9.65891C0.0871177 9.65891 0.0736523 9.66159 0.0612829 9.66693C0.0489134 9.67228 0.0376403 9.67999 0.0282457 9.68974C0.0188512 9.69949 0.0114921 9.71097 0.0066383 9.72371C0.00178447 9.73645 -0.000407555 9.74982 6.21702e-05 9.7635C0.105907 11.8766 2.13731 13.0155 4.03125 13.0155C6.85273 13.0155 8.12772 11.4214 8.12772 9.92832C8.13148 9.22642 7.97115 7.62887 5.59935 7.01945Z" fill="#111111"/>
+                <path d="M23.1927 2.68521C21.0079 2.68521 19.9181 3.43099 19.0435 4.02783L19.0169 4.0456C18.9718 4.07658 18.94 4.12361 18.9279 4.17708C18.9159 4.23055 18.9245 4.2867 18.9516 4.33435L19.8157 5.8292C19.832 5.8572 19.8541 5.88126 19.8807 5.8995C19.9073 5.9179 19.9375 5.93017 19.9692 5.93536C20.0003 5.94102 20.0321 5.93961 20.0628 5.93143C20.0933 5.92309 20.1215 5.90815 20.1455 5.88755L20.2144 5.83093C20.6639 5.45191 21.3852 4.94534 23.1309 4.8071C24.1026 4.72925 24.942 4.98419 25.5608 5.56515C26.2416 6.19564 26.649 7.21412 26.649 8.28938C26.649 10.2678 25.4886 11.5112 23.6247 11.5361C22.0887 11.5273 21.0572 10.7231 21.0572 9.53449C21.0572 8.90399 21.3411 8.49305 21.8947 8.0821C21.937 8.05175 21.9669 8.00708 21.979 7.95628C21.9909 7.90549 21.9843 7.85201 21.96 7.80593L21.184 6.33231C21.1698 6.30589 21.1505 6.28261 21.127 6.26374C21.1039 6.24487 21.0769 6.23087 21.0483 6.22238C21.019 6.21357 20.9882 6.21106 20.9578 6.21514C20.9274 6.21908 20.8981 6.22945 20.872 6.2455C20.0009 6.76449 18.9322 7.71377 18.9904 9.53827C19.0609 11.8604 20.9831 13.6334 23.4818 13.7059H23.607H23.7782C26.7478 13.6086 28.8921 11.3945 28.8921 8.39224C28.8921 5.63608 26.8923 2.68521 23.1927 2.68521Z" fill="#111111"/>
+              </svg>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Column 2: Category -->
+      <div class="footer-col footer-col--category">
+        <span>Hot Category</span>
+        <ul>
+          {% comment %}
+            {% if collections.size > 0 %}
+              {% for collection in collections %}
+                <li>
+                  <a href="{{ collection.url }}">{{ collection.title }}</a>
+                </li>
+              {% endfor %}
+            {% else %}
+              <li><a href="#">Special Offers</a></li>
+              <li><a href="#">Performance</a></li>
+              <li><a href="#">T-Shirt</a></li>
+              <li><a href="#">Underwear</a></li>
+              <li><a href="#">Top Brands</a></li>
+              <li><a href="#">Online Exclusive</a></li>
+            {% endif %}
+          {% endcomment %}
+
+          <li><a href="#">Special Offers</a></li>
+          <li><a href="#">Performance</a></li>
+          <li><a href="#">T-Shirt</a></li>
+          <li><a href="#">Underwear</a></li>
+          <li><a href="#">Top Brands</a></li>
+          <li><a href="#">Online Exclusive</a></li>
+        </ul>
+      </div>
+      <!-- Column 3: Customer Service -->
+      <div class="footer-col footer-col--service">
+        <span>Customer Service</span>
+        <ul>
+          <li>
+            <a href="/pages/contact">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="/pages/shipping">Refund Policy</a>
+          </li>
+          <li>
+            <a href="/pages/returns">Shipping & Return</a>
+          </li>
+          <li>
+            <a href="/pages/faq">Terms & Conditions</a>
+          </li>
+          <li>
+            <a href="/pages/faq">Advanced Search</a>
+          </li>
+          <li>
+            <a href="/pages/faq">Theme FAQs</a>
+          </li>
+          <li>
+            <a href="/pages/faq">Store Location</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Column 4: Newsletter -->
+      <div class="footer-col footer-col--newsletter">
+        <span>Sign up to newsletter</span>
+        <p>
+          Enter your email address to get $10 off your first order and free shipping. Updates information on Sales and
+          Offers.
+        </p>
+        <form
+          method="post"
+          action="/contact#footer-newsletter"
+          id="footer-newsletter"
+          accept-charset="UTF-8"
+          class="footer-newsletter-form"
+        >
+          <input type="hidden" name="form_type" value="customer">
+          <input type="hidden" name="utf8" value="✓">
+          <input type="email" name="contact[email]" placeholder="Enter your email..." required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-underbar">
+    <div class="footer-underbar__left">
+      <div class="footer-select-wrap">
+        <label for="footer-select-language"></label>
+        <select class="footer-select">
+          <option>English</option>
+          <option>French</option>
+          <option>German</option>
+        </select>
+        <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.648438 0.847656C0.546875 0.753906 0.496094 0.640625 0.496094 0.507812C0.496094 0.367188 0.546875 0.246094 0.648438 0.144531C0.742188 0.0507812 0.859375 0.00390625 1 0.00390625C1.14062 0.00390625 1.25781 0.0507812 1.35156 0.144531L4 2.79297L6.64844 0.144531C6.74219 0.0507812 6.85938 0.00390625 7 0.00390625C7.14062 0.00390625 7.25781 0.0507812 7.35156 0.144531C7.45312 0.246094 7.50391 0.367188 7.50391 0.507812C7.50391 0.640625 7.45312 0.753906 7.35156 0.847656L4.35156 3.84766C4.25781 3.94922 4.14062 4 4 4C3.85938 4 3.74219 3.94922 3.64844 3.84766L0.648438 0.847656Z" fill="#555555"/>
+        </svg>
+      </div>
+      <div class="footer-select-wrap">
+        <label for="footer-select-currency"></label>
+        <select class="footer-select">
+          <option>United States (USD $)</option>
+          <option>France (EUR €)</option>
+          <option>Japan (JPY ¥)</option>
+        </select>
+        <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.648438 0.847656C0.546875 0.753906 0.496094 0.640625 0.496094 0.507812C0.496094 0.367188 0.546875 0.246094 0.648438 0.144531C0.742188 0.0507812 0.859375 0.00390625 1 0.00390625C1.14062 0.00390625 1.25781 0.0507812 1.35156 0.144531L4 2.79297L6.64844 0.144531C6.74219 0.0507812 6.85938 0.00390625 7 0.00390625C7.14062 0.00390625 7.25781 0.0507812 7.35156 0.144531C7.45312 0.246094 7.50391 0.367188 7.50391 0.507812C7.50391 0.640625 7.45312 0.753906 7.35156 0.847656L4.35156 3.84766C4.25781 3.94922 4.14062 4 4 4C3.85938 4 3.74219 3.94922 3.64844 3.84766L0.648438 0.847656Z" fill="#555555"/>
+        </svg>
+      </div>
+    </div>
+    <div class="footer-underbar__center">
+      <span>© 2023 Umino Store. All Rights Reserved.</span>
+    </div>
+    <div class="footer-underbar__right">
+      <img src="{{ 'visa.png' | asset_url }}" alt="Visa" width="35" height="18">
+      <img src="{{ 'mastercard.png' | asset_url }}" alt="Mastercard" width="35" height="18">
+      <img src="{{ 'discover.png' | asset_url }}" alt="Discover" width="35" height="18">
+      <img src="{{ 'western-union.png' | asset_url }}" alt="Western Union" width="35" height="18">
+      <img src="{{ 'amex.png' | asset_url }}" alt="Amex" width="35" height="18">
+      <img src="{{ 'cirrus.png' | asset_url }}" alt="Crypto" width="35" height="18">
+      <img src="{{ 'paypal.png' | asset_url }}" alt="PayPal" width="35" height="18">
+    </div>
+  </div>
+
+  <style>
+    .footer-section {
+      font-size: 1.6rem;
+      color: rgba(17, 17, 17, 1);
+      padding: 40px 0 0 0;
+    }
+
+    .footer-container {
+      width: 1410px;
+      margin: 0 auto;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0;
+      width: 100%;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      min-width: 120px;
+    }
+
+    .footer-col--brand,
+    .footer-col--newsletter {
+      max-width: 450px;
+      font-size: 1.6rem;
+    }
+
+    .footer-logo {
+      width: 92px;
+      height: 20px;
+      margin-bottom: 30px;
+    }
+
+    .footer-address p,
+    .footer-address a {
+      color: rgba(85, 85, 85, 1);
+      font-size: 1.6rem;
+      margin-bottom: 0;
+      line-height: 1.6;
+      text-decoration: none;
+    }
+
+    .footer-address a {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .footer-social {
+      margin: 18px 0 10px 0;
+    }
+
+    .list-social,
+    .footer-follow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .list-social__item,
+    .follow-icon {
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+      border: 1px solid #eaeaea;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .list-social__item:hover a {
+      margin-left: 0px !important;
+    }
+
+    .list-social__item:hover a svg path {
+      fill: rgba(255, 255, 255, 1);
+    }
+
+    .list-social__item:hover {
+      background: rgba(17, 17, 17, 1);
+      cursor: pointer;
+    }
+
+    .follow-icon {
+      background: #5a31f4;
+      border: none;
+    }
+
+    .follow-text p {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .follow-text svg {
+      margin-left: 2px;
+    }
+
+    .footer-col span {
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 25px;
+      margin-top: 0;
+      color: rgba(17, 17, 17, 1);
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .footer-col ul li a {
+      color: rgba(85, 85, 85, 1);
+      text-decoration: none;
+      font-size: 1.6rem;
+      transition: all 0.3s ease;
+      line-height: 1.6;
+    }
+
+    .footer-col ul li a:hover {
+      color: rgba(17, 17, 17, 1);
+      margin-left: 8px;
+    }
+
+    .footer-col--newsletter p {
+      font-size: 1.6rem;
+      color: rgba(85, 85, 85, 1);
+      margin-bottom: 18px;
+      margin-top: 0;
+      line-height: 1.6;
+    }
+
+    .footer-newsletter-form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-newsletter-form input[type='email'] {
+      flex: 1;
+      padding: 12px 18px;
+      border-radius: 30px;
+      border: 1px solid rgba(235, 235, 235, 1);
+      font-size: 1.6rem;
+      outline: none;
+      transition: border 0.2s;
+      min-width: 290px;
+      min-height: 50px;
+    }
+
+    .footer-newsletter-form input::placeholder {
+      font-size: 1.4rem;
+      color: rgba(153, 153, 153, 1);
+    }
+
+    .footer-newsletter-form input[type='email']:focus {
+      border: 1.5px solid rgba(17, 17, 17, 1);
+    }
+
+    .footer-newsletter-form button {
+      padding: 12px 28px;
+      border-radius: 30px;
+      border: none;
+      background: rgba(17, 17, 17, 1);
+      color: rgba(255, 255, 255, 1);
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      min-width: 150px;
+      min-height: 50px;
+    }
+
+    .footer-newsletter-form button:hover {
+      background: #5a31f4;
+    }
+
+    .footer-underbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 1410px;
+      margin: 0 auto;
+      padding: 35px 0;
+      border-top: 1px solid #eaeaea;
+      font-size: 1.4rem;
+      color: #555;
+      margin-top: 80px;
+      background: #fff;
+    }
+
+    .footer-underbar__left,
+    .footer-underbar__center,
+    .footer-underbar__right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-underbar__right {
+      gap: 5px;
+    }
+
+    .footer-underbar__center {
+      flex: 1;
+      justify-content: center;
+      color: rgba(85, 85, 85, 1);
+      font-size: 1.6rem;
+    }
+
+    .footer-underbar__right img {
+      height: 26px;
+      width: 43px;
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid #eaeaea;
+      padding: 2px 4px;
+    }
+
+    .footer-lang,
+    .footer-currency {
+      color: #111;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+    }
+
+    .footer-lang svg,
+    .footer-currency svg {
+      margin-left: 4px;
+    }
+
+    .footer-select-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: #fff;
+      font-size: 1.6rem;
+      border: none;
+      color: rgba(85, 85, 85, 1);
+      cursor: pointer;
+      outline: none;
+      transition: border 0.2s;
+      font-family: inherit;
+    }
+
+    @media (max-width: 1200px) {
+      .footer-container {
+        width: 100%;
+        padding: 0 24px;
+      }
+      .footer-row {
+        flex-wrap: wrap;
+        gap: 32px;
+      }
+      .footer-col {
+        min-width: 180px;
+        flex: 1 1 220px;
+      }
+      .footer-underbar {
+        width: 100%;
+        padding: 16px 24px 8px 24px;
+      }
+    }
+    @media (max-width: 800px) {
+      .footer-row {
+        flex-direction: column;
+        gap: 32px;
+      }
+      .footer-container {
+        width: 100%;
+        padding: 0 12px;
+      }
+      .footer-underbar {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        padding: 16px 12px 8px 12px;
+        text-align: center;
+      }
+      .footer-underbar__center {
+        justify-content: center;
+        margin: 8px 0;
+      }
+      .footer-underbar__right {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .footer-select {
+        min-width: 120px;
+        font-size: 1.2rem;
+        padding: 6px 24px 6px 10px;
+      }
+    }
+  </style>
+
+  {% schema %}
+{
+  "name": "Footer",
+  "settings": [],
+  "presets": [{ "name": "Footer" }]
+}
+  {% endschema %}
+</footer>

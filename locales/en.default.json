@@ -323,7 +323,15 @@
       }
     },
     "footer": {
-      "payment": "Payment methods"
+      "category": "Category",
+      "customer_service": "Customer Service",
+      "contact_us": "Contact Us",
+      "shipping": "Shipping",
+      "returns": "Returns",
+      "faq": "FAQ",
+      "newsletter": "Newsletter",
+      "email_placeholder": "Your email address",
+      "subscribe": "Subscribe"
     },
     "featured_blog": {
       "view_all": "View all",

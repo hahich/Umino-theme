@@ -493,14 +493,14 @@ ul {
 }
 
 .new-arrivals-item {
-    width: 350px;
-    height: 558px;
+    width: 100%;
+    height: auto;
     position: relative;
 }
 
 .new-arrivals-item:hover .product-icon-wrapper {
     opacity: 1;
-    right: 35px;
+    right: 10px;
 }
 
 .new-arrivals-slider,
@@ -508,6 +508,7 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 30px;
 }
 
 .carousel-controls {

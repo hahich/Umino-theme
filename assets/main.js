@@ -112,6 +112,10 @@ class HeroSlider {
     this.initMouseEvents();
     this.goToSlide(0);
     this.startAutoplay();
+    // Ensure first dot is active on page load
+    if (this.dots.length > 0) {
+      this.dots[0].classList.add('active');
+    }
   }
 
   goToSlide(index) {
