@@ -5,14 +5,29 @@
     <meta name="theme-color" content="{{ settings.color_primary }}">
     <meta name="description" content="{{ shop.description | default: 'Cửa hàng quần áo toàn quốc' }}">
     <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
-    <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
-    <link rel="stylesheet" href="{{ 'responsive.css' | asset_url }}">
+    <link rel="preload" href="{{ 'style.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ 'style.css' | asset_url }}"></noscript>
+    <link rel="stylesheet" href="{{ 'responsive.css' | asset_url }}" media="print" onload="this.media='all'">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
     >
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+      media="print"
+      onload="this.media='all'"
+    >
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+      >
+    </noscript>
+    <link rel="preload" as="image" href="{{ 'banner.png' | asset_url }}">
     {% render 'meta-tags' %}
 
     {{ content_for_header }}
@@ -31,6 +46,7 @@
       {{ content_for_layout }}
     </main>
 
+    {% render 'divider' %}
     {% section 'footer' %}
 
     <script src="{{ 'main.js' | asset_url }}" defer></script>
