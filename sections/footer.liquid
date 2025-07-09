@@ -42,25 +42,8 @@
       </div>
       <!-- Column 2: Category -->
       <div class="footer-col footer-col--category">
-        <span>Hot Category</span>
-        <ul>
-          {% comment %}
-            {% if collections.size > 0 %}
-              {% for collection in collections %}
-                <li>
-                  <a href="{{ collection.url }}">{{ collection.title }}</a>
-                </li>
-              {% endfor %}
-            {% else %}
-              <li><a href="#">Special Offers</a></li>
-              <li><a href="#">Performance</a></li>
-              <li><a href="#">T-Shirt</a></li>
-              <li><a href="#">Underwear</a></li>
-              <li><a href="#">Top Brands</a></li>
-              <li><a href="#">Online Exclusive</a></li>
-            {% endif %}
-          {% endcomment %}
-
+        <span class="footer-collapsible">Hot Category</span>
+        <ul class="footer-content">
           <li><a href="#">Special Offers</a></li>
           <li><a href="#">Performance</a></li>
           <li><a href="#">T-Shirt</a></li>
@@ -71,8 +54,8 @@
       </div>
       <!-- Column 3: Customer Service -->
       <div class="footer-col footer-col--service">
-        <span>Customer Service</span>
-        <ul>
+        <span class="footer-collapsible">Customer Service</span>
+        <ul class="footer-content">
           <li>
             <a href="/pages/contact">Privacy Policy</a>
           </li>
@@ -98,32 +81,36 @@
       </div>
       <!-- Column 4: Newsletter -->
       <div class="footer-col footer-col--newsletter">
-        <span>Sign up to newsletter</span>
-        <p>
-          Enter your email address to get $10 off your first order and free shipping. Updates information on Sales and
-          Offers.
-        </p>
-        <form
-          method="post"
-          action="/contact#footer-newsletter"
-          id="footer-newsletter"
-          accept-charset="UTF-8"
-          class="footer-newsletter-form"
-        >
-          <input type="hidden" name="form_type" value="customer">
-          <input type="hidden" name="utf8" value="✓">
-          <input type="email" name="contact[email]" placeholder="Enter your email..." required>
-          <button type="submit">Subscribe</button>
-        </form>
+        <span class="footer-collapsible">Sign up to newsletter</span>
+        <div class="footer-content">
+          <p>
+            Enter your email address to get $10 off your first order and free shipping. Updates information on Sales and
+            Offers.
+          </p>
+          <form
+            method="post"
+            action="/contact#footer-newsletter"
+            id="footer-newsletter"
+            accept-charset="UTF-8"
+            class="footer-newsletter-form"
+          >
+            <input type="hidden" name="form_type" value="customer">
+            <input type="hidden" name="utf8" value="✓">
+            <input type="email" name="contact[email]" placeholder="Enter your email..." required>
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="footer-divider"></div>
 
   <div class="footer-underbar">
     <div class="footer-underbar__left">
       <div class="footer-select-wrap">
         <label for="footer-select-language"></label>
-        <select class="footer-select"  aria-label="Select language">
+        <select class="footer-select" aria-label="Select language">
           <option>English</option>
           <option>French</option>
           <option>German</option>
@@ -159,321 +146,8 @@
   </div>
 
   <style>
-    .footer-section {
-      font-size: 1.6rem;
-      color: rgba(17, 17, 17, 1);
-    }
-
-    .footer-container {
-      width: 1410px;
-      margin: 0 auto;
-    }
-
-    .footer-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 0;
-      width: 100%;
-    }
-
-    .footer-col {
-      display: flex;
-      flex-direction: column;
-      min-width: 120px;
-    }
-
-    .footer-col--brand,
-    .footer-col--newsletter {
-      max-width: 450px;
-      font-size: 1.6rem;
-    }
-
-    .footer-logo {
-      width: 92px;
-      height: 20px;
-      margin-bottom: 30px;
-    }
-
-    .footer-address p,
-    .footer-address a {
-      color: rgba(85, 85, 85, 1);
-      font-size: 1.6rem;
-      margin-bottom: 0;
-      line-height: 1.6;
-      text-decoration: none;
-    }
-
-    .footer-address a {
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .footer-social {
-      margin: 18px 0 10px 0;
-    }
-
-    .list-social,
-    .footer-follow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .list-social__item,
-    .follow-icon {
-      height: 36px;
-      width: 36px;
-      border-radius: 50%;
-      border: 1px solid #eaeaea;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .list-social__item:hover a {
-      margin-left: 0px !important;
-    }
-
-    .list-social__item:hover a svg path {
-      fill: rgba(255, 255, 255, 1);
-    }
-
-    .list-social__item:hover {
-      background: rgba(17, 17, 17, 1);
-      cursor: pointer;
-    }
-
-    .follow-icon {
-      background: #5a31f4;
-      border: none;
-    }
-
-    .follow-text p {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 15px;
-      margin: 0;
-    }
-
-    .follow-text svg {
-      margin-left: 2px;
-    }
-
-    .footer-col span {
-      font-size: 1.4rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 25px;
-      margin-top: 0;
-      color: rgba(17, 17, 17, 1);
-    }
-
-    .footer-col ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .footer-col ul li {
-      margin-bottom: 10px;
-      transition: all 0.3s ease;
-    }
-
-    .footer-col ul li a {
-      color: rgba(85, 85, 85, 1);
-      text-decoration: none;
-      font-size: 1.6rem;
-      transition: all 0.3s ease;
-      line-height: 1.6;
-    }
-
-    .footer-col ul li a:hover {
-      color: rgba(17, 17, 17, 1);
-      margin-left: 8px;
-    }
-
-    .footer-col--newsletter p {
-      font-size: 1.6rem;
-      color: rgba(85, 85, 85, 1);
-      margin-bottom: 18px;
-      margin-top: 0;
-      line-height: 1.6;
-    }
-
-    .footer-newsletter-form {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .footer-newsletter-form input[type='email'] {
-      flex: 1;
-      padding: 12px 18px;
-      border-radius: 30px;
-      border: 1px solid rgba(235, 235, 235, 1);
-      font-size: 1.6rem;
-      outline: none;
-      transition: border 0.2s;
-      min-width: 290px;
-      min-height: 50px;
-    }
-
-    .footer-newsletter-form input::placeholder {
-      font-size: 1.4rem;
-      color: rgba(153, 153, 153, 1);
-    }
-
-    .footer-newsletter-form input[type='email']:focus {
-      border: 1.5px solid rgba(17, 17, 17, 1);
-    }
-
-    .footer-newsletter-form button {
-      padding: 12px 28px;
-      border-radius: 30px;
-      border: none;
-      background: rgba(17, 17, 17, 1);
-      color: rgba(255, 255, 255, 1);
-      font-size: 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-      min-width: 150px;
-      min-height: 50px;
-    }
-
-    .footer-newsletter-form button:hover {
-      background: #5a31f4;
-    }
-
-    .footer-underbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 1410px;
-      margin: 0 auto;
-      padding: 35px 0;
-      border-top: 1px solid #eaeaea;
-      font-size: 1.4rem;
-      color: #555;
-      margin-top: 80px;
-      background: #fff;
-    }
-
-    .footer-underbar__left,
-    .footer-underbar__center,
-    .footer-underbar__right {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .footer-underbar__right {
-      gap: 5px;
-    }
-
-    .footer-underbar__center {
-      flex: 1;
-      justify-content: center;
-      color: rgba(85, 85, 85, 1);
-      font-size: 1.6rem;
-    }
-
-    .footer-underbar__right img {
-      height: 26px;
-      width: 43px;
-      background: #fff;
-      border-radius: 4px;
-      border: 1px solid #eaeaea;
-      padding: 2px 4px;
-    }
-
-    .footer-lang,
-    .footer-currency {
-      color: #111;
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      cursor: pointer;
-    }
-
-    .footer-lang svg,
-    .footer-currency svg {
-      margin-left: 4px;
-    }
-
-    .footer-select-wrap {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .footer-select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background: #fff;
-      font-size: 1.6rem;
-      border: none;
-      color: rgba(85, 85, 85, 1);
-      cursor: pointer;
-      outline: none;
-      transition: border 0.2s;
-      font-family: inherit;
-    }
-
-    @media (max-width: 1200px) {
-      .footer-container {
-        width: 100%;
-        padding: 0 24px;
-      }
-      .footer-row {
-        flex-wrap: wrap;
-        gap: 32px;
-      }
-      .footer-col {
-        min-width: 180px;
-        flex: 1 1 220px;
-      }
-      .footer-underbar {
-        width: 100%;
-        padding: 16px 24px 8px 24px;
-      }
-    }
-    @media (max-width: 800px) {
-      .footer-row {
-        flex-direction: column;
-        gap: 32px;
-      }
-      .footer-container {
-        width: 100%;
-        padding: 0 12px;
-      }
-      .footer-underbar {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        padding: 16px 12px 8px 12px;
-        text-align: center;
-      }
-      .footer-underbar__center {
-        justify-content: center;
-        margin: 8px 0;
-      }
-      .footer-underbar__right {
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .footer-select {
-        min-width: 120px;
-        font-size: 1.2rem;
-        padding: 6px 24px 6px 10px;
-      }
+    @media screen and (max-width: 768px) {
+      
     }
   </style>
 

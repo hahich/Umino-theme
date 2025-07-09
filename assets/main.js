@@ -227,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
   new MobileMenu();
   new HeroSlider();
   new NewArrivals();
+  new FooterAccordion();
 });
 
 // New Arrivals functionality
@@ -337,5 +338,61 @@ class NewArrivals {
         diff > 0 ? this.showPrev() : this.showNext();
       }
     });
+  }
+}
+
+// Footer collapsible for mobile (accordion behavior)
+class FooterAccordion {
+  constructor() {
+    this.collapsibles = document.querySelectorAll('.footer-collapsible');
+    this.contents = document.querySelectorAll('.footer-content');
+    this.isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+    if (this.collapsibles.length > 0) {
+      this.init();
+    }
+  }
+
+  init() {
+    this.collapsibles.forEach(collapsible => {
+      collapsible.addEventListener('click', (e) => {
+        if (!this.isMobile()) return;
+        e.stopPropagation();
+        const content = collapsible.nextElementSibling;
+        if (!content || !content.classList.contains('footer-content')) return;
+        const isOpen = collapsible.classList.contains('active');
+        this.closeAll();
+        if (!isOpen) {
+          collapsible.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      });
+    });
+
+    this.contents.forEach(content => {
+      content.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    });
+
+    document.addEventListener('click', () => {
+      if (!this.isMobile()) return;
+      this.closeAll();
+    });
+
+    window.addEventListener('resize', () => {
+      if (!this.isMobile()) {
+        this.contents.forEach(content => {
+          content.style.maxHeight = null;
+        });
+        this.collapsibles.forEach(collapsible => {
+          collapsible.classList.remove('active');
+        });
+      }
+    });
+  }
+
+  closeAll() {
+    this.collapsibles.forEach(collapsible => collapsible.classList.remove('active'));
+    this.contents.forEach(content => content.style.maxHeight = null);
   }
 }

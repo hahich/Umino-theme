@@ -677,7 +677,7 @@ ul {
 .footer-address a {
     color: rgba(85, 85, 85, 1);
     font-size: 1.6rem;
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
     line-height: 1.6;
     text-decoration: none;
 }
@@ -687,7 +687,7 @@ ul {
 }
 
 .footer-social {
-    margin: 25px 0;
+    margin: 25px 0 !important;
 }
 
 .list-social,
@@ -824,7 +824,6 @@ li.list-social__item {
     cursor: pointer;
     transition: background 0.2s;
     min-width: 150px;
-    width: 100%;
     min-height: 50px;
 }
 
@@ -839,10 +838,8 @@ li.list-social__item {
     width: 1410px;
     margin: 0 auto;
     padding: 35px 0;
-    border-top: 1px solid #eaeaea;
     font-size: 1.4rem;
     color: #555;
-    margin-top: 80px;
     background: #fff;
 }
 
@@ -908,4 +905,11 @@ li.list-social__item {
     outline: none;
     transition: border 0.2s;
     font-family: inherit;
+}
+
+.footer-divider {
+    width: 1410px;
+    height: 1px;
+    background: rgba(235, 235, 235, 1);
+    margin: 80px auto 0px auto;
 }
