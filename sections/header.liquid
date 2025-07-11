@@ -239,58 +239,7 @@
   <div class="overlay"></div>
 
   <div class="header-icons">
-    <div class="icon-badge-container">
-      <a href="#">
-        <img
-          src="{{ 'Search.svg' | asset_url }}"
-          alt="Search"
-          width="17"
-          height="17"
-        >
-      </a>
-    </div>
-    <div class="icon-badge-container header-icon-mobile-hide">
-      <a href="#">
-        <img
-          src="{{ 'account.svg' | asset_url }}"
-          alt="account"
-          width="17"
-          height="17"
-        >
-      </a>
-    </div>
-    <div class="icon-badge-container header-icon-mobile-hide">
-      <a href="#">
-        <img
-          src="{{ 'icon-recently-viewed.svg' | asset_url }}"
-          alt="account"
-          width="17"
-          height="17"
-        >
-      </a>
-    </div>
-    <div class="icon-badge-container header-icon-mobile-hide">
-      <a href="#">
-        <img
-          src="{{ 'whishlist.svg' | asset_url }}"
-          alt="whishlist"
-          width="20"
-          height="17"
-        >
-        <span class="icon-badge">2</span>
-      </a>
-    </div>
-    <div class="icon-badge-container">
-      <a href="#">
-        <img
-          src="{{ 'cart.svg' | asset_url }}"
-          alt="cart"
-          width="20"
-          height="17"
-        >
-        <span class="icon-badge">2</span>
-      </a>
-    </div>
+    {% render 'menu-header-icons' %}
   </div>
 </section>
 

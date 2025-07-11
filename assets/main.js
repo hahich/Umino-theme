@@ -222,129 +222,10 @@ class HeroSlider {
   }
 }
 
-// Initialize components
-document.addEventListener('DOMContentLoaded', () => {
-  new MobileMenu();
-  new HeroSlider();
-  new NewArrivals();
-  new FooterAccordion();
-});
-
-// New Arrivals functionality
-class NewArrivals {
-  constructor() {
-    this.slider = document.querySelector('.new-arrivals-slider');
-    this.items = this.slider ? this.slider.querySelectorAll('.new-arrivals-item') : [];
-    this.prevBtn = document.querySelector('.carousel-prev');
-    this.nextBtn = document.querySelector('.carousel-next');
-    this.currentIndex = 0;
-    this.totalItems = this.items.length;
-    this.itemsPerSlide = this.getItemsPerSlide();
-    this.startX = 0;
-    this.isDragging = false;
-    this.moved = false;
-    this.init();
-  }
-
-  init() {
-    this.initColorSwatch();
-    this.initSlider();
-    this.initDragSwipe();
-    window.addEventListener('resize', this.debounce(() => this.updateSlider(), 100));
-  }
-
-  initColorSwatch() {
-    document.querySelectorAll('.new-arrivals-item').forEach(item => {
-      const img = item.querySelector('.product-image');
-      const swatchWrappers = item.querySelectorAll('.color-swatch-wrapper');
-      item.querySelectorAll('.color-swatch').forEach(swatch => {
-        swatch.addEventListener('click', () => {
-          swatchWrappers.forEach(wrapper => wrapper.classList.remove('selected'));
-          swatch.closest('.color-swatch-wrapper').classList.add('selected');
-          const newImage = swatch.getAttribute('data-image');
-          if (newImage) img.src = newImage;
-        });
-      });
-    });
-  }
-
-  isMobile() {
-    return window.innerWidth <= 768;
-  }
-
-  getItemsPerSlide() {
-    return this.isMobile() ? 2 : this.totalItems;
-  }
-
-  updateSlider() {
-    this.itemsPerSlide = this.getItemsPerSlide();
-    if (!this.isMobile()) {
-      this.slider && (this.slider.style.transform = '');
-      return;
-    }
-    const slideWidth = this.items[0]?.offsetWidth || 0;
-    this.slider && (this.slider.style.transform = `translateX(-${this.currentIndex * slideWidth}px)`);
-  }
-
-  showPrev() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      this.updateSlider();
-    }
-  }
-
-  showNext() {
-    if (this.currentIndex < this.totalItems - this.itemsPerSlide) {
-      this.currentIndex++;
-      this.updateSlider();
-    }
-  }
-
-  debounce(fn, delay) {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => fn.apply(this, args), delay);
-    };
-  }
-
-  initSlider() {
-    if (this.prevBtn && this.nextBtn && this.slider) {
-      this.prevBtn.addEventListener('click', () => this.showPrev());
-      this.nextBtn.addEventListener('click', () => this.showNext());
-      this.updateSlider();
-    }
-  }
-
-  initDragSwipe() {
-    if (!this.slider) return;
-    this.slider.addEventListener('touchstart', e => {
-      if (!this.isMobile()) return;
-      this.isDragging = true;
-      this.moved = false;
-      this.startX = e.touches[0].clientX;
-    });
-    this.slider.addEventListener('touchmove', () => {
-      if (!this.isDragging) return;
-      this.moved = true;
-    });
-    this.slider.addEventListener('touchend', e => {
-      if (!this.isDragging) return;
-      this.isDragging = false;
-      if (!this.moved) return;
-      const endX = e.changedTouches[0].clientX;
-      const diff = endX - this.startX;
-      if (Math.abs(diff) > 50) {
-        diff > 0 ? this.showPrev() : this.showNext();
-      }
-    });
-  }
-}
-
 // Footer collapsible for mobile (accordion behavior)
 class FooterAccordion {
   constructor() {
-    this.collapsibles = document.querySelectorAll('.footer-collapsible');
+    this.collapsibles = document.querySelectorAll('.footer-category-wrapper');
     this.contents = document.querySelectorAll('.footer-content');
     this.isMobile = () => window.matchMedia('(max-width: 768px)').matches;
     if (this.collapsibles.length > 0) {
@@ -357,13 +238,17 @@ class FooterAccordion {
       collapsible.addEventListener('click', (e) => {
         if (!this.isMobile()) return;
         e.stopPropagation();
-        const content = collapsible.nextElementSibling;
+
+        const content = collapsible.closest('.footer-category-wrapper').nextElementSibling;
         if (!content || !content.classList.contains('footer-content')) return;
+
         const isOpen = collapsible.classList.contains('active');
         this.closeAll();
+
         if (!isOpen) {
           collapsible.classList.add('active');
           content.style.maxHeight = content.scrollHeight + 'px';
+          this.updateIcon(collapsible, true);
         }
       });
     });
@@ -386,13 +271,251 @@ class FooterAccordion {
         });
         this.collapsibles.forEach(collapsible => {
           collapsible.classList.remove('active');
+          this.updateIcon(collapsible, false);
         });
       }
     });
   }
 
   closeAll() {
-    this.collapsibles.forEach(collapsible => collapsible.classList.remove('active'));
+    this.collapsibles.forEach(collapsible => {
+      collapsible.classList.remove('active');
+      this.updateIcon(collapsible, false);
+    });
     this.contents.forEach(content => content.style.maxHeight = null);
   }
+
+  updateIcon(collapsible, isOpen) {
+    const wrapper = collapsible.closest('.footer-category-wrapper');
+    if (!wrapper) return;
+
+    const openIcon = wrapper.querySelector('.footer-icon-open');
+    const closeIcon = wrapper.querySelector('.footer-icon-close');
+
+    if (openIcon && closeIcon) {
+      if (isOpen) {
+        openIcon.style.display = 'none';
+        closeIcon.style.display = 'block';
+      } else {
+        openIcon.style.display = 'block';
+        closeIcon.style.display = 'none';
+      }
+    }
+  }
 }
+
+// New Arrivals functionality
+class NewArrivals {
+  constructor() {
+    this.slider = document.querySelector('.new-arrivals-slider');
+    this.items = document.querySelectorAll('.new-arrivals-item');
+    this.prevBtn = document.querySelector('.carousel-prev');
+    this.nextBtn = document.querySelector('.carousel-next');
+
+    if (!this.slider || this.items.length === 0) return;
+
+    this.currentIndex = 0;
+    this.itemsPerView = this.getItemsPerView();
+    this.autoplayInterval = null;
+    this.autoplayTimeout = null;
+    this.AUTOPLAY_DELAY = 3000;
+    this.AUTOPLAY_RESUME_DELAY = 4000;
+
+    this.init();
+  }
+
+  getItemsPerView() {
+    if (window.innerWidth <= 767) return 2;
+    if (window.innerWidth <= 992) return 3;
+    return this.items.length; // Desktop: show all
+  }
+
+  getMaxIndex() {
+    let maxIndex = this.items.length - this.itemsPerView;
+    if (maxIndex < 0) maxIndex = 0;
+    return maxIndex;
+  }
+
+  updateSlider() {
+    this.itemsPerView = this.getItemsPerView();
+    const itemWidth = this.items[0].offsetWidth;
+    this.currentIndex = Math.min(this.currentIndex, this.getMaxIndex());
+    this.slider.style.transform = `translateX(-${this.currentIndex * itemWidth}px)`;
+  }
+
+  showNext() {
+    this.currentIndex = Math.min(this.currentIndex + 1, this.getMaxIndex());
+    this.updateSlider();
+  }
+
+  showPrev() {
+    this.currentIndex = Math.max(this.currentIndex - 1, 0);
+    this.updateSlider();
+  }
+
+  initButtons() {
+    if (this.nextBtn) {
+      this.nextBtn.addEventListener('click', () => {
+        this.showNext();
+        this.pauseAutoplay();
+      });
+    }
+    if (this.prevBtn) {
+      this.prevBtn.addEventListener('click', () => {
+        this.showPrev();
+        this.pauseAutoplay();
+      });
+    }
+  }
+
+  initTouchEvents() {
+    let startX = 0;
+    let isDragging = false;
+
+    this.slider.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].pageX;
+      this.pauseAutoplay();
+    });
+
+    this.slider.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const x = e.touches[0].pageX;
+      const walk = x - startX;
+      if (Math.abs(walk) > 50) {
+        if (walk < 0) this.showNext();
+        else this.showPrev();
+        isDragging = false;
+      }
+    });
+
+    this.slider.addEventListener('touchend', () => {
+      isDragging = false;
+      this.resumeAutoplayWithDelay();
+    });
+  }
+
+  autoplay() {
+    if (window.innerWidth > 992) return; // Only run on mobile/tablet
+    this.autoplayInterval = setInterval(() => {
+      if (this.currentIndex < this.getMaxIndex()) {
+        this.currentIndex++;
+      } else {
+        this.currentIndex = 0;
+      }
+      this.updateSlider();
+    }, this.AUTOPLAY_DELAY);
+  }
+
+  pauseAutoplay() {
+    if (this.autoplayInterval) {
+      clearInterval(this.autoplayInterval);
+      this.autoplayInterval = null;
+    }
+    if (this.autoplayTimeout) {
+      clearTimeout(this.autoplayTimeout);
+      this.autoplayTimeout = null;
+    }
+  }
+
+  resumeAutoplayWithDelay() {
+    this.pauseAutoplay();
+    this.autoplayTimeout = setTimeout(() => {
+      this.autoplay();
+    }, this.AUTOPLAY_RESUME_DELAY);
+  }
+
+  initMouseEvents() {
+    this.slider.addEventListener('mouseenter', () => this.pauseAutoplay());
+    this.slider.addEventListener('mouseleave', () => this.resumeAutoplayWithDelay());
+  }
+
+  initResizeHandler() {
+    window.addEventListener('resize', () => {
+      this.currentIndex = 0;
+      this.updateSlider();
+    });
+  }
+
+  init() {
+    this.initButtons();
+    this.initTouchEvents();
+    this.initMouseEvents();
+    this.initResizeHandler();
+    this.updateSlider();
+
+    // Start autoplay on load if mobile/tablet
+    if (window.innerWidth <= 992) {
+      this.autoplay();
+    }
+  }
+}
+
+// Color Swatch functionality
+class ColorSwatch {
+  constructor() {
+    this.colorSwatchWrappers = document.querySelectorAll('.color-swatch-wrapper');
+    if (this.colorSwatchWrappers.length === 0) return;
+
+    this.init();
+  }
+
+  init() {
+    this.colorSwatchWrappers.forEach(wrapper => {
+      const colorSwatch = wrapper.querySelector('.color-swatch');
+      if (!colorSwatch) return;
+
+      colorSwatch.addEventListener('click', (e) => this.handleColorClick(e, wrapper));
+    });
+  }
+
+  handleColorClick(e, wrapper) {
+    e.preventDefault();
+
+    const productItem = wrapper.closest('.new-arrivals-item');
+    if (!productItem) return;
+
+    // Update visual state
+    this.updateSelectedState(productItem, wrapper);
+
+    // Update product image
+    this.updateProductImage(wrapper, productItem);
+  }
+
+  updateSelectedState(productItem, selectedWrapper) {
+    // Remove selected class from all swatches in this product
+    const allSwatchesInProduct = productItem.querySelectorAll('.color-swatch-wrapper');
+    allSwatchesInProduct.forEach(swatch => swatch.classList.remove('selected'));
+
+    // Add selected class to clicked swatch
+    selectedWrapper.classList.add('selected');
+  }
+
+  updateProductImage(wrapper, productItem) {
+    const colorSwatch = wrapper.querySelector('.color-swatch');
+    const productImage = productItem.querySelector('.product-image');
+
+    if (!colorSwatch || !productImage) return;
+
+    const newImageUrl = colorSwatch.getAttribute('data-image');
+    if (!newImageUrl) return;
+
+    // Update the image source
+    productImage.src = newImageUrl;
+
+    // Update all data attributes to maintain consistency
+    const dataAttributes = ['data-black', 'data-red', 'data-white'];
+    dataAttributes.forEach(attr => {
+      productImage.setAttribute(attr, newImageUrl);
+    });
+  }
+}
+
+// Initialize components
+document.addEventListener('DOMContentLoaded', () => {
+  new MobileMenu();
+  new HeroSlider();
+  new NewArrivals();
+  new FooterAccordion();
+  new ColorSwatch();
+});
