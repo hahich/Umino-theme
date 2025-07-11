@@ -1,4 +1,4 @@
-<section class="slider-section">
+<section class="slider-section fade-in-left">
   <div class="slider-container">
     <div class="slider-wrapper">
       {% if section.blocks.size > 0 %}
@@ -7,16 +7,23 @@
             {% if block.settings.slide_image != blank %}
               <div class="slide-image">
                 <img
-                  src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+                  src="{{ block.settings.slide_image | image_url: width: 800, format: 'webp' }}"
+                  srcset="
+                    {{ block.settings.slide_image | image_url: width: 400 }} 400w,
+                    {{ block.settings.slide_image | image_url: width: 800 }} 800w,
+                    {{ block.settings.slide_image | image_url: width: 1200 }} 1200w,
+                    {{ block.settings.slide_image | image_url: width: 1920 }} 1920w
+                  "
+                  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 80vw, 1920px"
                   alt="{{ block.settings.heading1 | escape }} {{ block.settings.heading2 | escape }}"
-                  loading="lazy"
                   width="1920"
                   height="600"
+                  fetchpriority="high"
                 >
               </div>
             {% else %}
               <div class="slide-image">
-                <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" loading="lazy" width="1920" height="810">
+                <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" width="1920" height="810" fetchpriority="high">
               </div>
             {% endif %}
 
@@ -71,7 +78,7 @@
       {% else %}
         <div class="slide">
           <div class="slide-image">
-            <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" loading="lazy" width="1920" height="810">
+            <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" width="1920" height="810" fetchpriority="high">
           </div>
           <div class="slide-content {{ section.settings.content_position }}">
             <div class="slide-text">
@@ -90,7 +97,7 @@
         </div>
         <div class="slide">
           <div class="slide-image">
-            <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" loading="lazy" width="1920" height="810">
+            <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" width="1920" height="810" loading="lazy">
           </div>
           <div class="slide-content {{ section.settings.content_position }}">
             <div class="slide-text">
@@ -109,7 +116,7 @@
         </div>
         <div class="slide">
           <div class="slide-image">
-            <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" loading="lazy" width="1920" height="810">
+            <img src="{{ 'banner.png' | asset_url }}" alt="Slider image" width="1920" height="810" loading="lazy">
           </div>
           <div class="slide-content {{ section.settings.content_position }}">
             <div class="slide-text">

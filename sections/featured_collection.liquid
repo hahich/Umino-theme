@@ -1,14 +1,14 @@
 <section class="featured-collection">
-  <div class="fc-container">
+  <div class="fc-container fade-in-left">
     <h2>{{ section.settings.title }}</h2>
     <p>{{ section.settings.description }}</p>
   </div>
 
-  <div class="featured-collection-grid">
+  <div class="featured-collection-grid fade-in-left">
     <div class="featured-collection-img clothing">
       {% if section.settings.collection_img != blank %}
         <img
-          src="{{ section.settings.collection_img | asset_url }}"
+          src="{{ section.settings.collection_img | image_url: width: 300 }}"
           alt="{{ section.settings.title | escape }}"
           width="100%"
           height="100%"
@@ -19,8 +19,8 @@
         <img
           src="{{ 'clothe.png' | asset_url }}"
           alt="{{ section.settings.title | escape }}"
-          width="100%"
-          height="100%"
+          width="300"
+          height="300"
           loading="lazy"
           class="fc-img"
         >
@@ -31,7 +31,7 @@
     <div class="featured-collection-img sunglesses">
       {% if section.settings.collection_img != blank %}
         <img
-          src="{{ section.settings.collection_img | asset_url }}"
+          src="{{ section.settings.collection_img | image_url: width: 300 }}"
           alt="{{ section.settings.title | escape }}"
           width="100%"
           height="100%"
@@ -42,8 +42,8 @@
         <img
           src="{{ 'sunglass.png' | asset_url }}"
           alt="{{ section.settings.title | escape }}"
-          width="100%"
-          height="100%"
+          width="300"
+          height="300"
           loading="lazy"
         >
         <button class="fc-btn">Sunglasses</button>
@@ -53,7 +53,7 @@
     <div class="featured-collection-img bag">
       {% if section.settings.collection_img != blank %}
         <img
-          src="{{ section.settings.collection_img | asset_url }}"
+          src="{{ section.settings.collection_img | image_url: width: 300 }}"
           alt="{{ section.settings.title | escape }}"
           width="100%"
           height="100%"
@@ -64,8 +64,8 @@
         <img
           src="{{ 'bag.png' | asset_url }}"
           alt="{{ section.settings.title | escape }}"
-          width="100%"
-          height="100%"
+          width="300"
+          height="300"
           loading="lazy"
         >
         <button class="fc-btn">Bags</button>
@@ -75,7 +75,7 @@
     <div class="featured-collection-img sneaker">
       {% if section.settings.collection_img != blank %}
         <img
-          src="{{ section.settings.collection_img | asset_url }}"
+          src="{{ section.settings.collection_img | image_url: width: 300 }}"
           alt="{{ section.settings.title | escape }}"
           width="100%"
           height="100%"
@@ -86,8 +86,8 @@
         <img
           src="{{ 'sneaker.png' | asset_url }}"
           alt="{{ section.settings.title | escape }}"
-          width="100%"
-          height="100%"
+          width="300"
+          height="300"
           loading="lazy"
         >
         <button class="fc-btn">Sneakers</button>
@@ -95,10 +95,6 @@
     </div>
   </div>
 </section>
-
-{% stylesheet %}
-  
-{% endstylesheet %}
 
 {% schema %}
 {

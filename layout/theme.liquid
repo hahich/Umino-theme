@@ -27,7 +27,7 @@
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
       >
     </noscript>
-    <link rel="preload" as="image" href="{{ 'banner.png' | asset_url }}">
+    <link rel="preload" as="image" href="{{ 'banner.png' | asset_url }}" fetchpriority="high">
     {% render 'meta-tags' %}
 
     {{ content_for_header }}

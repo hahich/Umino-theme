@@ -292,14 +292,19 @@ class FooterAccordion {
     const openIcon = wrapper.querySelector('.footer-icon-open');
     const closeIcon = wrapper.querySelector('.footer-icon-close');
 
-    if (openIcon && closeIcon) {
-      if (isOpen) {
-        openIcon.style.display = 'none';
-        closeIcon.style.display = 'block';
-      } else {
-        openIcon.style.display = 'block';
-        closeIcon.style.display = 'none';
+    if (window.innerWidth <= 768) {
+      if (openIcon && closeIcon) {
+        if (isOpen) {
+          openIcon.style.display = 'none';
+          closeIcon.style.display = 'block';
+        } else {
+          openIcon.style.display = 'block';
+          closeIcon.style.display = 'none';
+        }
       }
+    } else {
+      openIcon.style.display = 'none';
+      closeIcon.style.display = 'none';
     }
   }
 }
@@ -327,7 +332,7 @@ class NewArrivals {
   getItemsPerView() {
     if (window.innerWidth <= 767) return 2;
     if (window.innerWidth <= 992) return 3;
-    return this.items.length; // Desktop: show all
+    return this.items.length;
   }
 
   getMaxIndex() {
@@ -396,7 +401,7 @@ class NewArrivals {
   }
 
   autoplay() {
-    if (window.innerWidth > 992) return; // Only run on mobile/tablet
+    if (window.innerWidth > 992) return;
     this.autoplayInterval = setInterval(() => {
       if (this.currentIndex < this.getMaxIndex()) {
         this.currentIndex++;
@@ -519,3 +524,26 @@ document.addEventListener('DOMContentLoaded', () => {
   new FooterAccordion();
   new ColorSwatch();
 });
+
+// // Hiệu ứng fade-in từ trái qua phải khi load và khi scroll
+// document.addEventListener('DOMContentLoaded', function() {
+//   const fadeEls = document.querySelectorAll('.fade-in-left');
+
+//   function revealOnScroll() {
+//     for (const el of fadeEls) {
+//       const rect = el.getBoundingClientRect();
+//       if (rect.top < window.innerHeight - 40) {
+//         el.classList.add('visible');
+//       }
+//     }
+//   }
+
+//   // Hiệu ứng cho toàn trang khi load
+//   setTimeout(() => {
+//     document.body.classList.add('visible');
+//     revealOnScroll();
+//   }, 100);
+
+//   window.addEventListener('scroll', revealOnScroll);
+//   revealOnScroll();
+// });
