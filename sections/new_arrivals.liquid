@@ -90,12 +90,12 @@
           </a>
 
           <div class="product-info">
-            <div class="product-title">{{ product.title }}</div>
-            <div class="na-mobile-category">
+            <div class="product-title">
+              {{ product.title }}
               {% if product.category != blank %}
                 <span class="na-mobile-category-default"> {{ product.category }} </span>
               {% else %}
-                <span class="na-mobile-category-default">F-shirt</span> 
+                <span class="na-mobile-category-default">F-shirt</span>
               {% endif %}
             </div>
             <div class="product-rating">
@@ -195,6 +195,10 @@
   "name": "New Arrivals",
   "settings": [
     {
+      "type": "header",
+      "content": "Title & Description"
+    },
+    {
       "type": "text",
       "id": "title",
       "label": "Title",
@@ -207,9 +211,17 @@
       "default": "Here’s some of our most popular products people are in love with."
     },
     {
+      "type": "header",
+      "content": "Collection"
+    },
+    {
       "type": "collection",
       "id": "collection",
       "label": "Collection to show"
+    },
+    {
+      "type": "header",
+      "content": "Product Limit"
     },
     {
       "type": "range",

@@ -112,10 +112,10 @@ class HeroSlider {
     this.initMouseEvents();
     this.goToSlide(0);
     this.startAutoplay();
-    // Ensure first dot is active on page load
     if (this.dots.length > 0) {
       this.dots[0].classList.add('active');
     }
+    this.triggerFadeInForActiveSlide();
   }
 
   goToSlide(index) {
@@ -125,16 +125,19 @@ class HeroSlider {
     this.dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === this.currentSlide);
     });
+    this.triggerFadeInForActiveSlide();
   }
 
   nextSlide() {
     this.currentSlide = (this.currentSlide + 1) % this.slides.length;
     this.updateSlide();
+    this.triggerFadeInForActiveSlide();
   }
 
   prevSlide() {
     this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
     this.updateSlide();
+    this.triggerFadeInForActiveSlide();
   }
 
   updateSlide() {
@@ -219,6 +222,21 @@ class HeroSlider {
   initMouseEvents() {
     this.sliderWrapper.addEventListener('mouseenter', () => this.stopAutoplay());
     this.sliderWrapper.addEventListener('mouseleave', () => this.startAutoplay());
+  }
+
+  triggerFadeInForActiveSlide() {
+    const allContents = document.querySelectorAll('.slide-content');
+    allContents.forEach(content => content.classList.remove('fade-in-active'));
+
+    const activeSlide = this.slides[this.currentSlide];
+    if (activeSlide) {
+      const content = activeSlide.querySelector('.slide-content');
+      if (content) {
+        setTimeout(() => {
+          content.classList.add('fade-in-active');
+        }, 10);
+      }
+    }
   }
 }
 
@@ -345,7 +363,15 @@ class NewArrivals {
     this.itemsPerView = this.getItemsPerView();
     const itemWidth = this.items[0].offsetWidth;
     this.currentIndex = Math.min(this.currentIndex, this.getMaxIndex());
-    this.slider.style.transform = `translateX(-${this.currentIndex * itemWidth}px)`;
+    let translateX = this.currentIndex * itemWidth;
+
+    if (this.currentIndex === this.getMaxIndex() && this.items.length > this.itemsPerView) {
+      const totalItemsWidth = this.items.length * itemWidth;
+      const sliderWidth = this.slider.offsetWidth;
+      translateX = totalItemsWidth - sliderWidth;
+      if (translateX < 0) translateX = 0;
+    }
+    this.slider.style.transform = `translateX(-${translateX}px)`;
   }
 
   showNext() {

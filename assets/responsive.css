@@ -9,6 +9,15 @@
         order: 1;
     }
 
+    .header-menu {
+        margin-left: 0;
+    }
+
+    .header-container,
+    .header-icons {
+        flex: 0;
+    }
+
     .header-container {
         order: 2;
     }
@@ -73,7 +82,6 @@
     }
 
     .header-menu-item a {
-        font-size: var(--font-size-14);
         width: 100%;
         pointer-events: none;
     }
@@ -526,6 +534,15 @@
     .mobile-menu-icon {
         display: block;
         order: 1;
+    }
+
+    .header-menu {
+        margin-left: 0;
+    }
+
+    .header-container,
+    .header-icons {
+        flex: 0;
     }
 
     .header-container {
