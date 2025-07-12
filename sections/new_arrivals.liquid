@@ -92,7 +92,11 @@
           <div class="product-info">
             <div class="product-title">{{ product.title }}</div>
             <div class="na-mobile-category">
-              {{ product.type }}
+              {% if product.category != blank %}
+                <span class="na-mobile-category-default"> {{ product.category }} </span>
+              {% else %}
+                <span class="na-mobile-category-default">F-shirt</span> 
+              {% endif %}
             </div>
             <div class="product-rating">
               {% assign mod = forloop.index0 | modulo: 2 %}

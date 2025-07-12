@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
   new ColorSwatch();
 });
 
-// // Hiệu ứng fade-in từ trái qua phải khi load và khi scroll
+// // fadein when load page or scroll
 // document.addEventListener('DOMContentLoaded', function() {
 //   const fadeEls = document.querySelectorAll('.fade-in-left');
 
@@ -538,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //     }
 //   }
 
-//   // Hiệu ứng cho toàn trang khi load
+//   // fadein when load page or scroll
 //   setTimeout(() => {
 //     document.body.classList.add('visible');
 //     revealOnScroll();

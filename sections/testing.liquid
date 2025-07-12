@@ -1,3 +1,12 @@
+{% comment %}
+  Preload the first slide image for better LCP
+{% endcomment %}
+{% if section.blocks.size > 0 and section.blocks[0].settings.slide_image != blank %}
+  <link rel="preload" as="image" href="{{ section.blocks[0].settings.slide_image | image_url: width: 1200, format: 'webp' }}">
+{% else %}
+  <link rel="preload" as="image" href="{{ 'banner.png' | asset_url }}">
+{% endif %}
+
 <section class="slider-section fade-in-left">
   <div class="slider-container">
     <div class="slider-wrapper">
@@ -18,26 +27,18 @@
                   alt="{{ block.settings.heading1 | escape }} {{ block.settings.heading2 | escape }}"
                   width="1200"
                   height="600"
-                  {% if forloop.first %}
-                    fetchpriority="high"
-                  {% else %}
-                    loading="lazy"
-                  {% endif %}
+                  {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
                   decoding="async"
                 >
               </div>
             {% else %}
               <div class="slide-image">
-                <img
-                  src="{{ 'banner.png' | asset_url }}"
-                  alt="Slider image"
-                  width="1200"
-                  height="600"
-                  {% if forloop.first %}
-                    fetchpriority="high"
-                  {% else %}
-                    loading="lazy"
-                  {% endif %}
+                <img 
+                  src="{{ 'banner.png' | asset_url }}" 
+                  alt="Slider image" 
+                  width="1200" 
+                  height="600" 
+                  {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
                   decoding="async"
                 >
               </div>
@@ -94,11 +95,11 @@
       {% else %}
         <div class="slide">
           <div class="slide-image">
-            <img
-              src="{{ 'banner.png' | asset_url }}"
-              alt="Slider image"
-              width="1200"
-              height="600"
+            <img 
+              src="{{ 'banner.png' | asset_url }}" 
+              alt="Slider image" 
+              width="1200" 
+              height="600" 
               fetchpriority="high"
               decoding="async"
             >
@@ -120,11 +121,11 @@
         </div>
         <div class="slide">
           <div class="slide-image">
-            <img
-              src="{{ 'banner.png' | asset_url }}"
-              alt="Slider image"
-              width="1200"
-              height="600"
+            <img 
+              src="{{ 'banner.png' | asset_url }}" 
+              alt="Slider image" 
+              width="1200" 
+              height="600" 
               loading="lazy"
               decoding="async"
             >
@@ -146,11 +147,11 @@
         </div>
         <div class="slide">
           <div class="slide-image">
-            <img
-              src="{{ 'banner.png' | asset_url }}"
-              alt="Slider image"
-              width="1200"
-              height="600"
+            <img 
+              src="{{ 'banner.png' | asset_url }}" 
+              alt="Slider image" 
+              width="1200" 
+              height="600" 
               loading="lazy"
               decoding="async"
             >
@@ -161,12 +162,8 @@
                 <span>Stylish<br></span>
                 <span>Top Trending</span>
               </h2>
-              <p class="slide-subheading" style="color: #222; font-size: 16px;">
-                So soft you don't want to take it off.
-              </p>
-              <a href="#" class="slide-button" aria-label="Browse" style="background: #222; color: #fff;">
-                Explore Now
-              </a>
+              <p class="slide-subheading" style="color: #222; font-size: 16px;">So soft you don't want to take it off.</p>
+              <a href="#" class="slide-button" aria-label="Browse" style="background: #222; color: #fff;"> Explore Now </a>
             </div>
           </div>
         </div>
@@ -206,208 +203,5 @@
   </div>
 </section>
 
-{% schema %}
-{
-  "name": "Slider",
-  "settings": [
-    {
-      "type": "select",
-      "id": "content_position",
-      "label": "Content position",
-      "options": [
-        { "value": "middle-left", "label": "Middle Left" },
-        { "value": "middle", "label": "Middle Center" },
-        { "value": "middle-right", "label": "Middle Right" },
-        { "value": "middle-top", "label": "Middle Top" },
-        { "value": "middle-bottom", "label": "Middle Bottom" }
-      ],
-      "default": "middle"
-    }
-  ],
-  "max_blocks": 5,
-  "blocks": [
-    {
-      "type": "slide",
-      "name": "Slide",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "slide_image",
-          "label": "Slide image"
-        },
-        {
-          "type": "text",
-          "id": "heading1",
-          "label": "Heading 1",
-          "default": "Stylish"
-        },
-        {
-          "type": "text",
-          "id": "heading2",
-          "label": "Heading 2",
-          "default": "Top Trending"
-        },
-        {
-          "type": "color",
-          "id": "color_text",
-          "label": "Color text",
-          "default": "#000"
-        },
-        {
-          "type": "textarea",
-          "id": "subheading",
-          "label": "Subheading",
-          "default": "So soft you don't want to take it off."
-        },
-        {
-          "type": "header",
-          "content": "Text Heading & Subheading"
-        },
-        {
-          "type": "range",
-          "id": "heading_font_size",
-          "label": "Heading font size",
-          "min": 16,
-          "max": 80,
-          "step": 2,
-          "unit": "px",
-          "default": 80
-        },
-        {
-          "type": "range",
-          "id": "subheading_font_size",
-          "label": "Subheading font size",
-          "min": 16,
-          "max": 80,
-          "step": 2,
-          "unit": "px",
-          "default": 16
-        },
-        {
-          "type": "header",
-          "content": "Button"
-        },
-        {
-          "type": "text",
-          "id": "button_text",
-          "label": "Button text",
-          "default": "Explore Now"
-        },
-        {
-          "type": "color",
-          "id": "button_bg",
-          "label": "Button background",
-          "default": "#000"
-        },
-        {
-          "type": "color",
-          "id": "button_color",
-          "label": "Button text color",
-          "default": "#fff"
-        },
-        {
-          "type": "header",
-          "content": "Padding"
-        },
-        {
-          "type": "range",
-          "id": "padding_top",
-          "label": "Top",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "px",
-          "default": 40
-        },
-        {
-          "type": "range",
-          "id": "padding_right",
-          "label": "Right",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "px",
-          "default": 20
-        },
-        {
-          "type": "range",
-          "id": "padding_bottom",
-          "label": "Bottom",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "px",
-          "default": 40
-        },
-        {
-          "type": "range",
-          "id": "padding_left",
-          "label": "Left",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "px",
-          "default": 20
-        },
-        {
-          "type": "header",
-          "content": "Margin"
-        },
-        {
-          "type": "range",
-          "id": "margin_top",
-          "label": "Top",
-          "min": 0,
-          "max": 100,
-          "step": 2,
-          "unit": "px",
-          "default": 0
-        },
-        {
-          "type": "range",
-          "id": "margin_right",
-          "label": "Right",
-          "min": 0,
-          "max": 100,
-          "step": 2,
-          "unit": "px",
-          "default": 0
-        },
-        {
-          "type": "range",
-          "id": "margin_bottom",
-          "label": "Bottom",
-          "min": 0,
-          "max": 100,
-          "step": 2,
-          "unit": "px",
-          "default": 0
-        },
-        {
-          "type": "range",
-          "id": "margin_left",
-          "label": "Left",
-          "min": 0,
-          "max": 100,
-          "step": 2,
-          "unit": "px",
-          "default": 0
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Slider",
-      "blocks": [
-        {
-          "type": "slide"
-        },
-        {
-          "type": "slide"
-        }
-      ]
-    }
-  ]
-}
-{% endschema %}
+
+

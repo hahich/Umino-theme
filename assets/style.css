@@ -5,6 +5,11 @@
     gap: 30px;
 }
 
+.header {
+    padding: 25px 30px;
+    min-height: 70px;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -246,7 +251,7 @@ ul {
     text-align: center;
     display: flex;
     color: var(--third-color);
-    padding: 40px 20px;
+    padding: 40px 0px;
     max-width: 600px;
     margin: 0 auto;
     flex-direction: column;
@@ -261,7 +266,7 @@ ul {
     justify-content: center;
     align-items: center;
     text-align: center;
-    aspect-ratio: 16/9;
+    /* aspect-ratio: 16/9; */
 }
 
 .slide-content.middle-left {
@@ -292,13 +297,13 @@ ul {
     text-transform: capitalize;
     font-size: 3.2rem;
     font-weight: 400;
-    margin: 0 0 20px 0;
+    margin: 0 0 10px 0;
     line-height: 80px;
 }
 
 .slide-subheading {
     font-size: 1.8rem;
-    margin: 0 0 50px 0;
+    margin: 0 0 40px 0;
     line-height: 1.5;
     opacity: 0.9;
     font-weight: 400;
@@ -458,7 +463,7 @@ ul {
 }
 
 .featured-collection-img {
-    background-color: var(--divider-color);
+    background-color: var(--fourth-color);
     position: relative;
     border-radius: 10px;
     overflow: hidden;
@@ -467,6 +472,11 @@ ul {
 .featured-collection-img img {
     object-fit: contain;
     object-position: bottom;
+    transition: all 0.3s ease;
+}
+
+.featured-collection-img:hover img {
+    transform: scale(1.05);
 }
 
 .fc-img {
@@ -517,6 +527,16 @@ ul {
 
 .product-img-wrapper {
     position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.product-img-wrapper img {
+    transition: all 0.3s ease;
+}
+
+.product-img-wrapper:hover img {
+    transform: scale(1.05);
 }
 
 .product-image {
@@ -576,6 +596,10 @@ ul {
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+.na-mobile-category-default {
+    display: none;
 }
 
 .product-colors {
@@ -919,7 +943,7 @@ li.list-social__item {
 .footer-underbar {
     justify-content: var(--justify-between);
     margin: 0 auto;
-    padding: 35px 0;
+    padding: 35px 20px;
     font-size: 1.4rem;
     color: var(--secondary-color);
     background: var(--third-color);
@@ -937,7 +961,7 @@ li.list-social__item {
 
 .footer-underbar__center {
     flex: 1;
-    justify-content: flex-end;
+    justify-content: var(--center);
     color: var(--secondary-color);
     font-size: var(--font-size-16);
 }

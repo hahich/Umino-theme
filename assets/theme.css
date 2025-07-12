@@ -59,6 +59,7 @@ img {
     --primary-color: #111111;
     --secondary-color: #555555;
     --third-color: #FFFFFF;
+    --fourth-color: #EEEFF1;
     /* background color */
     --badge-bg-color: #D73F0F;
     --souldout-bg-color: #757575;
@@ -94,5 +95,5 @@ img {
     --border-radius-50: 50%;
     /* width */
     --width-100: 100%;
-    --width-1410: 1410px;
+    --width-1410: 1430px;
 }
