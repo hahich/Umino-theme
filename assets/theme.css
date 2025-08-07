@@ -6,6 +6,7 @@
 
 html {
     font-size: 62.5%;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -14,6 +15,12 @@ body {
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+    /* opacity: 0; */
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.visible {
+    opacity: 1;
 }
 
 a {
@@ -32,4 +39,61 @@ img {
     height: 1px;
     background-color: rgba(221, 221, 221, 1);
     margin: 100px auto;
+}
+
+/* scroll fadein */
+/* .fade-in-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+}
+
+.fade-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+} */
+
+:root {
+    /* text color */
+    --primary-color: #111111;
+    --secondary-color: #555555;
+    --third-color: #FFFFFF;
+    --fourth-color: #EEEFF1;
+    /* background color */
+    --badge-bg-color: #D73F0F;
+    --souldout-bg-color: #757575;
+    --preorder-bg-color: #177983;
+    --follow-bg-color: #5A31F4;
+    /* border color */
+    --divider-color: #EBEBEB;
+    /* font size */
+    --font-size-10: 1rem;
+    --font-size-12: 1.2rem;
+    --font-size-13: 1.3rem;
+    --font-size-14: 1.4rem;
+    --font-size-15: 1.5rem;
+    --font-size-16: 1.6rem;
+    --font-size-18: 1.8rem;
+    /* font weight */
+    --font-weight-400: 400;
+    --font-weight-500: 500;
+    --font-weight-600: 600;
+    --font-weight-700: 700;
+    --font-weight-800: 800;
+    --font-weight-900: 900;
+    /* font family */
+    --font-family-jost: "Jost", sans-serif;
+    /* flex */
+    --justify-between: space-between;
+    --space-evenly: space-evenly;
+    --center: center;
+    --align-start: flex-start;
+    /* border radius */
+    --border-radius-4: 4px;
+    --border-radius-30: 30px;
+    --border-radius-50: 50%;
+    /* width */
+    --width-100: 100%;
+    --width-1410: 1430px;
 }

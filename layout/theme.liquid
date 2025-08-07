@@ -27,7 +27,15 @@
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
       >
     </noscript>
-    <link rel="preload" as="image" href="{{ 'banner.png' | asset_url }}">
+    {% if section.blocks.size > 0 and section.blocks[0].settings.slide_image != blank %}
+      <link
+        rel="preload"
+        as="image"
+        href="{{ section.blocks[0].settings.slide_image | image_url: width: 1200, format: 'webp' }}"
+      >
+    {% else %}
+      <link rel="preload" as="image" href="{{ 'banner.png' | asset_url }}">
+    {% endif %}
     {% render 'meta-tags' %}
 
     {{ content_for_header }}

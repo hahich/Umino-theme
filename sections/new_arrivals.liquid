@@ -1,4 +1,4 @@
-<section class="new-arrivals">
+<section class="new-arrivals fade-in-left">
   <div class="fc-container">
     <h2>{{ section.settings.title }}</h2>
     <p>{{ section.settings.description }}</p>
@@ -35,7 +35,7 @@
             <span class="badge badge-preorder">Preorder</span>
           {% endif %}
           <a href="{{ product.url }}" aria-label="{{ product.title }}">
-            <div style="position: relative;">
+            <div class="product-img-wrapper">
               <img
                 class="product-image"
                 src="{{ product.featured_image | image_url: width: 330 }}"
@@ -90,9 +90,13 @@
           </a>
 
           <div class="product-info">
-            <div class="product-title">{{ product.title }}</div>
-            <div class="na-mobile-category">
-              {{ product.type }}
+            <div class="product-title">
+              {{ product.title }}
+              {% if product.category != blank %}
+                <span class="na-mobile-category-default"> {{ product.category }} </span>
+              {% else %}
+                <span class="na-mobile-category-default">F-shirt</span>
+              {% endif %}
             </div>
             <div class="product-rating">
               {% assign mod = forloop.index0 | modulo: 2 %}
@@ -191,6 +195,10 @@
   "name": "New Arrivals",
   "settings": [
     {
+      "type": "header",
+      "content": "Title & Description"
+    },
+    {
       "type": "text",
       "id": "title",
       "label": "Title",
@@ -201,6 +209,28 @@
       "id": "description",
       "label": "Description",
       "default": "Here’s some of our most popular products people are in love with."
+    },
+    {
+      "type": "header",
+      "content": "Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection to show"
+    },
+    {
+      "type": "header",
+      "content": "Product Limit"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Number of products to show",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 4
     }
   ],
   "presets": [
@@ -210,5 +240,3 @@
   ]
 }
 {% endschema %}
-
-<script></script>

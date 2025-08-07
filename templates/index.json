@@ -4,6 +4,10 @@
       "type": "slider",
       "settings": {}
     },
+    // "testing": {
+    //   "type": "testing",
+    //   "settings": {}
+    // },
     "featured_collection": {
       "type": "featured_collection",
       "settings": {}
@@ -15,6 +19,7 @@
   },
   "order": [
     "slider",
+    // "testing",
     "featured_collection",
     "new_arrivals"
   ]
