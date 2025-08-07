@@ -222,14 +222,6 @@ class HeroSlider {
   }
 }
 
-// Initialize components
-document.addEventListener('DOMContentLoaded', () => {
-  new MobileMenu();
-  new HeroSlider();
-  new NewArrivals();
-  new FooterAccordion();
-});
-
 // New Arrivals functionality
 class NewArrivals {
   constructor() {
@@ -396,3 +388,11 @@ class FooterAccordion {
     this.contents.forEach(content => content.style.maxHeight = null);
   }
 }
+
+// Initialize components
+document.addEventListener('DOMContentLoaded', () => {
+  new MobileMenu();
+  new HeroSlider();
+  new NewArrivals();
+  new FooterAccordion();
+});

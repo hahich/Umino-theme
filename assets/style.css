@@ -517,6 +517,10 @@ ul {
     border-radius: 10px;
 }
 
+.na-mobile-container {
+    display: none;
+}
+
 .product-icon-wrapper {
     position: absolute;
     top: 10px;
@@ -526,6 +530,19 @@ ul {
     gap: 5px;
     opacity: 0;
     transition: all 0.7s ease;
+}
+
+.na-content {
+    display: none;
+}
+
+.na-mobile-category {
+    display: none;
+    font-size: 1.1rem;
+    color: #888;
+    margin: 4px 0 0 0;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .product-icon {
