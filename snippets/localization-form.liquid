@@ -1,0 +1,29 @@
+{% comment %}
+  Localization form handler
+  Automatically submits the form when the select value changes
+{% endcomment %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const languageForm = document.getElementById('FooterLanguageForm');
+    const countryForm = document.getElementById('FooterCountryForm');
+    
+    if (languageForm) {
+      const languageSelect = languageForm.querySelector('select[name="locale_code"]');
+      if (languageSelect) {
+        languageSelect.addEventListener('change', function() {
+          languageForm.submit();
+        });
+      }
+    }
+    
+    if (countryForm) {
+      const countrySelect = countryForm.querySelector('select[name="country_code"]');
+      if (countrySelect) {
+        countrySelect.addEventListener('change', function() {
+          countryForm.submit();
+        });
+      }
+    }
+  });
+</script> 

@@ -1112,48 +1112,57 @@
               "default": "<p>Share contact information, store details, and brand content with your customers.</p>"
             }
           }
+        },
+        "link_category": {
+          "name": "Link Category",
+          "settings": {
+            "button_text": {
+              "label": "Button Text",
+              "default": "Learn more"
+            },
+            "button_url": {
+              "label": "Button URL"
+            }
+          }
+        },
+        "customer_service": {
+          "name": "Customer Service Link",
+          "settings": {
+            "link_text": {
+              "label": "Link Text",
+              "default": "Privacy Policy"
+            },
+            "link_url": {
+              "label": "Link URL"
+            }
+          }
         }
       },
       "settings": {
-        "newsletter_enable": {
-          "label": "Email signup"
+        "logo": {
+          "label": "Logo"
         },
-        "newsletter_heading": {
-          "label": "Heading",
-          "default": "Subscribe to our emails"
+        "hot_category": {
+          "label": "Category Title",
+          "default": "Hot Categories"
         },
-        "header__1": {
-          "content": "Email signup",
-          "info": "Signups add [customer profiles](https://help.shopify.com/manual/customers/manage-customers)"
+        "customer_service_title": {
+          "label": "Customer Service Title",
+          "default": "Customer Service"
         },
-        "show_social": {
-          "label": "Social media icons",
-          "info": "[Manage social accounts](/editor?context=theme&category=social%20media)"
+        "newsletter_title": {
+          "label": "Newsletter Title"
         },
-        "enable_country_selector": {
-          "label": "Country/region selector",
-          "info": "[Manage countries/regions](/admin/settings/markets)"
+        "newsletter_description": {
+          "label": "Newsletter Description"
         },
         "enable_language_selector": {
           "label": "Language selector",
-          "info": "[Manage languages](/admin/settings/languages)"
+          "info": "Manage languages in [Shopify admin](/admin/settings/languages)"
         },
-        "payment_enable": {
-          "label": "Payment method icons"
-        },
-        "show_policy": {
-          "label": "Policy links",
-          "info": "[Manage policies](/admin/settings/legal)"
-        },
-        "margin_top": {
-          "label": "Top margin"
-        },
-        "header__9": {
-          "content": "Utilities"
-        },
-        "enable_follow_on_shop": {
-          "label": "Follow on Shop",
-          "info": "Shop Pay must be enabled. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/follow-on-shop)"
+        "enable_country_selector": {
+          "label": "Country/region selector",
+          "info": "Manage countries/regions in [Shopify admin](/admin/settings/markets)"
         }
       }
     },

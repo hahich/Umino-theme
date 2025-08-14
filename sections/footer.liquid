@@ -181,28 +181,42 @@
 
   <div class="footer-underbar fade-in-left">
     <div class="footer-underbar__left">
-      <div class="footer-select-wrap">
-        <label for="footer-select-language"></label>
-        <select class="footer-select" aria-label="Select language">
-          <option>English</option>
-          <option>French</option>
-          <option>German</option>
-        </select>
-        <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.648438 0.847656C0.546875 0.753906 0.496094 0.640625 0.496094 0.507812C0.496094 0.367188 0.546875 0.246094 0.648438 0.144531C0.742188 0.0507812 0.859375 0.00390625 1 0.00390625C1.14062 0.00390625 1.25781 0.0507812 1.35156 0.144531L4 2.79297L6.64844 0.144531C6.74219 0.0507812 6.85938 0.00390625 7 0.00390625C7.14062 0.00390625 7.25781 0.0507812 7.35156 0.144531C7.45312 0.246094 7.50391 0.367188 7.50391 0.507812C7.50391 0.640625 7.45312 0.753906 7.35156 0.847656L4.35156 3.84766C4.25781 3.94922 4.14062 4 4 4C3.85938 4 3.74219 3.94922 3.64844 3.84766L0.648438 0.847656Z" fill="#555555"/>
-        </svg>
-      </div>
-      <div class="footer-select-wrap">
-        <label for="footer-select-currency"></label>
-        <select class="footer-select" aria-label="Select currency">
-          <option>United States (USD $)</option>
-          <option>France (EUR €)</option>
-          <option>Japan (JPY ¥)</option>
-        </select>
-        <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.648438 0.847656C0.546875 0.753906 0.496094 0.640625 0.496094 0.507812C0.496094 0.367188 0.546875 0.246094 0.648438 0.144531C0.742188 0.0507812 0.859375 0.00390625 1 0.00390625C1.14062 0.00390625 1.25781 0.0507812 1.35156 0.144531L4 2.79297L6.64844 0.144531C6.74219 0.0507812 6.85938 0.00390625 7 0.00390625C7.14062 0.00390625 7.25781 0.0507812 7.35156 0.144531C7.45312 0.246094 7.50391 0.367188 7.50391 0.507812C7.50391 0.640625 7.45312 0.753906 7.35156 0.847656L4.35156 3.84766C4.25781 3.94922 4.14062 4 4 4C3.85938 4 3.74219 3.94922 3.64844 3.84766L0.648438 0.847656Z" fill="#555555"/>
-        </svg>
-      </div>
+      {% if section.settings.enable_language_selector %}
+        <div class="footer-select-wrap">
+          {% form 'localization', id: 'FooterLanguageForm', class: 'localization-form' %}
+            <div class="no-js-hidden">
+              <select class="footer-select" name="locale_code" aria-labelledby="FooterLanguageLabel">
+                {%- for language in localization.available_languages -%}
+                  <option value="{{ language.iso_code }}" lang="{{ language.iso_code }}" {%- if language.iso_code == localization.language.iso_code %} selected{% endif %}>
+                    {{ language.endonym_name | capitalize }}
+                  </option>
+                {%- endfor -%}
+              </select>
+              <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.648438 0.847656C0.546875 0.753906 0.496094 0.640625 0.496094 0.507812C0.496094 0.367188 0.546875 0.246094 0.648438 0.144531C0.742188 0.0507812 0.859375 0.00390625 1 0.00390625C1.14062 0.00390625 1.25781 0.0507812 1.35156 0.144531L4 2.79297L6.64844 0.144531C6.74219 0.0507812 6.85938 0.00390625 7 0.00390625C7.14062 0.00390625 7.25781 0.0507812 7.35156 0.144531C7.45312 0.246094 7.50391 0.367188 7.50391 0.507812C7.50391 0.640625 7.45312 0.753906 7.35156 0.847656L4.35156 3.84766C4.25781 3.94922 4.14062 4 4 4C3.85938 4 3.74219 3.94922 3.64844 3.84766L0.648438 0.847656Z" fill="#555555"/>
+              </svg>
+            </div>
+          {% endform %}
+        </div>
+      {% endif %}
+      {% if section.settings.enable_country_selector %}
+        <div class="footer-select-wrap">
+          {% form 'localization', id: 'FooterCountryForm', class: 'localization-form' %}
+            <div class="no-js-hidden">
+              <select class="footer-select" name="country_code" aria-labelledby="FooterCountryLabel">
+                {%- for country in localization.available_countries -%}
+                  <option value="{{ country.iso_code }}" {%- if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                    {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                  </option>
+                {%- endfor -%}
+              </select>
+              <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.648438 0.847656C0.546875 0.753906 0.496094 0.640625 0.496094 0.507812C0.496094 0.367188 0.546875 0.246094 0.648438 0.144531C0.742188 0.0507812 0.859375 0.00390625 1 0.00390625C1.14062 0.00390625 1.25781 0.0507812 1.35156 0.144531L4 2.79297L6.64844 0.144531C6.74219 0.0507812 6.85938 0.00390625 7 0.00390625C7.14062 0.00390625 7.25781 0.0507812 7.35156 0.144531C7.45312 0.246094 7.50391 0.367188 7.50391 0.507812C7.50391 0.640625 7.45312 0.753906 7.35156 0.847656L4.35156 3.84766C4.25781 3.94922 4.14062 4 4 4C3.85938 4 3.74219 3.94922 3.64844 3.84766L0.648438 0.847656Z" fill="#555555"/>
+              </svg>
+            </div>
+          {% endform %}
+        </div>
+      {% endif %}
     </div>
     <div class="footer-underbar__center">
       <span>© 2023 Umino Store. All Rights Reserved.</span>
@@ -223,6 +237,11 @@
   </div>
 
   {% render 'chat-scrollup' %}
+  {% render 'localization-form' %}
+
+  {% stylesheet %}
+ 
+  {% endstylesheet %}
 
   {% schema %}
 {
@@ -271,6 +290,22 @@
       "type": "text",
       "id": "newsletter_description",
       "label": "Newsletter Description"
+    },
+    {
+      "type": "header",
+      "content": "Language and Currency"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "label": "Language selector",
+      "info": "Manage languages in [Shopify admin](/admin/settings/languages)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "label": "Country/region selector",
+      "info": "Manage countries/regions in [Shopify admin](/admin/settings/markets)"
     }
   ],
   "blocks": [
