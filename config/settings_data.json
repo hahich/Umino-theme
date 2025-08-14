@@ -130,7 +130,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "menu_navbar": "header-menu",
+          "menu": "main-menu",
           "submenu_width": "200px"
         }
       },
@@ -140,7 +140,9 @@
           "hot_category": "Hot Categories",
           "customer_service_title": "Customer Service",
           "newsletter_title": "",
-          "newsletter_description": ""
+          "newsletter_description": "",
+          "enable_language_selector": true,
+          "enable_country_selector": true
         }
       }
     },
