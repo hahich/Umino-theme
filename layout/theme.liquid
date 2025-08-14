@@ -27,6 +27,7 @@
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
       >
     </noscript>
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
     {% if section.blocks.size > 0 and section.blocks[0].settings.slide_image != blank %}
       <link
         rel="preload"
@@ -37,10 +38,14 @@
       <link rel="preload" as="image" href="{{ 'banner.png' | asset_url }}">
     {% endif %}
     {% render 'meta-tags' %}
-
+    <script>
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
     {{ content_for_header }}
 
-    <title>
+    <title> 
       {{ page_title }}
       |
       {{ shop.name }}

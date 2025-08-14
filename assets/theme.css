@@ -42,7 +42,7 @@ img {
 }
 
 /* scroll fadein */
-/* .fade-in-left {
+.fade-in-left {
     opacity: 0;
     transform: translateX(-40px);
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -52,48 +52,169 @@ img {
 .fade-in-left.visible {
     opacity: 1;
     transform: translateX(0);
-} */
+}
 
 :root {
-    /* text color */
-    --primary-color: #111111;
-    --secondary-color: #555555;
-    --third-color: #FFFFFF;
-    --fourth-color: #EEEFF1;
-    /* background color */
-    --badge-bg-color: #D73F0F;
-    --souldout-bg-color: #757575;
-    --preorder-bg-color: #177983;
-    --follow-bg-color: #5A31F4;
-    /* border color */
-    --divider-color: #EBEBEB;
-    /* font size */
-    --font-size-10: 1rem;
-    --font-size-12: 1.2rem;
+    /* Colors - Primary Palette */
+    --bs-primary: #111111;
+    --bs-secondary: #555555;
+    --bs-white: #FFFFFF;
+    --bs-light: #EEEFF1;
+
+    /* Colors - Semantic */
+    --bs-success: #177983;
+    --bs-danger: #D73F0F;
+    --bs-warning: #757575;
+    --bs-info: #5A31F4;
+
+    /* Colors - Neutral */
+    --bs-gray-100: #EBEBEB;
+    --bs-gray-200: #DDDDDD;
+    --bs-gray-300: #CCCCCC;
+    --bs-gray-400: #BBBBBB;
+    --bs-gray-500: #999999;
+    --bs-gray-600: #666666;
+    --bs-gray-700: #555555;
+    --bs-gray-800: #333333;
+    --bs-gray-900: #111111;
+
+    /* Typography - Font Sizes */
+    --bs-font-size-xs: 1rem;
+    /* 10px */
+    --bs-font-size-sm: 1.2rem;
+    /* 12px */
+    --bs-font-size-base: 1.6rem;
+    /* 16px */
+    --bs-font-size-lg: 1.8rem;
+    /* 18px */
+    --bs-font-size-xl: 2.4rem;
+    /* 24px */
+    --bs-font-size-2xl: 3.2rem;
+    /* 32px */
+    --bs-font-size-3xl: 4.5rem;
+    /* 45px */
+
+    /* Typography - Font Weights */
+    --bs-font-weight-light: 300;
+    --bs-font-weight-normal: 400;
+    --bs-font-weight-medium: 500;
+    --bs-font-weight-semibold: 600;
+    --bs-font-weight-bold: 700;
+    --bs-font-weight-extrabold: 800;
+    --bs-font-weight-black: 900;
+
+    /* Typography - Line Heights */
+    --bs-line-height-tight: 1.25;
+    --bs-line-height-normal: 1.5;
+    --bs-line-height-relaxed: 1.75;
+
+    /* Spacing - Margins & Padding */
+    --bs-spacing-0: 0;
+    --bs-spacing-1: 0.5rem;
+    /* 5px */
+    --bs-spacing-2: 1rem;
+    /* 10px */
+    --bs-spacing-3: 1.5rem;
+    /* 15px */
+    --bs-spacing-4: 2rem;
+    /* 20px */
+    --bs-spacing-5: 2.5rem;
+    /* 25px */
+    --bs-spacing-6: 3rem;
+    /* 30px */
+    --bs-spacing-8: 4rem;
+    /* 40px */
+    --bs-spacing-10: 5rem;
+    /* 50px */
+    --bs-spacing-12: 6rem;
+    /* 60px */
+    --bs-spacing-16: 8rem;
+    /* 80px */
+    --bs-spacing-20: 10rem;
+    /* 100px */
+
+    /* Layout - Container */
+    --bs-container-max-width: 1430px;
+    --bs-container-padding-x: 2rem;
+
+    /* Layout - Grid */
+    --bs-grid-gutter: 3rem;
+    --bs-grid-columns: 12;
+
+    /* Borders - Radius */
+    --bs-border-radius-sm: 4px;
+    --bs-border-radius: 8px;
+    --bs-border-radius-md: 10px;
+    --bs-border-radius-lg: 30px;
+    --bs-border-radius-xl: 50px;
+    --bs-border-radius-circle: 50%;
+
+    /* Borders - Width */
+    --bs-border-width: 1px;
+    --bs-border-width-2: 2px;
+    --bs-border-width-3: 3px;
+
+    /* Shadows */
+    --bs-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --bs-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --bs-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --bs-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --bs-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+    /* Transitions */
+    --bs-transition-fast: 0.15s;
+    --bs-transition-base: 0.3s;
+    --bs-transition-slow: 0.5s;
+    --bs-transition-slower: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Z-index */
+    --bs-z-index-dropdown: 1000;
+    --bs-z-index-sticky: 1020;
+    --bs-z-index-fixed: 1030;
+    --bs-z-index-modal-backdrop: 1040;
+    --bs-z-index-modal: 1050;
+    --bs-z-index-popover: 1060;
+    --bs-z-index-tooltip: 1070;
+
+    /* Breakpoints */
+    --bs-breakpoint-xs: 0;
+    --bs-breakpoint-sm: 576px;
+    --bs-breakpoint-md: 768px;
+    --bs-breakpoint-lg: 992px;
+    --bs-breakpoint-xl: 1200px;
+    --bs-breakpoint-xxl: 1400px;
+
+    /* Legacy Variables (for backward compatibility) */
+    --primary-color: var(--bs-primary);
+    --secondary-color: var(--bs-secondary);
+    --third-color: var(--bs-white);
+    --fourth-color: var(--bs-light);
+    --badge-bg-color: var(--bs-danger);
+    --souldout-bg-color: var(--bs-warning);
+    --preorder-bg-color: var(--bs-success);
+    --follow-bg-color: var(--bs-info);
+    --divider-color: var(--bs-gray-100);
+    --font-size-10: var(--bs-font-size-xs);
+    --font-size-12: var(--bs-font-size-sm);
     --font-size-13: 1.3rem;
     --font-size-14: 1.4rem;
     --font-size-15: 1.5rem;
-    --font-size-16: 1.6rem;
-    --font-size-18: 1.8rem;
-    /* font weight */
-    --font-weight-400: 400;
-    --font-weight-500: 500;
-    --font-weight-600: 600;
-    --font-weight-700: 700;
-    --font-weight-800: 800;
-    --font-weight-900: 900;
-    /* font family */
+    --font-size-16: var(--bs-font-size-base);
+    --font-size-18: var(--bs-font-size-lg);
+    --font-weight-400: var(--bs-font-weight-normal);
+    --font-weight-500: var(--bs-font-weight-medium);
+    --font-weight-600: var(--bs-font-weight-semibold);
+    --font-weight-700: var(--bs-font-weight-bold);
+    --font-weight-800: var(--bs-font-weight-extrabold);
+    --font-weight-900: var(--bs-font-weight-black);
     --font-family-jost: "Jost", sans-serif;
-    /* flex */
     --justify-between: space-between;
     --space-evenly: space-evenly;
     --center: center;
     --align-start: flex-start;
-    /* border radius */
-    --border-radius-4: 4px;
-    --border-radius-30: 30px;
-    --border-radius-50: 50%;
-    /* width */
+    --border-radius-4: var(--bs-border-radius-sm);
+    --border-radius-30: var(--bs-border-radius-lg);
+    --border-radius-50: var(--bs-border-radius-circle);
     --width-100: 100%;
-    --width-1410: 1430px;
+    --width-1410: var(--bs-container-max-width);
 }

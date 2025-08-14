@@ -1,4 +1,4 @@
-<section class="slider-section fade-in-left">
+<section class="slider-section">
   <div class="slider-container">
     <div class="slider-wrapper">
       {% if section.blocks.size > 0 %}
@@ -17,7 +17,7 @@
                   sizes="100vw"
                   alt="{{ block.settings.heading1 | escape }} {{ block.settings.heading2 | escape }}"
                   width="1200"
-                  height="600"
+                  height="810"
                   {% if forloop.first %}
                     fetchpriority="high"
                   {% else %}
@@ -32,7 +32,7 @@
                   src="{{ 'banner.png' | asset_url }}"
                   alt="Slider image"
                   width="1200"
-                  height="600"
+                  height="810"
                   {% if forloop.first %}
                     fetchpriority="high"
                   {% else %}
@@ -45,10 +45,6 @@
 
             <div
               class="slide-content {{ section.settings.content_position }}"
-              style="
-                padding: {{ block.settings.padding_top | default: 40 }}px {{ block.settings.padding_right | default: 26 }}px {{ block.settings.padding_bottom | default: 40 }}px {{ block.settings.padding_left | default: 20 }}px;
-                margin: {{ block.settings.margin_top | default: 0 }}px {{ block.settings.margin_right | default: 0 }}px {{ block.settings.margin_bottom | default: 0 }}px {{ block.settings.margin_left | default: 0 }}px;
-              "
             >
               <div class="slide-text">
                 {% if block.settings.heading1 != blank or block.settings.heading2 != blank %}
@@ -82,7 +78,6 @@
                     href="#"
                     class="slide-button"
                     aria-label="{{ block.settings.button_text }}"
-                    style="background: {{ block.settings.button_bg }}; color: {{ block.settings.button_color }};"
                   >
                     {{ block.settings.button_text }}
                   </a>
@@ -98,7 +93,7 @@
               src="{{ 'banner.png' | asset_url }}"
               alt="Slider image"
               width="1200"
-              height="600"
+              height="810"
               fetchpriority="high"
               decoding="async"
             >
@@ -112,7 +107,7 @@
               <p class="slide-subheading" style="color: #000; font-size: 16px;">
                 So soft you don't want to take it off.
               </p>
-              <a href="#" class="slide-button" aria-label="Explore Now" style="background: #000; color: #fff;">
+              <a href="#" class="slide-button" aria-label="Explore Now">
                 Explore Now
               </a>
             </div>
@@ -124,7 +119,7 @@
               src="{{ 'banner.png' | asset_url }}"
               alt="Slider image"
               width="1200"
-              height="600"
+              height="810"
               loading="lazy"
               decoding="async"
             >
@@ -138,7 +133,7 @@
               <p class="slide-subheading" style="color: #111; font-size: 16px;">
                 So soft you don't want to take it off.
               </p>
-              <a href="#" class="slide-button" aria-label="Shop Now" style="background: #111; color: #fff;">
+              <a href="#" class="slide-button" aria-label="Shop Now">
                 Explore Now
               </a>
             </div>
@@ -150,7 +145,7 @@
               src="{{ 'banner.png' | asset_url }}"
               alt="Slider image"
               width="1200"
-              height="600"
+              height="810"
               loading="lazy"
               decoding="async"
             >
@@ -164,7 +159,7 @@
               <p class="slide-subheading" style="color: #222; font-size: 16px;">
                 So soft you don't want to take it off.
               </p>
-              <a href="#" class="slide-button" aria-label="Browse" style="background: #222; color: #fff;">
+              <a href="#" class="slide-button" aria-label="Browse">
                 Explore Now
               </a>
             </div>
@@ -206,20 +201,27 @@
   </div>
 </section>
 
+{% style %}
+  .slider-section {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}
+
 {% schema %}
 {
-  "name": "Slider",
+  "name": "t:sections.slider.name",
   "settings": [
     {
       "type": "select",
       "id": "content_position",
-      "label": "Content position",
+      "label": "t:sections.slider.settings.content_position.label",
       "options": [
-        { "value": "middle-left", "label": "Middle Left" },
-        { "value": "middle", "label": "Middle Center" },
-        { "value": "middle-right", "label": "Middle Right" },
-        { "value": "middle-top", "label": "Middle Top" },
-        { "value": "middle-bottom", "label": "Middle Bottom" }
+        { "value": "middle-left", "label": "t:sections.slider.settings.content_position.options.middle_left.label" },
+        { "value": "middle", "label": "t:sections.slider.settings.content_position.options.middle.label" },
+        { "value": "middle-right", "label": "t:sections.slider.settings.content_position.options.middle_right.label" },
+        { "value": "middle-top", "label": "t:sections.slider.settings.content_position.options.middle_top.label" },
+        { "value": "middle-bottom", "label": "t:sections.slider.settings.content_position.options.middle_bottom.label" }
       ],
       "default": "middle"
     }
@@ -228,45 +230,45 @@
   "blocks": [
     {
       "type": "slide",
-      "name": "Slide",
+      "name": "t:sections.slider.blocks.slide.name",
       "settings": [
         {
           "type": "image_picker",
           "id": "slide_image",
-          "label": "Slide image"
+          "label": "t:sections.slider.blocks.slide.settings.slide_image.label"
         },
         {
           "type": "text",
           "id": "heading1",
-          "label": "Heading 1",
+          "label": "t:sections.slider.blocks.slide.settings.heading1.label",
           "default": "Stylish"
         },
         {
           "type": "text",
           "id": "heading2",
-          "label": "Heading 2",
+          "label": "t:sections.slider.blocks.slide.settings.heading2.label",
           "default": "Top Trending"
         },
         {
           "type": "color",
           "id": "color_text",
-          "label": "Color text",
+          "label": "t:sections.slider.blocks.slide.settings.color_text.label",
           "default": "#000"
         },
         {
           "type": "textarea",
           "id": "subheading",
-          "label": "Subheading",
+          "label": "t:sections.slider.blocks.slide.settings.subheading.label",
           "default": "So soft you don't want to take it off."
         },
         {
           "type": "header",
-          "content": "Text Heading & Subheading"
+          "content": "t:sections.slider.blocks.slide.settings.text_heading_subheading.content"
         },
         {
           "type": "range",
           "id": "heading_font_size",
-          "label": "Heading font size",
+          "label": "t:sections.slider.blocks.slide.settings.heading_font_size.label",
           "min": 16,
           "max": 80,
           "step": 2,
@@ -276,7 +278,7 @@
         {
           "type": "range",
           "id": "subheading_font_size",
-          "label": "Subheading font size",
+          "label": "t:sections.slider.blocks.slide.settings.subheading_font_size.label",
           "min": 16,
           "max": 80,
           "step": 2,
@@ -285,111 +287,35 @@
         },
         {
           "type": "header",
-          "content": "Button"
+          "content": "t:sections.slider.blocks.slide.settings.button.content"
         },
         {
           "type": "text",
           "id": "button_text",
-          "label": "Button text",
+          "label": "t:sections.slider.blocks.slide.settings.button_text.label",
           "default": "Explore Now"
         },
         {
-          "type": "color",
-          "id": "button_bg",
-          "label": "Button background",
-          "default": "#000"
-        },
-        {
-          "type": "color",
-          "id": "button_color",
-          "label": "Button text color",
-          "default": "#fff"
-        },
-        {
           "type": "header",
-          "content": "Padding"
+          "content": "t:sections.slider.blocks.slide.settings.padding_sections.content"
         },
         {
           "type": "range",
           "id": "padding_top",
-          "label": "Top",
+          "label": "t:sections.slider.blocks.slide.settings.padding_top.label",
           "min": 0,
           "max": 100,
           "step": 1,
           "unit": "px",
-          "default": 40
-        },
-        {
-          "type": "range",
-          "id": "padding_right",
-          "label": "Right",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "px",
-          "default": 20
+          "default": 0
         },
         {
           "type": "range",
           "id": "padding_bottom",
-          "label": "Bottom",
+          "label": "t:sections.slider.blocks.slide.settings.padding_bottom.label",
           "min": 0,
           "max": 100,
           "step": 1,
-          "unit": "px",
-          "default": 40
-        },
-        {
-          "type": "range",
-          "id": "padding_left",
-          "label": "Left",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "px",
-          "default": 20
-        },
-        {
-          "type": "header",
-          "content": "Margin"
-        },
-        {
-          "type": "range",
-          "id": "margin_top",
-          "label": "Top",
-          "min": 0,
-          "max": 100,
-          "step": 2,
-          "unit": "px",
-          "default": 0
-        },
-        {
-          "type": "range",
-          "id": "margin_right",
-          "label": "Right",
-          "min": 0,
-          "max": 100,
-          "step": 2,
-          "unit": "px",
-          "default": 0
-        },
-        {
-          "type": "range",
-          "id": "margin_bottom",
-          "label": "Bottom",
-          "min": 0,
-          "max": 100,
-          "step": 2,
-          "unit": "px",
-          "default": 0
-        },
-        {
-          "type": "range",
-          "id": "margin_left",
-          "label": "Left",
-          "min": 0,
-          "max": 100,
-          "step": 2,
           "unit": "px",
           "default": 0
         }
@@ -398,7 +324,7 @@
   ],
   "presets": [
     {
-      "name": "Slider",
+      "name": "t:sections.slider.presets.default.name",
       "blocks": [
         {
           "type": "slide"

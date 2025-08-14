@@ -506,6 +506,7 @@
         "name": "Announcement bar"
       }
     },
+
     "apps": {
       "name": "Apps",
       "settings": {
@@ -843,6 +844,65 @@
         "name": "Featured collection"
       }
     },
+    "featured_collection": {
+      "name": "Featured Collection",
+      "settings": {
+        "title_description": {
+          "content": "Title & Description"
+        },
+        "title": {
+          "label": "Title"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "image": {
+          "content": "Image"
+        },
+        "collection_img": {
+          "label": "Choose Image Left"
+        },
+        "collection_img_1": {
+          "label": "Choose Image Top"
+        },
+        "collection_img_2": {
+          "label": "Choose Image Bottom"
+        },
+        "collection_img_3": {
+          "label": "Choose Image Right"
+        },
+        "button": {
+          "content": "Button"
+        },
+        "collection_btn_text": {
+          "label": "Button Text Left"
+        },
+        "collection_btn_text_1": {
+          "label": "Button Text Top"
+        },
+        "collection_btn_text_2": {
+          "label": "Button Text Bottom"
+        },
+        "collection_btn_text_3": {
+          "label": "Button Text Right"
+        },
+        "collection_btn_url": {
+          "label": "Button URL Left"
+        },
+        "collection_btn_url_1": {
+          "label": "Button URL Top"
+        },
+        "collection_btn_url_2": {
+          "label": "Button URL Bottom"
+        },
+        "collection_btn_url_3": {
+          "label": "Button URL Right"
+        }
+      },
+      "presets": {
+        "name": "Featured Collection"
+      }
+    },
     "featured-product": {
       "name": "Featured product",
       "blocks": {
@@ -987,6 +1047,32 @@
         "name": "Featured product"
       }
     },
+          "new_arrivals": {
+        "name": "New Arrivals",
+        "settings": {
+          "title": {
+            "label": "Title"
+          },
+          "description": {
+            "label": "Description"
+          },
+          "title_description": {
+            "content": "Title & Description"
+          },
+          "collection_header": {
+            "content": "Collection"
+          },
+          "collection": {
+            "label": "Collection to show"
+          },
+          "product_limit_header": {
+            "content": "Product Limit"
+          },
+          "product_limit": {
+            "label": "Number of products to show"
+          }
+        }
+      },
     "footer": {
       "name": "Footer",
       "blocks": {
@@ -1076,6 +1162,18 @@
       "settings": {
         "logo_help": {
           "content": "Edit your logo in [theme settings](/editor?context=theme&category=logo)"
+        },
+        "logo": {
+          "label": "Logo"
+        },
+        "submenu_width": {
+          "label": "Submenu width",
+          "options__1": {
+            "label": "200px"
+          },
+          "options__2": {
+            "label": "Full width"
+          }
         },
         "logo_position": {
           "label": "Logo position",
@@ -3174,6 +3272,92 @@
       },
       "presets": {
         "name": "Slideshow"
+      }
+    },
+    "slider": {
+      "name": "Slider",
+      "settings": {
+        "content_position": {
+          "label": "Content position",
+          "options": {
+            "middle_left": {
+              "label": "Middle Left"
+            },
+            "middle": {
+              "label": "Middle Center"
+            },
+            "middle_right": {
+              "label": "Middle Right"
+            },
+            "middle_top": {
+              "label": "Middle Top"
+            },
+            "middle_bottom": {
+              "label": "Middle Bottom"
+            }
+          }
+        }
+      },
+      "blocks": {
+        "slide": {
+          "name": "Slide",
+          "settings": {
+            "slide_image": {
+              "label": "Slide image"
+            },
+            "heading1": {
+              "label": "Heading 1",
+              "default": "Stylish"
+            },
+            "heading2": {
+              "label": "Heading 2",
+              "default": "Top Trending"
+            },
+            "color_text": {
+              "label": "Color text"
+            },
+            "subheading": {
+              "label": "Subheading",
+              "default": "So soft you don't want to take it off."
+            },
+            "text_heading_subheading": {
+              "content": "Text Heading & Subheading"
+            },
+            "heading_font_size": {
+              "label": "Heading font size"
+            },
+            "subheading_font_size": {
+              "label": "Subheading font size"
+            },
+            "button": {
+              "content": "Button"
+            },
+            "button_text": {
+              "label": "Button text",
+              "default": "Explore Now"
+            },
+            "button_bg": {
+              "label": "Button background"
+            },
+            "button_color": {
+              "label": "Button text color"
+            },
+            "padding_sections": {
+              "content": "Padding sections"
+            },
+            "padding_top": {
+              "label": "Padding top"
+            },
+            "padding_bottom": {
+              "label": "Padding bottom"
+            }
+          }
+        }
+      },
+      "presets": {
+        "default": {
+          "name": "Slider"
+        }
       }
     },
     "collapsible_content": {

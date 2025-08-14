@@ -32,7 +32,7 @@
   <div class="header-menu">
     <nav>
       <ul class="menu-items-list">
-        {% assign menu = linklists[section.settings.menu_navbar] | default: 'Main menu' %}
+        {% assign menu = linklists[section.settings.menu] | default: 'Main menu' %}
         {% assign menu_limit = menu.links.size | minus: 2 %}
         {% if menu.links.size > 0 %}
           {% for link in menu.links %}
@@ -151,10 +151,10 @@
           </li>
 
           <li class="header-menu-item">
-            <a href="#">Buy Umino!</a>
+            <a href="#">Buy Umino</a>
           </li>
         {% endif %}
-        <li><div class="close-btn">X</div></li>
+        <li><div class="close-btn">Close</div></li>
       </ul>
 
       <!-- Mobile menu icons -->
@@ -252,30 +252,31 @@
 
 {% schema %}
 {
-  "name": "Header",
+  "name": "t:sections.header.name",
   "settings": [
     {
       "type": "link_list",
-      "id": "menu_navbar",
-      "label": "Menu"
+      "id": "menu",
+      "label": "t:sections.header.settings.menu.label",
+      "default": "main-menu"
     },
     {
       "type": "image_picker",
       "id": "logo",
-      "label": "Logo"
+      "label": "t:sections.header.settings.logo.label"
     },
     {
       "type": "select",
       "id": "submenu_width",
-      "label": "Submenu width",
+      "label": "t:sections.header.settings.submenu_width.label",
       "options": [
         {
           "value": "200px",
-          "label": "200px"
+          "label": "t:sections.header.settings.submenu_width.options__1.label"
         },
         {
           "value": "full",
-          "label": "Full width"
+          "label": "t:sections.header.settings.submenu_width.options__2.label"
         }
       ],
       "default": "200px"

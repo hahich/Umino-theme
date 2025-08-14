@@ -18,9 +18,11 @@
       </button>
     </div>
     <div class="new-arrivals-slider">
-      {% assign collection_handle = section.settings.collection | default: 'Clothes' %}
-      {% assign product_limit = section.settings.product_limit | default: 4 %}
-      {% assign new_arrivals_collection = collections[collection_handle] %}
+      {% liquid
+        assign collection_handle = section.settings.collection | default: 'Clothes'
+        assign product_limit = section.settings.product_limit | default: 4
+        assign new_arrivals_collection = collections[collection_handle]
+      %}
 
       {% for product in new_arrivals_collection.products reversed limit: product_limit %}
         <div class="new-arrivals-item">
@@ -91,7 +93,9 @@
 
           <div class="product-info">
             <div class="product-title">
-              {{ product.title }}
+              <a href="{{ product.url }}" aria-label="product">
+                {{ product.title }}
+              </a>
               {% if product.category != blank %}
                 <span class="na-mobile-category-default"> {{ product.category }} </span>
               {% else %}
@@ -196,37 +200,37 @@
   "settings": [
     {
       "type": "header",
-      "content": "Title & Description"
+      "content": "t:sections.new_arrivals.settings.title_description.content"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "t:sections.new_arrivals.settings.title.label",
       "default": "New Arrivals"
     },
     {
       "type": "text",
       "id": "description",
-      "label": "Description",
+      "label": "t:sections.new_arrivals.settings.description.label",
       "default": "Here’s some of our most popular products people are in love with."
     },
     {
       "type": "header",
-      "content": "Collection"
+      "content": "t:sections.new_arrivals.settings.collection_header.content"
     },
     {
       "type": "collection",
       "id": "collection",
-      "label": "Collection to show"
+      "label": "t:sections.new_arrivals.settings.collection.label"
     },
     {
       "type": "header",
-      "content": "Product Limit"
+      "content": "t:sections.new_arrivals.settings.product_limit_header.content"
     },
     {
       "type": "range",
       "id": "product_limit",
-      "label": "Number of products to show",
+      "label": "t:sections.new_arrivals.settings.product_limit.label",
       "min": 1,
       "max": 12,
       "step": 1,

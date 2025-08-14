@@ -103,6 +103,7 @@ class HeroSlider {
     this.dragThreshold = 50;
 
     this.init();
+    this.initThemeEditorListener();
   }
 
   init() {
@@ -118,10 +119,55 @@ class HeroSlider {
     this.triggerFadeInForActiveSlide();
   }
 
+  initThemeEditorListener() {
+    // Listen for theme editor changes
+    if (typeof Shopify !== 'undefined' && Shopify.designMode) {
+      // Listen for block changes
+      document.addEventListener('shopify:block:select', (event) => {
+        if (event.target.closest('.slider-section')) {
+          this.stopAutoplay();
+        }
+      });
+
+      document.addEventListener('shopify:block:deselect', (event) => {
+        if (event.target.closest('.slider-section')) {
+          this.startAutoplay();
+        }
+      });
+    }
+  }
+
+  destroy() {
+    this.stopAutoplay();
+    // Remove event listeners
+    if (this.prevBtn) {
+      this.prevBtn.removeEventListener('click', this.prevSlideHandler);
+    }
+    if (this.nextBtn) {
+      this.nextBtn.removeEventListener('click', this.nextSlideHandler);
+    }
+    this.dots.forEach(dot => {
+      if (this.dotClickHandler) {
+        dot.removeEventListener('click', this.dotClickHandler);
+      }
+    });
+  }
+
   goToSlide(index) {
     if (index === this.currentSlide) return;
+
+    // Hide current slide
+    this.slides[this.currentSlide].style.opacity = '0';
+    this.slides[this.currentSlide].style.transition = 'opacity 0.5s ease';
+    this.slides[this.currentSlide].style.zIndex = '1';
+
     this.currentSlide = index;
-    this.sliderWrapper.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+
+    // Show new slide
+    this.slides[this.currentSlide].style.opacity = '1';
+    this.slides[this.currentSlide].style.transition = 'opacity 0.5s ease';
+    this.slides[this.currentSlide].style.zIndex = '2';
+
     this.dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === this.currentSlide);
     });
@@ -141,7 +187,17 @@ class HeroSlider {
   }
 
   updateSlide() {
-    this.sliderWrapper.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+    // Hide all slides first
+    this.slides.forEach((slide, index) => {
+      if (index === this.currentSlide) {
+        slide.style.opacity = '1';
+        slide.style.zIndex = '2';
+      } else {
+        slide.style.opacity = '0';
+        slide.style.zIndex = '1';
+      }
+    });
+
     this.dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === this.currentSlide);
     });
@@ -167,27 +223,30 @@ class HeroSlider {
 
   initButtons() {
     if (this.prevBtn) {
-      this.prevBtn.addEventListener('click', () => {
+      this.prevSlideHandler = () => {
         this.prevSlide();
         this.resetAutoplay();
-      });
+      };
+      this.prevBtn.addEventListener('click', this.prevSlideHandler);
     }
     if (this.nextBtn) {
-      this.nextBtn.addEventListener('click', () => {
+      this.nextSlideHandler = () => {
         this.nextSlide();
         this.resetAutoplay();
-      });
+      };
+      this.nextBtn.addEventListener('click', this.nextSlideHandler);
     }
   }
 
   initDots() {
     this.dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
+      this.dotClickHandler = () => {
         if (index !== this.currentSlide) {
           this.goToSlide(index);
           this.resetAutoplay();
         }
-      });
+      };
+      dot.addEventListener('click', this.dotClickHandler);
     });
   }
 
@@ -314,10 +373,21 @@ class FooterAccordion {
       if (openIcon && closeIcon) {
         if (isOpen) {
           openIcon.style.display = 'none';
-          closeIcon.style.display = 'block';
+          openIcon.style.rotate = '90deg';
+          openIcon.style.opacity = '0';
+          openIcon.style.transition = `all ${getComputedStyle(document.documentElement).getPropertyValue('--bs-transition-base')}`;
+          closeIcon.style.display = 'flex';
+          closeIcon.style.transition = `all ${getComputedStyle(document.documentElement).getPropertyValue('--bs-transition-base')}`;
+          closeIcon.style.opacity = '1';
         } else {
-          openIcon.style.display = 'block';
+          openIcon.style.display = 'flex';
           closeIcon.style.display = 'none';
+          closeIcon.style.rotate = '0deg';
+          closeIcon.style.transition = `all ${getComputedStyle(document.documentElement).getPropertyValue('--bs-transition-base')}`;
+          closeIcon.style.opacity = '0';
+          openIcon.style.rotate = '90deg';
+          openIcon.style.transition = `all ${getComputedStyle(document.documentElement).getPropertyValue('--bs-transition-base')}`;
+          openIcon.style.opacity = '1';
         }
       }
     } else {
@@ -545,31 +615,31 @@ class ColorSwatch {
 // Initialize components
 document.addEventListener('DOMContentLoaded', () => {
   new MobileMenu();
-  new HeroSlider();
+  heroSliderInstance = new HeroSlider();
   new NewArrivals();
   new FooterAccordion();
   new ColorSwatch();
 });
 
-// // fadein when load page or scroll
-// document.addEventListener('DOMContentLoaded', function() {
-//   const fadeEls = document.querySelectorAll('.fade-in-left');
+// fadein when load page or scroll
+document.addEventListener('DOMContentLoaded', function () {
+  const fadeEls = document.querySelectorAll('.fade-in-left');
 
-//   function revealOnScroll() {
-//     for (const el of fadeEls) {
-//       const rect = el.getBoundingClientRect();
-//       if (rect.top < window.innerHeight - 40) {
-//         el.classList.add('visible');
-//       }
-//     }
-//   }
+  function revealOnScroll() {
+    for (const el of fadeEls) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 40) {
+        el.classList.add('visible');
+      }
+    }
+  }
 
-//   // fadein when load page or scroll
-//   setTimeout(() => {
-//     document.body.classList.add('visible');
-//     revealOnScroll();
-//   }, 100);
+  // fadein when load page or scroll
+  setTimeout(() => {
+    document.body.classList.add('visible');
+    revealOnScroll();
+  }, 100);
 
-//   window.addEventListener('scroll', revealOnScroll);
-//   revealOnScroll();
-// });
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+});
