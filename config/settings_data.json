@@ -161,22 +161,22 @@
           "link_category_7mWBVb": {
             "type": "link_category",
             "settings": {
-              "button_text": "Special Offers",
-              "button_url": ""
+              "button_text": "Underware",
+              "button_url": "#"
             }
           },
           "link_category_ma4rKE": {
             "type": "link_category",
             "settings": {
-              "button_text": "Special Offers",
-              "button_url": ""
+              "button_text": "Top Brands",
+              "button_url": "#"
             }
           },
           "link_category_XdnCY9": {
             "type": "link_category",
             "settings": {
-              "button_text": "Special Offers",
-              "button_url": ""
+              "button_text": "Online Exclusive",
+              "button_url": "#"
             }
           }
         },
