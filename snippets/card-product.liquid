@@ -345,12 +345,20 @@
                   novalidate: 'novalidate',
                   data-type: 'add-to-cart-form'
                 -%}
+                  {% assign available_variant = null %}
+                  {% for variant in card_product.variants %}
+                    {% if variant.available %}
+                      {% assign available_variant = variant %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                  
                   <input
                     type="hidden"
                     name="id"
-                    value="{{ card_product.selected_or_first_available_variant.id }}"
+                    value="{{ available_variant.id | default: card_product.selected_or_first_available_variant.id }}"
                     class="product-variant-id"
-                    {% if card_product.selected_or_first_available_variant.available == false %}
+                    {% if available_variant == null %}
                       disabled
                     {% endif %}
                   >
@@ -363,12 +371,12 @@
                     aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                     aria-live="polite"
                     data-sold-out-message="true"
-                    {% if card_product.selected_or_first_available_variant.available == false %}
+                    {% if available_variant == null %}
                       disabled
                     {% endif %}
                   >
                     <span>
-                      {%- if card_product.selected_or_first_available_variant.available -%}
+                      {%- if available_variant -%}
                         {{ 'products.product.add_to_cart' | t }}
                       {%- else -%}
                         {{ 'products.product.sold_out' | t }}
@@ -390,13 +398,21 @@
           </div>
         {% elsif quick_add == 'bulk' %}
           {% if card_product.variants_count == 1 %}
+            {% assign available_variant = null %}
+            {% for variant in card_product.variants %}
+              {% if variant.available %}
+                {% assign available_variant = variant %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            
             <quick-add-bulk
-              data-min="{{ card_product.selected_or_first_available_variant.quantity_rule.min }}"
-              id="quick-add-bulk-{{ card_product.selected_or_first_available_variant.id }}-{{ section.id }}"
+              data-min="{{ available_variant.quantity_rule.min | default: card_product.selected_or_first_available_variant.quantity_rule.min }}"
+              id="quick-add-bulk-{{ available_variant.id | default: card_product.selected_or_first_available_variant.id }}-{{ section.id }}"
               class="quick-add-bulk"
-              data-index="{{ card_product.selected_or_first_available_variant.id }}"
+              data-index="{{ available_variant.id | default: card_product.selected_or_first_available_variant.id }}"
             >
-              {% if card_product.selected_or_first_available_variant.available == false %}
+              {% if available_variant == null %}
                 <button
                   id="{{ product_form_id }}-submit"
                   type="submit"
@@ -412,7 +428,7 @@
                   </span>
                 </button>
               {% else %}
-                {% render 'quantity-input', variant: card_product.selected_or_first_available_variant, min: 0 %}
+                {% render 'quantity-input', variant: available_variant, min: 0 %}
               {% endif %}
             </quick-add-bulk>
           {% else %}

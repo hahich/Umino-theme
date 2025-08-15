@@ -15,6 +15,8 @@ class ProductIconsController {
       const addBtn = e.target.closest('[data-add-to-cart]');
       if (addBtn) {
         e.preventDefault();
+        // Respect disabled/sold-out state
+        if (addBtn.getAttribute('aria-disabled') === 'true') return;
         const variantId = addBtn.getAttribute('data-product-id');
         if (variantId) this.addToCart(variantId, addBtn);
         return;
@@ -117,7 +119,9 @@ class ProductIconsController {
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
         console.error('Add to cart failed:', res.status, errorData);
-        throw new Error(`Add to cart failed: ${res.status} - ${errorData.description || 'Unknown error'}`);
+        const message = errorData.description || 'Cannot add this product to cart.';
+        alert(message);
+        throw new Error(`Add to cart failed: ${res.status} - ${message}`);
       }
 
       const result = await res.json();

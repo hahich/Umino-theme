@@ -14,8 +14,8 @@
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-      </button>
-    </div>
+        </button>
+      </div>
 
     <div class="cart-drawer__body">
       {% if cart.item_count > 0 %}
@@ -23,12 +23,12 @@
           {% for item in cart.items %}
             <div class="cart-drawer__item" data-cart-item="{{ item.key }}">
               <div class="cart-drawer__item-image">
-                {% if item.image %}
+                          {% if item.image %}
                   <img src="{{ item.image | image_url: width: 100 }}" alt="{{ item.image.alt | escape }}" loading="lazy" width="60" height="60">
                 {% else %}
                   <div class="cart-drawer__item-placeholder"></div>
-                {% endif %}
-              </div>
+                          {% endif %}
+                            </div>
               <div class="cart-drawer__item-details">
                 <h3 class="cart-drawer__item-title">{{ item.product.title }}</h3>
                 {% if item.product.has_only_default_variant == false %}
@@ -37,28 +37,28 @@
                       {{ option.name }}: {{ option.value }}{% unless forloop.last %}, {% endunless %}
                     {% endfor %}
                   </p>
-                {% endif %}
+                                    {% endif %}
                 <div class="cart-drawer__item-price">{{ item.final_line_price | money }}</div>
                 <div class="cart-drawer__item-quantity">
                   <button class="cart-drawer__quantity-btn" data-action="decrease" data-item-key="{{ item.key }}">-</button>
                   <span class="cart-drawer__quantity-value">{{ item.quantity }}</span>
                   <button class="cart-drawer__quantity-btn" data-action="increase" data-item-key="{{ item.key }}">+</button>
-                </div>
+                            </div>
               </div>
               <button class="cart-drawer__remove-btn" data-action="remove" data-item-key="{{ item.key }}" aria-label="Remove {{ item.product.title }}">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-            </div>
+          </div>
           {% endfor %}
-        </div>
+          </div>
       {% else %}
         <div class="cart-drawer__empty">
           <h3 class="cart-drawer__empty-title">Your cart is empty.</h3>
           <p class="cart-drawer__empty-message">Find trending collection, products right below!</p>
         </div>
-      {% endif %}
+            {% endif %}
     </div>
 
     {% if cart.item_count > 0 %}
@@ -78,7 +78,7 @@
           Show All Collections
         </button>
         <p class="cart-drawer__shipping">🔥 Free delivery on orders over 175₫</p>
-      </div>
+    </div>
     {% endif %}
   </div>
 </div>

@@ -26,6 +26,14 @@
 
       {% for product in new_arrivals_collection.products reversed limit: product_limit %}
         <div class="new-arrivals-item">
+          {% comment %} Debug info - remove this after testing {% endcomment %}
+          <div style="font-size: 10px; background: #f0f0f0; padding: 2px; margin-bottom: 5px; border-radius: 3px;">
+            {{ product.title }} - Variants: {{ product.variants.size }} | 
+            {% for variant in product.variants %}
+              V{{ variant.id }}({{ variant.available }},{{ variant.inventory_quantity }}) 
+            {% endfor %}
+          </div>
+          
           {% if forloop.index == 1 %}
             <span class="badge badge-soldout">Sold Out</span>
             <div class="na-mobile-container">
@@ -74,9 +82,23 @@
                   </a>
                 </div>
                 <div class="product-icon-cart product-icon">
-                  {% assign fav = product.selected_or_first_available_variant %}
-                  {% if fav and fav.available %}
-                    <a href="#" aria-label="icon-cart" data-add-to-cart data-product-id="{{ fav.id }}" title="Add to cart">
+                  {% assign available_variant = null %}
+                  {% comment %} Debug: Show product info {% endcomment %}
+                  {% comment %} Product: {{ product.title }} - Variants: {{ product.variants.size }} {% endcomment %}
+                  
+                  {% for variant in product.variants %}
+                    {% comment %} Debug: Variant {{ variant.id }} - Available: {{ variant.available }} - Inventory: {{ variant.inventory_quantity }} {% endcomment %}
+                    {% comment %} Check if variant is available OR has inventory policy that allows continuing {% endcomment %}
+                    {% if variant.available or variant.inventory_policy == 'continue' or variant.inventory_quantity > 0 %}
+                      {% assign available_variant = variant %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                  
+                  {% comment %} Debug: Available variant: {{ available_variant.id | default: 'NONE' }} {% endcomment %}
+                  
+                  {% if available_variant %}
+                    <a href="#" aria-label="icon-cart" data-add-to-cart data-product-id="{{ available_variant.id }}" title="Add to cart">
                       <svg width="14" height="14" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.0452 10.8307C9.89199 10.8307 9.74503 10.7691 9.63667 10.6595C9.52831 10.55 9.46743 10.4013 9.46743 10.2463H8.31182C8.31182 10.7113 8.49444 11.1572 8.81952 11.486C9.1446 11.8147 9.58551 11.9994 10.0452 11.9994C10.505 11.9994 10.9459 11.8147 11.271 11.486C11.596 11.1572 11.7787 10.7113 11.7787 10.2463H10.623C10.623 10.4013 10.5622 10.55 10.4538 10.6595C10.3454 10.7691 10.1985 10.8307 10.0452 10.8307Z" fill="#111111"/>
                         <path d="M
