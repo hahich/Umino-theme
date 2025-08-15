@@ -18,17 +18,22 @@ class CartDrawer {
     this.closeBtn?.addEventListener('click', () => this.close());
     this.overlay?.addEventListener('click', () => this.close());
     
-    // Cart operations
+    // Cart operations (use closest for robust delegation)
     document.addEventListener('click', (e) => {
-      const target = e.target;
-      
-      // Quantity buttons
-      if (target.matches('[data-action="increase"]')) {
-        this.updateQuantity(target.dataset.itemKey, 1);
-      } else if (target.matches('[data-action="decrease"]')) {
-        this.updateQuantity(target.dataset.itemKey, -1);
-      } else if (target.matches('[data-action="remove"]')) {
-        this.removeItem(target.dataset.itemKey);
+      const incBtn = e.target.closest('[data-action="increase"]');
+      if (incBtn) {
+        this.updateQuantityByDelta(incBtn.dataset.itemKey, +1, incBtn);
+        return;
+      }
+      const decBtn = e.target.closest('[data-action="decrease"]');
+      if (decBtn) {
+        this.updateQuantityByDelta(decBtn.dataset.itemKey, -1, decBtn);
+        return;
+      }
+      const removeBtn = e.target.closest('[data-action="remove"]');
+      if (removeBtn) {
+        this.removeItem(removeBtn.dataset.itemKey, removeBtn);
+        return;
       }
     });
 
@@ -149,45 +154,63 @@ class CartDrawer {
     `;
   }
 
-  async updateQuantity(itemKey, change) {
+  // Compute absolute quantity from the UI and apply delta
+  async updateQuantityByDelta(itemKey, delta, sourceEl) {
+    if (!itemKey || !this.drawer) return;
+    const itemEl = this.drawer.querySelector(`[data-cart-item="${CSS.escape(itemKey)}"]`);
+    const qtyEl = itemEl?.querySelector('.cart-drawer__quantity-value');
+    const current = parseInt(qtyEl?.textContent || '1', 10);
+    const next = Math.max(0, current + delta);
+    if (next === current) return;
+    if (sourceEl) sourceEl.disabled = true;
+    await this.changeQuantity(itemKey, next);
+    if (sourceEl) sourceEl.disabled = false;
+  }
+
+  async changeQuantity(itemKey, newQuantity) {
     try {
       const response = await fetch('/cart/change.js', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: itemKey,
-          quantity: change
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: itemKey, quantity: newQuantity })
       });
-      
       if (response.ok) {
-        this.updateCart();
+        const cart = await response.json();
+        // Render immediately with server response
+        this.renderCart(cart);
+        this.updateCartCount();
+        document.dispatchEvent(new CustomEvent('cart:updated'));
+      } else {
+        const err = await response.json().catch(() => ({}));
+        console.error('Cart change failed', err);
       }
     } catch (error) {
       console.error('Error updating quantity:', error);
     }
   }
 
-  async removeItem(itemKey) {
+  async removeItem(itemKey, sourceEl) {
+    if (!itemKey) return;
+    if (sourceEl) sourceEl.disabled = true;
     try {
       const response = await fetch('/cart/change.js', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: itemKey,
-          quantity: 0
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: itemKey, quantity: 0 })
       });
-      
       if (response.ok) {
-        this.updateCart();
+        const cart = await response.json();
+        this.renderCart(cart);
+        this.updateCartCount();
+        document.dispatchEvent(new CustomEvent('cart:updated'));
+      } else {
+        const err = await response.json().catch(() => ({}));
+        console.error('Remove item failed', err);
       }
     } catch (error) {
       console.error('Error removing item:', error);
+    } finally {
+      if (sourceEl) sourceEl.disabled = false;
     }
   }
 

@@ -19,7 +19,9 @@ class WishlistManager {
   loadWishlist() {
     try {
       const stored = localStorage.getItem(this.wishlistKey);
-      return stored ? JSON.parse(stored) : [];
+      const parsed = stored ? JSON.parse(stored) : [];
+      // normalize as strings to avoid indexOf mismatch
+      return parsed.map(id => String(id));
     } catch (error) {
       console.error('Error loading wishlist:', error);
       return [];
@@ -29,17 +31,19 @@ class WishlistManager {
   saveWishlist() {
     try {
       localStorage.setItem(this.wishlistKey, JSON.stringify(this.wishlistItems));
+      document.dispatchEvent(new Event('wishlist:updated'));
     } catch (error) {
       console.error('Error saving wishlist:', error);
     }
   }
 
   addToWishlist(productId) {
-    if (!this.wishlistItems.includes(productId)) {
-      this.wishlistItems.push(productId);
+    const id = String(productId);
+    if (!this.wishlistItems.includes(id)) {
+      this.wishlistItems.push(id);
       this.saveWishlist();
       this.updateHeaderCounter();
-      this.updateProductButton(productId, true);
+      this.updateProductButton(id, true);
       this.showNotification('Added to wishlist', 'success');
       return true;
     }
@@ -47,12 +51,13 @@ class WishlistManager {
   }
 
   removeFromWishlist(productId) {
-    const index = this.wishlistItems.indexOf(productId);
+    const id = String(productId);
+    const index = this.wishlistItems.indexOf(id);
     if (index > -1) {
       this.wishlistItems.splice(index, 1);
       this.saveWishlist();
       this.updateHeaderCounter();
-      this.updateProductButton(productId, false);
+      this.updateProductButton(id, false);
       this.showNotification('Removed from wishlist', 'info');
       return true;
     }
@@ -60,15 +65,16 @@ class WishlistManager {
   }
 
   toggleWishlist(productId) {
-    if (this.wishlistItems.includes(productId)) {
-      return this.removeFromWishlist(productId);
+    const id = String(productId);
+    if (this.wishlistItems.includes(id)) {
+      return this.removeFromWishlist(id);
     } else {
-      return this.addToWishlist(productId);
+      return this.addToWishlist(id);
     }
   }
 
   isInWishlist(productId) {
-    return this.wishlistItems.includes(productId);
+    return this.wishlistItems.includes(String(productId));
   }
 
   updateHeaderCounter() {
@@ -80,8 +86,8 @@ class WishlistManager {
   }
 
   updateProductButton(productId, isInWishlist) {
-    const button = document.querySelector(`[data-wishlist-button][data-product-id="${productId}"]`);
-    if (button) {
+    const buttons = document.querySelectorAll(`[data-wishlist-button][data-product-id="${CSS.escape(String(productId))}"]`);
+    buttons.forEach(button => {
       if (isInWishlist) {
         button.classList.add('wishlist-button--active');
         button.setAttribute('aria-label', 'Remove from wishlist');
@@ -91,7 +97,7 @@ class WishlistManager {
         button.setAttribute('aria-label', 'Add to wishlist');
         button.setAttribute('title', 'Add to wishlist');
       }
-    }
+    });
   }
 
   initWishlistButtons() {
@@ -108,6 +114,16 @@ class WishlistManager {
       }
     });
 
+    // Delegated handler to be robust for dynamic content (no reloads required)
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-wishlist-button]');
+      if (!btn) return;
+      const id = btn.dataset.productId;
+      if (!id) return;
+      e.preventDefault();
+      this.toggleWishlist(id);
+    });
+
     // Listen for new buttons (for dynamic content)
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -119,11 +135,6 @@ class WishlistManager {
               if (productId && !button.hasAttribute('data-wishlist-initialized')) {
                 button.setAttribute('data-wishlist-initialized', 'true');
                 this.updateProductButton(productId, this.isInWishlist(productId));
-                
-                button.addEventListener('click', (e) => {
-                  e.preventDefault();
-                  this.toggleWishlist(productId);
-                });
               }
             });
           }
@@ -131,10 +142,7 @@ class WishlistManager {
       });
     });
 
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 
   listenForCartChanges() {
@@ -184,24 +192,16 @@ class WishlistManager {
     document.body.appendChild(notification);
     
     // Animate in
-    setTimeout(() => {
-      notification.style.transform = 'translateX(0)';
-    }, 100);
+    setTimeout(() => { notification.style.transform = 'translateX(0)'; }, 100);
     
     // Remove after 3 seconds
     setTimeout(() => {
       notification.style.transform = 'translateX(100%)';
-      setTimeout(() => {
-        if (notification.parentNode) {
-          notification.parentNode.removeChild(notification);
-        }
-      }, 300);
+      setTimeout(() => { if (notification.parentNode) notification.parentNode.removeChild(notification); }, 300);
     }, 3000);
   }
 
-  getWishlistItems() {
-    return [...this.wishlistItems];
-  }
+  getWishlistItems() { return [...this.wishlistItems]; }
 
   clearWishlist() {
     this.wishlistItems = [];
@@ -213,9 +213,7 @@ class WishlistManager {
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    window.wishlistManager = new WishlistManager();
-  });
+  document.addEventListener('DOMContentLoaded', () => { window.wishlistManager = new WishlistManager(); });
 } else {
   window.wishlistManager = new WishlistManager();
 } 

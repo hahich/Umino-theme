@@ -23,8 +23,30 @@ class WishlistModal {
       if (e.key === 'Escape' && this.modal.classList.contains('is-open')) this.close();
     });
 
-    // React to wishlist changes (from assets/wishlist.js)
+    // React to wishlist changes
     document.addEventListener('wishlist:updated', () => this.render());
+
+    // Delegated buttons inside modal
+    this.modal.addEventListener('click', (e) => {
+      const removeBtn = e.target.closest('[data-action="remove"]');
+      if (removeBtn) {
+        const id = removeBtn.dataset.id;
+        const list = this.getItems();
+        const idx = list.findIndex(v => String(v) === String(id));
+        if (idx > -1) {
+          list.splice(idx, 1);
+          localStorage.setItem(this.key, JSON.stringify(list));
+          document.dispatchEvent(new Event('wishlist:updated'));
+        }
+        return;
+      }
+      const addBtn = e.target.closest('[data-action="add"]');
+      if (addBtn) {
+        const handle = addBtn.dataset.handle;
+        if (handle) this.addVariantToCart(handle);
+        return;
+      }
+    });
 
     // Initial render
     this.render();
@@ -120,28 +142,6 @@ class WishlistModal {
     }).join('');
 
     this.itemsWrap.innerHTML = html;
-
-    // Bind actions
-    this.itemsWrap.querySelectorAll('[data-action="remove"]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.id;
-        const list = this.getItems();
-        const idx = list.indexOf(id) !== -1 ? list.indexOf(id) : list.indexOf(Number(id));
-        if (idx > -1) {
-          list.splice(idx, 1);
-          localStorage.setItem(this.key, JSON.stringify(list));
-          document.dispatchEvent(new Event('wishlist:updated'));
-          this.render();
-        }
-      });
-    });
-
-    this.itemsWrap.querySelectorAll('[data-action="add"]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const handle = btn.dataset.handle;
-        if (handle) this.addVariantToCart(handle);
-      });
-    });
   }
 }
 
