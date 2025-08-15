@@ -139,9 +139,9 @@
         "type": "footer",
         "settings": {
           "hot_category": "Hot Categories",
-          "category_menu": "",
+          "category_menu": "hot-categories",
           "customer_service_title": "Customer Service",
-          "customer_service_menu": "",
+          "customer_service_menu": "customer-service",
           "newsletter_title": "",
           "newsletter_description": "",
           "enable_language_selector": true,
