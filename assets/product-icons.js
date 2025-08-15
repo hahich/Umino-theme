@@ -88,6 +88,14 @@ class ProductIconsController {
   }
 
   async addToCart(variantId, button) {
+    // Validate variant ID
+    if (!variantId || isNaN(Number(variantId))) {
+      console.error('Invalid variant ID:', variantId);
+      return;
+    }
+
+    console.log('Adding to cart - Variant ID:', variantId, 'Button:', button);
+
     // optimistic UI: increment header count immediately
     const badge = document.querySelector('[data-cart-count]');
     let prev = parseInt(badge?.textContent || '0', 10);
@@ -97,12 +105,23 @@ class ProductIconsController {
     }
 
     try {
+      const requestBody = { items: [{ id: Number(variantId), quantity: 1 }] };
+      console.log('Cart request body:', requestBody);
+      
       const res = await fetch('/cart/add.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: [{ id: Number(variantId), quantity: 1 }] })
+        body: JSON.stringify(requestBody)
       });
-      if (!res.ok) throw new Error('Add to cart failed');
+      
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        console.error('Add to cart failed:', res.status, errorData);
+        throw new Error(`Add to cart failed: ${res.status} - ${errorData.description || 'Unknown error'}`);
+      }
+
+      const result = await res.json();
+      console.log('Add to cart success:', result);
 
       // dispatch event for any listeners
       document.dispatchEvent(new CustomEvent('cart:updated'));
@@ -112,7 +131,7 @@ class ProductIconsController {
         badge.textContent = String(Math.max(0, prev));
         if (prev === 0) badge.style.display = 'none';
       }
-      console.error(err);
+      console.error('Add to cart error:', err);
     }
   }
 }
