@@ -143,10 +143,50 @@
               "button_text": "Special Offers",
               "button_url": ""
             }
+          },
+          "link_category_HWT3BP": {
+            "type": "link_category",
+            "settings": {
+              "button_text": "Performance",
+              "button_url": "#"
+            }
+          },
+          "link_category_7iJAJb": {
+            "type": "link_category",
+            "settings": {
+              "button_text": "T-Shirt",
+              "button_url": "#"
+            }
+          },
+          "link_category_7mWBVb": {
+            "type": "link_category",
+            "settings": {
+              "button_text": "Special Offers",
+              "button_url": ""
+            }
+          },
+          "link_category_ma4rKE": {
+            "type": "link_category",
+            "settings": {
+              "button_text": "Special Offers",
+              "button_url": ""
+            }
+          },
+          "link_category_XdnCY9": {
+            "type": "link_category",
+            "settings": {
+              "button_text": "Special Offers",
+              "button_url": ""
+            }
           }
         },
         "block_order": [
-          "link_category_qrfrpN"
+          "link_category_qrfrpN",
+          "link_category_HWT3BP",
+          "link_category_7iJAJb",
+          "link_category_7mWBVb",
+          "link_category_ma4rKE",
+          "link_category_XdnCY9"
         ],
         "settings": {
           "hot_category": "Hot Categories",
