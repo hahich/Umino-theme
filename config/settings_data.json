@@ -131,7 +131,7 @@
         "type": "header",
         "settings": {
           "menu": "main-menu",
-          "submenu_width": "200px"
+          "submenu_width": "full"
         }
       },
       "footer": {
