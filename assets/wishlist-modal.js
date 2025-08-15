@@ -36,9 +36,11 @@ class WishlistModal {
         if (idx > -1) {
           list.splice(idx, 1);
           localStorage.setItem(this.key, JSON.stringify(list));
-          document.dispatchEvent(new Event('wishlist:updated'));
+          // Persist intent to reopen after reload
+          sessionStorage.setItem('open_wishlist_after_reload', '1');
+          location.reload();
+          return;
         }
-        return;
       }
       const addBtn = e.target.closest('[data-action="add"]');
       if (addBtn) {
@@ -50,6 +52,13 @@ class WishlistModal {
 
     // Initial render
     this.render();
+
+    // Auto-open if requested after reload
+    if (sessionStorage.getItem('open_wishlist_after_reload') === '1') {
+      sessionStorage.removeItem('open_wishlist_after_reload');
+      // slight delay to ensure layout is ready
+      setTimeout(() => this.open(), 50);
+    }
   }
 
   open() {

@@ -106,11 +106,6 @@ class WishlistManager {
       const productId = button.dataset.productId;
       if (productId) {
         this.updateProductButton(productId, this.isInWishlist(productId));
-        
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          this.toggleWishlist(productId);
-        });
       }
     });
 
