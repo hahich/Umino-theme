@@ -1,25 +1,103 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "slider": {
       "type": "slider",
-      "settings": {}
+      "blocks": {
+        "slide_Uiqg47": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/slideshow-1.jpg",
+            "heading1": "Stylish",
+            "heading2": "Top Trending",
+            "color_text": "#000000",
+            "subheading": "So soft you don't want to take it off.",
+            "heading_font_size": 80,
+            "subheading_font_size": 16,
+            "button_text": "Explore Now",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "slide_T3MyYf": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/slideshow-1.jpg",
+            "heading1": "Stylish",
+            "heading2": "Top Trending",
+            "color_text": "#000000",
+            "subheading": "So soft you don't want to take it off.",
+            "heading_font_size": 80,
+            "subheading_font_size": 16,
+            "button_text": "Explore Now",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "slide_xrQFNh": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/slideshow-1.jpg",
+            "heading1": "Stylish",
+            "heading2": "Top Trending",
+            "color_text": "#000000",
+            "subheading": "So soft you don't want to take it off.",
+            "heading_font_size": 80,
+            "subheading_font_size": 16,
+            "button_text": "Explore Now",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "slide_Uiqg47",
+        "slide_T3MyYf",
+        "slide_xrQFNh"
+      ],
+      "settings": {
+        "content_position": "middle"
+      }
     },
-    // "testing": {
-    //   "type": "testing",
-    //   "settings": {}
-    // },
     "featured_collection": {
       "type": "featured_collection",
-      "settings": {}
+      "settings": {
+        "title": "Featured Collections",
+        "description": "Elevate your style with our chic featured collection—where fashion meets flair effortlessly.",
+        "collection_img": "shopify://shop_images/clothing.png",
+        "collection_img_1": "shopify://shop_images/33333_1.png",
+        "collection_img_2": "shopify://shop_images/bg.png",
+        "collection_img_3": "shopify://shop_images/img.png",
+        "collection_btn_text": "Clothing",
+        "collection_btn_text_1": "Sunglasses",
+        "collection_btn_text_2": "Bags",
+        "collection_btn_text_3": "Sneaker",
+        "collection_btn_url": "shopify://collections",
+        "collection_btn_url_1": "shopify://collections",
+        "collection_btn_url_2": "shopify://collections",
+        "collection_btn_url_3": "shopify://collections"
+      }
     },
     "new_arrivals": {
       "type": "new_arrivals",
-      "settings": {}
+      "settings": {
+        "title": "New Arrivals",
+        "description": "Here’s some of our most popular products people are in love with.",
+        "collection": "clothes",
+        "product_limit": 4
+      }
     }
   },
   "order": [
     "slider",
-    // "testing",
     "featured_collection",
     "new_arrivals"
   ]
