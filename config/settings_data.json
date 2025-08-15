@@ -138,12 +138,13 @@
       "footer": {
         "type": "footer",
         "settings": {
+          "logo": "shopify://shop_images/Logo.svg",
           "hot_category": "Hot Categories",
           "category_menu": "hot-categories",
           "customer_service_title": "Customer Service",
           "customer_service_menu": "customer-service",
-          "newsletter_title": "",
-          "newsletter_description": "",
+          "newsletter_title": "Sign Up to Newsletter",
+          "newsletter_description": "Enter your email address to get $10 off your first order and free  shipping. Updates information on Sales and Offers.",
           "enable_language_selector": true,
           "enable_country_selector": true
         }
