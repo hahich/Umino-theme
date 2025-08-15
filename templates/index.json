@@ -72,14 +72,18 @@
       "settings": {
         "title": "Featured Collections",
         "description": "Elevate your style with our chic featured collection—where fashion meets flair effortlessly.",
-        "collection_btn_text": "",
-        "collection_btn_text_1": "",
-        "collection_btn_text_2": "",
-        "collection_btn_text_3": "",
-        "collection_btn_url": "",
-        "collection_btn_url_1": "",
-        "collection_btn_url_2": "",
-        "collection_btn_url_3": ""
+        "collection_img": "shopify://shop_images/clothing.png",
+        "collection_img_1": "shopify://shop_images/33333_1.png",
+        "collection_img_2": "shopify://shop_images/bg.png",
+        "collection_img_3": "shopify://shop_images/img.png",
+        "collection_btn_text": "Clothing",
+        "collection_btn_text_1": "Sunglasses",
+        "collection_btn_text_2": "Bags",
+        "collection_btn_text_3": "Sneaker",
+        "collection_btn_url": "shopify://collections",
+        "collection_btn_url_1": "shopify://collections",
+        "collection_btn_url_2": "shopify://collections",
+        "collection_btn_url_3": "shopify://collections"
       }
     },
     "new_arrivals": {
@@ -87,7 +91,7 @@
       "settings": {
         "title": "New Arrivals",
         "description": "Here’s some of our most popular products people are in love with.",
-        "collection": "",
+        "collection": "clothes",
         "product_limit": 4
       }
     }
