@@ -1,0 +1,41 @@
+{% comment %}
+  Usage: {% render 'product-card-wishlist', product: product %}
+  
+  This snippet adds a wishlist button to product cards.
+  Make sure to include it in your product card templates.
+{% endcomment %}
+
+<div class="product-card-wishlist">
+  {% render 'wishlist-button', product: product %}
+</div>
+
+{% style %}
+.product-card-wishlist {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+.product-card-wishlist .wishlist-button {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.product-card-wishlist .wishlist-button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.product-card-wishlist .wishlist-button svg {
+  width: 18px;
+  height: 15px;
+}
+{% endstyle %} 

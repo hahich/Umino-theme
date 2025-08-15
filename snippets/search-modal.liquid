@@ -1,0 +1,216 @@
+<modal-dialog id="SearchModal" class="search-modal">
+  <div class="search-modal__content">
+    <div class="search-modal__header">
+      <h2 class="search-modal__title">{{ 'templates.search.search' | t }}</h2>
+      <button type="button" class="search-modal__close" aria-label="{{ 'accessibility.close' | t }}">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 1L1 13M1 1L13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="search-modal__body">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-modal__form">
+        <div class="search-modal__input-wrapper">
+          <input
+            type="search"
+            name="q"
+            id="Search-In-Modal"
+            class="search-modal__input"
+            placeholder="{{ 'templates.search.search_placeholder' | t }}"
+            value="{{ search.terms | escape }}"
+            aria-label="{{ 'templates.search.search_placeholder' | t }}"
+          >
+          <button type="submit" class="search-modal__submit" aria-label="{{ 'templates.search.search' | t }}">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="search-modal__popular">
+          <h3 class="search-modal__popular-title">{{ 'templates.search.popular_searches' | t }}</h3>
+          <div class="search-modal__popular-tags">
+            <a href="{{ routes.search_url }}?q=shirt" class="search-modal__tag">Shirt</a>
+            <a href="{{ routes.search_url }}?q=dress" class="search-modal__tag">Dress</a>
+            <a href="{{ routes.search_url }}?q=shoes" class="search-modal__tag">Shoes</a>
+            <a href="{{ routes.search_url }}?q=bag" class="search-modal__tag">Bag</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</modal-dialog>
+
+{% style %}
+.search-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.search-modal[open] {
+  display: flex;
+  opacity: 1;
+}
+
+.search-modal__content {
+  background: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.search-modal[open] .search-modal__content {
+  transform: translateY(0);
+}
+
+.search-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.search-modal__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.search-modal__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.search-modal__close:hover {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.search-modal__body {
+  padding: 24px;
+}
+
+.search-modal__input-wrapper {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.search-modal__input {
+  width: 100%;
+  padding: 16px 56px 16px 20px;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-modal__input:focus {
+  border-color: #007bff;
+}
+
+.search-modal__submit {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.search-modal__submit:hover {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.search-modal__popular-title {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-modal__popular-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search-modal__tag {
+  padding: 8px 16px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 20px;
+  color: #495057;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.search-modal__tag:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+  color: #212529;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .search-modal__content {
+    width: 95%;
+    margin: 20px;
+  }
+  
+  .search-modal__header {
+    padding: 16px 20px;
+  }
+  
+  .search-modal__body {
+    padding: 20px;
+  }
+  
+  .search-modal__input {
+    padding: 14px 52px 14px 16px;
+    font-size: 16px;
+  }
+}
+{% endstyle %} 

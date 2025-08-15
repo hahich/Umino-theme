@@ -225,6 +225,9 @@
   },
   "templates": {
     "search": {
+      "search": "Search",
+      "search_placeholder": "Search for products, collections, or pages...",
+      "popular_searches": "Popular searches",
       "no_results": "No results found for “{{ terms }}”. Check the spelling or use a different word or phrase.",
       "page": "Page",
       "products": "Products",
