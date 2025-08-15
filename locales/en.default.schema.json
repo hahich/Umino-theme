@@ -1139,22 +1139,45 @@
         }
       },
       "settings": {
+        "logo_header": {
+          "content": "Logo"
+        },
         "logo": {
           "label": "Logo"
+        },
+        "category_header": {
+          "content": "Category"
         },
         "hot_category": {
           "label": "Category Title",
           "default": "Hot Categories"
         },
+        "category_menu": {
+          "label": "Category Menu",
+          "info": "Select a menu to display category links"
+        },
+        "customer_service_header": {
+          "content": "Customer Service"
+        },
         "customer_service_title": {
           "label": "Customer Service Title",
           "default": "Customer Service"
+        },
+        "customer_service_menu": {
+          "label": "Customer Service Menu",
+          "info": "Select a menu to display customer service links"
+        },
+        "newsletter_header": {
+          "content": "Newsletter"
         },
         "newsletter_title": {
           "label": "Newsletter Title"
         },
         "newsletter_description": {
           "label": "Newsletter Description"
+        },
+        "localization_header": {
+          "content": "Language and Currency"
         },
         "enable_language_selector": {
           "label": "Language selector",
@@ -1164,6 +1187,9 @@
           "label": "Country/region selector",
           "info": "Manage countries/regions in [Shopify admin](/admin/settings/markets)"
         }
+      },
+      "presets": {
+        "name": "Footer"
       }
     },
     "header": {

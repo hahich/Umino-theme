@@ -1,6 +1,6 @@
 ---
 description: Liquid development rules for Shopify themes
-globs:
+globs: 
 alwaysApply: true
 ---
 
@@ -355,7 +355,7 @@ alwaysApply: true
       - Can be organized in subdirectories for better file management
       - Supports asset optimization and minification for performance
       - Images should be optimized and include responsive variants when possible
-      - Examples: theme.css, theme.js, logo.png, icon sprites
+      - Examples: theme.css, main.js, logo.png, icon sprites
     }
     theme_locales = {
       - Stores translation files for localizing theme editor and storefront content

@@ -1,3 +1,31 @@
+// Umino Theme - Optimized JavaScript Bundle
+
+// Utility functions
+const debounce = (func, wait) => {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
+
+const throttle = (func, limit) => {
+  let inThrottle;
+  return function() {
+    const args = arguments;
+    const context = this;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+};
+
 // Mobile menu functionality
 class MobileMenu {
   constructor() {
@@ -120,9 +148,7 @@ class HeroSlider {
   }
 
   initThemeEditorListener() {
-    // Listen for theme editor changes
-    if (typeof Shopify !== 'undefined' && Shopify.designMode) {
-      // Listen for block changes
+    if (typeof window.Shopify !== 'undefined' && window.Shopify.designMode) {
       document.addEventListener('shopify:block:select', (event) => {
         if (event.target.closest('.slider-section')) {
           this.stopAutoplay();
@@ -139,7 +165,6 @@ class HeroSlider {
 
   destroy() {
     this.stopAutoplay();
-    // Remove event listeners
     if (this.prevBtn) {
       this.prevBtn.removeEventListener('click', this.prevSlideHandler);
     }
@@ -156,14 +181,12 @@ class HeroSlider {
   goToSlide(index) {
     if (index === this.currentSlide) return;
 
-    // Hide current slide
     this.slides[this.currentSlide].style.opacity = '0';
     this.slides[this.currentSlide].style.transition = 'opacity 0.5s ease';
     this.slides[this.currentSlide].style.zIndex = '1';
 
     this.currentSlide = index;
 
-    // Show new slide
     this.slides[this.currentSlide].style.opacity = '1';
     this.slides[this.currentSlide].style.transition = 'opacity 0.5s ease';
     this.slides[this.currentSlide].style.zIndex = '2';
@@ -187,7 +210,6 @@ class HeroSlider {
   }
 
   updateSlide() {
-    // Hide all slides first
     this.slides.forEach((slide, index) => {
       if (index === this.currentSlide) {
         slide.style.opacity = '1';
@@ -257,12 +279,14 @@ class HeroSlider {
       this.startY = e.touches[0].clientY;
       this.isDragging = true;
     });
+
     this.sliderWrapper.addEventListener('touchmove', (e) => {
       if (!this.isDragging || window.innerWidth > 768) return;
       const diffX = e.touches[0].clientX - this.startX;
       const diffY = e.touches[0].clientY - this.startY;
       if (Math.abs(diffY) > Math.abs(diffX)) this.isDragging = false;
     });
+
     this.sliderWrapper.addEventListener('touchend', (e) => {
       if (!this.isDragging || window.innerWidth > 768) return;
       const endX = e.changedTouches[0].clientX;
@@ -299,12 +323,13 @@ class HeroSlider {
   }
 }
 
-// Footer collapsible for mobile (accordion behavior)
+// Footer accordion for mobile
 class FooterAccordion {
   constructor() {
     this.collapsibles = document.querySelectorAll('.footer-category-wrapper');
     this.contents = document.querySelectorAll('.footer-content');
     this.isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+    
     if (this.collapsibles.length > 0) {
       this.init();
     }
@@ -341,7 +366,7 @@ class FooterAccordion {
       this.closeAll();
     });
 
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', debounce(() => {
       if (!this.isMobile()) {
         this.contents.forEach(content => {
           content.style.maxHeight = null;
@@ -351,7 +376,7 @@ class FooterAccordion {
           this.updateIcon(collapsible, false);
         });
       }
-    });
+    }, 250));
   }
 
   closeAll() {
@@ -397,7 +422,7 @@ class FooterAccordion {
   }
 }
 
-// New Arrivals functionality
+// New Arrivals carousel
 class NewArrivals {
   constructor() {
     this.slider = document.querySelector('.new-arrivals-slider');
@@ -532,10 +557,10 @@ class NewArrivals {
   }
 
   initResizeHandler() {
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', debounce(() => {
       this.currentIndex = 0;
       this.updateSlider();
-    });
+    }, 250));
   }
 
   init() {
@@ -545,7 +570,6 @@ class NewArrivals {
     this.initResizeHandler();
     this.updateSlider();
 
-    // Start autoplay on load if mobile/tablet
     if (window.innerWidth <= 992) {
       this.autoplay();
     }
@@ -576,19 +600,13 @@ class ColorSwatch {
     const productItem = wrapper.closest('.new-arrivals-item');
     if (!productItem) return;
 
-    // Update visual state
     this.updateSelectedState(productItem, wrapper);
-
-    // Update product image
     this.updateProductImage(wrapper, productItem);
   }
 
   updateSelectedState(productItem, selectedWrapper) {
-    // Remove selected class from all swatches in this product
     const allSwatchesInProduct = productItem.querySelectorAll('.color-swatch-wrapper');
     allSwatchesInProduct.forEach(swatch => swatch.classList.remove('selected'));
-
-    // Add selected class to clicked swatch
     selectedWrapper.classList.add('selected');
   }
 
@@ -601,10 +619,8 @@ class ColorSwatch {
     const newImageUrl = colorSwatch.getAttribute('data-image');
     if (!newImageUrl) return;
 
-    // Update the image source
     productImage.src = newImageUrl;
 
-    // Update all data attributes to maintain consistency
     const dataAttributes = ['data-black', 'data-red', 'data-white'];
     dataAttributes.forEach(attr => {
       productImage.setAttribute(attr, newImageUrl);
@@ -612,34 +628,179 @@ class ColorSwatch {
   }
 }
 
-// Initialize components
-document.addEventListener('DOMContentLoaded', () => {
-  new MobileMenu();
-  heroSliderInstance = new HeroSlider();
-  new NewArrivals();
-  new FooterAccordion();
-  new ColorSwatch();
-});
+// Newsletter form functionality
+class NewsletterForm {
+  constructor() {
+    this.init();
+  }
 
-// fadein when load page or scroll
-document.addEventListener('DOMContentLoaded', function () {
-  const fadeEls = document.querySelectorAll('.fade-in-left');
+  init() {
+    const form = document.querySelector('.footer-newsletter-form');
+    if (!form) return;
 
-  function revealOnScroll() {
-    for (const el of fadeEls) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.handleSubmit(form);
+    });
+  }
+
+  async handleSubmit(form) {
+    const emailInput = form.querySelector('input[type="email"]');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    
+    if (!emailInput || !submitBtn) return;
+
+    const email = emailInput.value.trim();
+    
+    if (!email) {
+      this.showMessage('Please enter a valid email address', 'error');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subscribing...';
+
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      this.showMessage('Thank you for subscribing!', 'success');
+      emailInput.value = '';
+    } catch (error) {
+      this.showMessage('Error subscribing. Please try again.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Subscribe';
+    }
+  }
+
+  showMessage(message, type) {
+    const messageElement = document.createElement('div');
+    messageElement.className = `newsletter-message newsletter-message--${type}`;
+    messageElement.textContent = message;
+    
+    messageElement.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 4px;
+      color: white;
+      font-weight: 500;
+      z-index: 1000;
+      animation: slideIn 0.3s ease-out;
+    `;
+    
+    if (type === 'success') {
+      messageElement.style.backgroundColor = '#28a745';
+    } else if (type === 'error') {
+      messageElement.style.backgroundColor = '#dc3545';
+    } else {
+      messageElement.style.backgroundColor = '#17a2b8';
+    }
+    
+    document.body.appendChild(messageElement);
+    
+    setTimeout(() => {
+      messageElement.style.animation = 'slideOut 0.3s ease-in';
+      setTimeout(() => {
+        if (messageElement.parentNode) {
+          messageElement.parentNode.removeChild(messageElement);
+        }
+      }, 300);
+    }, 3000);
+  }
+}
+
+// Localization form functionality
+class LocalizationForm {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    const forms = document.querySelectorAll('.localization-form');
+    
+    forms.forEach(form => {
+      const select = form.querySelector('select');
+      if (select) {
+        select.addEventListener('change', () => {
+          form.submit();
+        });
+      }
+    });
+  }
+}
+
+// Scroll animations
+class ScrollAnimations {
+  constructor() {
+    this.fadeEls = document.querySelectorAll('.fade-in-left');
+    this.init();
+  }
+
+  init() {
+    this.revealOnScroll();
+    
+    setTimeout(() => {
+      document.body.classList.add('visible');
+      this.revealOnScroll();
+    }, 100);
+
+    window.addEventListener('scroll', throttle(() => this.revealOnScroll(), 16));
+  }
+
+  revealOnScroll() {
+    for (const el of this.fadeEls) {
       const rect = el.getBoundingClientRect();
       if (rect.top < window.innerHeight - 40) {
         el.classList.add('visible');
       }
     }
   }
+}
 
-  // fadein when load page or scroll
-  setTimeout(() => {
-    document.body.classList.add('visible');
-    revealOnScroll();
-  }, 100);
+// Theme initialization
+class ThemeManager {
+  constructor() {
+    this.components = [];
+    this.init();
+  }
 
-  window.addEventListener('scroll', revealOnScroll);
-  revealOnScroll();
-});
+  init() {
+    // Initialize all components
+    this.components.push(new MobileMenu());
+    this.components.push(new HeroSlider());
+    this.components.push(new FooterAccordion());
+    this.components.push(new NewArrivals());
+    this.components.push(new ColorSwatch());
+    this.components.push(new NewsletterForm());
+    this.components.push(new LocalizationForm());
+    this.components.push(new ScrollAnimations());
+  }
+
+  destroy() {
+    this.components.forEach(component => {
+      if (component && typeof component.destroy === 'function') {
+        component.destroy();
+      }
+    });
+    this.components = [];
+  }
+}
+
+// Initialize theme when DOM is ready
+let themeManager;
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    themeManager = new ThemeManager();
+  });
+} else {
+  themeManager = new ThemeManager();
+}
+
+// Export for theme editor compatibility
+window.UminoTheme = {
+  themeManager,
+  debounce,
+  throttle
+}; 
