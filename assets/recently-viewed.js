@@ -9,7 +9,7 @@ class RecentlyViewedManager {
   init() {
     // Track current product if on product page
     this.trackCurrentProduct();
-    
+
     // Initialize recently viewed trigger
     this.initRecentlyViewedTrigger();
   }
@@ -35,23 +35,23 @@ class RecentlyViewedManager {
   addToRecentlyViewed(product) {
     // Remove if already exists
     this.recentlyViewedItems = this.recentlyViewedItems.filter(item => item.id !== product.id);
-    
+
     // Add to beginning
     this.recentlyViewedItems.unshift(product);
-    
+
     // Keep only max items
     if (this.recentlyViewedItems.length > this.maxItems) {
       this.recentlyViewedItems = this.recentlyViewedItems.slice(0, this.maxItems);
     }
-    
+
     this.saveRecentlyViewed();
   }
 
-  trackCurrentProduct() {
+  async trackCurrentProduct() {
     // Check if we're on a product page
     const productId = this.getCurrentProductId();
     if (productId) {
-      const product = this.getCurrentProductData();
+      const product = await this.getCurrentProductData();
       if (product) {
         this.addToRecentlyViewed(product);
       }
@@ -59,32 +59,71 @@ class RecentlyViewedManager {
   }
 
   getCurrentProductId() {
-    // Try to get product ID from various sources
+    // Try to get product ID/handle from various sources
     const productId = document.querySelector('[data-product-id]')?.dataset.productId ||
-                     document.querySelector('[data-product-id]')?.value ||
-                     window.location.pathname.match(/\/products\/([^\/\?]+)/)?.[1];
-    
+      document.querySelector('[data-product-id]')?.value ||
+      window.location.pathname.match(/\/products\/([^\/\?]+)/)?.[1];
+
     return productId;
   }
 
-  getCurrentProductData() {
+  getHandleFromUrl(url) {
+    try {
+      const u = new URL(url, window.location.origin);
+      const m = u.pathname.match(/\/products\/([^\/\?]+)/);
+      return m ? m[1] : null;
+    } catch {
+      return null;
+    }
+  }
+
+  normalizeCdnUrl(src) {
+    if (!src) return '';
+    if (src.startsWith('//')) return 'https:' + src;
+    return src;
+  }
+
+  async fetchProductJsonByHandle(handle) {
+    try {
+      const res = await fetch(`/products/${handle}.js`);
+      if (!res.ok) return null;
+      const product = await res.json();
+      return product;
+    } catch {
+      return null;
+    }
+  }
+
+  async getCurrentProductData() {
     const productId = this.getCurrentProductId();
     if (!productId) return null;
 
-    // Try to get product data from meta tags or other sources
     const title = document.querySelector('meta[property="og:title"]')?.content ||
-                  document.querySelector('h1')?.textContent ||
-                  'Product';
-    
-    const image = document.querySelector('meta[property="og:image"]')?.content ||
-                  document.querySelector('.product-image img')?.src ||
-                  '';
-    
+      document.querySelector('h1')?.textContent ||
+      'Product';
+
+    let image = document.querySelector('meta[property="og:image"]')?.content ||
+      document.querySelector('.product-image img')?.src ||
+      '';
+
     const price = document.querySelector('[data-product-price]')?.textContent ||
-                  document.querySelector('.price')?.textContent ||
-                  '';
-    
+      document.querySelector('.price')?.textContent ||
+      '';
+
     const url = window.location.href;
+
+    // If no image found on page, fetch product JSON to get a reliable image
+    if (!image) {
+      const handle = this.getHandleFromUrl(url);
+      if (handle) {
+        const product = await this.fetchProductJsonByHandle(handle);
+        if (product) {
+          image = product.images?.[0] || product.featured_image || '';
+        }
+      }
+    }
+
+    image = this.normalizeCdnUrl(image);
 
     return {
       id: productId,
@@ -101,6 +140,27 @@ class RecentlyViewedManager {
       trigger.addEventListener('click', () => {
         this.showRecentlyViewedModal();
       });
+    }
+  }
+
+  async enrichMissingImages(modal) {
+    const itemsNeedingImage = this.recentlyViewedItems
+      .map((item, index) => ({ item, index }))
+      .filter(({ item }) => !item.image);
+
+    for (const { item, index } of itemsNeedingImage) {
+      const handle = this.getHandleFromUrl(item.url);
+      if (!handle) continue;
+      const product = await this.fetchProductJsonByHandle(handle);
+      if (!product) continue;
+      const img = this.normalizeCdnUrl(product.images?.[0] || product.featured_image || '');
+      if (!img) continue;
+      // Update in-memory and storage
+      this.recentlyViewedItems[index].image = img;
+      this.saveRecentlyViewed();
+      // Update DOM if still open
+      const imgEl = modal.querySelectorAll('.recently-viewed-item__image img')[index];
+      if (imgEl) imgEl.src = img;
     }
   }
 
@@ -125,17 +185,21 @@ class RecentlyViewedManager {
         </div>
         <div class="recently-viewed-modal__body">
           <div class="recently-viewed-grid">
-            ${this.recentlyViewedItems.map(item => `
+            ${this.recentlyViewedItems.map((item, idx) => `
               <div class="recently-viewed-item">
                 <a href="${item.url}" class="recently-viewed-item__link">
                   <div class="recently-viewed-item__image">
-                    <img src="${item.image}" alt="${item.title}" loading="lazy">
+                    ${item.image ? `<img src="${this.normalizeCdnUrl(item.image)}" alt="${item.title}" loading="lazy" width="300" height="300">` : `<div class=\"recently-viewed-item__placeholder\"></div>`}
                   </div>
                   <div class="recently-viewed-item__info">
                     <h4 class="recently-viewed-item__title">${item.title}</h4>
                     ${item.price ? `<p class="recently-viewed-item__price">${item.price}</p>` : ''}
                   </div>
                 </a>
+                <div class="recently-viewed-item__actions">
+                  <button class="rv-btn rv-btn--ghost" data-rv-remove data-index="${idx}">Remove</button>
+                  <button class="rv-btn rv-btn--primary" data-rv-add data-handle="${this.getHandleFromUrl(item.url) || ''}">Add to cart</button>
+                </div>
               </div>
             `).join('')}
           </div>
@@ -236,12 +300,22 @@ class RecentlyViewedManager {
         width: 100%;
         height: 150px;
         overflow: hidden;
+        background: #f6f6f6;
+        display:flex; align-items:center; justify-content:center;
       `;
-      img.querySelector('img').style.cssText = `
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      `;
+      const el = img.querySelector('img');
+      if (el) {
+        el.style.cssText = `
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        `;
+      } else {
+        // placeholder box
+        const ph = document.createElement('div');
+        ph.style.cssText = 'width:60px;height:60px;border-radius:6px;background:#eee;';
+        img.appendChild(ph);
+      }
     });
 
     // Add info styles
@@ -275,6 +349,24 @@ class RecentlyViewedManager {
       `;
     });
 
+    // Actions styles
+    const actionEls = modal.querySelectorAll('.recently-viewed-item__actions');
+    actionEls.forEach(el => {
+      el.style.cssText = `
+        display:flex; gap:8px; padding: 0 16px 16px; justify-content:flex-end;
+      `;
+    });
+    const btns = modal.querySelectorAll('.rv-btn');
+    btns.forEach(b => {
+      b.style.cssText = `
+        border:none; cursor:pointer; border-radius:8px; padding:10px 12px; font-weight:600; font-size:14px;
+      `;
+    });
+    const primary = modal.querySelectorAll('.rv-btn--primary');
+    primary.forEach(b => { b.style.background = '#2ed573'; b.style.color = '#fff'; });
+    const ghost = modal.querySelectorAll('.rv-btn--ghost');
+    ghost.forEach(b => { b.style.background = '#f5f5f5'; b.style.color = '#111'; });
+
     // Add event listeners
     closeBtn.addEventListener('click', () => {
       this.closeRecentlyViewedModal(modal);
@@ -294,17 +386,34 @@ class RecentlyViewedManager {
       content.style.transform = 'translateY(0)';
     }, 100);
 
+    // Enrich items that have no image (fix broken thumbnails)
+    this.enrichMissingImages(modal);
+
+    // Wire actions
+    modal.querySelectorAll('[data-rv-remove]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const index = parseInt(btn.dataset.index, 10);
+        this.removeRecentlyViewed(index, modal);
+      });
+    });
+    modal.querySelectorAll('[data-rv-add]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const handle = btn.dataset.handle;
+        if (handle) await this.addToCartFromHandle(handle);
+      });
+    });
+
     // Store modal reference
     this.currentModal = modal;
   }
 
   closeRecentlyViewedModal(modal) {
     if (!modal) return;
-    
+
     modal.style.opacity = '0';
     const content = modal.querySelector('.recently-viewed-modal__content');
     content.style.transform = 'translateY(-20px)';
-    
+
     setTimeout(() => {
       if (modal.parentNode) {
         modal.parentNode.removeChild(modal);
@@ -331,13 +440,13 @@ class RecentlyViewedManager {
       transition: transform 0.3s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
       notification.style.transform = 'translateX(0)';
     }, 100);
-    
+
     setTimeout(() => {
       notification.style.transform = 'translateX(100%)';
       setTimeout(() => {
@@ -356,6 +465,48 @@ class RecentlyViewedManager {
     this.recentlyViewedItems = [];
     this.saveRecentlyViewed();
     this.showNotification('Recently viewed cleared', 'info');
+  }
+
+  // Helper: remove by index and update DOM
+  removeRecentlyViewed(index, modal) {
+    if (index < 0 || index >= this.recentlyViewedItems.length) return;
+    this.recentlyViewedItems.splice(index, 1);
+    this.saveRecentlyViewed();
+
+    const itemEls = modal.querySelectorAll('.recently-viewed-item');
+    const el = itemEls[index];
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+
+    if (this.recentlyViewedItems.length === 0) {
+      this.closeRecentlyViewedModal(modal);
+      this.showNotification('Recently viewed is now empty', 'info');
+    }
+  }
+
+  // Helper: add first available variant to cart by handle
+  async addToCartFromHandle(handle) {
+    try {
+      const product = await this.fetchProductJsonByHandle(handle);
+      if (!product) return;
+      const variant = product.variants.find(v => v.available) || product.variants[0];
+      if (!variant) return;
+
+      const res = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: [{ id: variant.id, quantity: 1 }] })
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        console.error('Add to cart failed from Recently Viewed', err);
+        return;
+      }
+      document.dispatchEvent(new CustomEvent('cart:updated'));
+      if (window.cartDrawer) window.cartDrawer.open();
+      this.showNotification('Added to cart', 'success');
+    } catch (e) {
+      console.error('Error adding to cart from Recently Viewed:', e);
+    }
   }
 }
 
