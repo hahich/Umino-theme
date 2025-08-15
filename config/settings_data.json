@@ -178,6 +178,41 @@
               "button_text": "Online Exclusive",
               "button_url": "#"
             }
+          },
+          "customer_service_cYkxWf": {
+            "type": "customer_service",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
+          "customer_service_DMHxUD": {
+            "type": "customer_service",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
+          "customer_service_kEVDJQ": {
+            "type": "customer_service",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
+          "customer_service_c9ChgG": {
+            "type": "customer_service",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
+          },
+          "customer_service_QjwED4": {
+            "type": "customer_service",
+            "settings": {
+              "link_text": "Privacy Policy",
+              "link_url": ""
+            }
           }
         },
         "block_order": [
@@ -186,12 +221,17 @@
           "link_category_7iJAJb",
           "link_category_7mWBVb",
           "link_category_ma4rKE",
-          "link_category_XdnCY9"
+          "link_category_XdnCY9",
+          "customer_service_cYkxWf",
+          "customer_service_DMHxUD",
+          "customer_service_kEVDJQ",
+          "customer_service_c9ChgG",
+          "customer_service_QjwED4"
         ],
         "settings": {
           "hot_category": "Hot Categories",
           "customer_service_title": "Customer Service",
-          "newsletter_title": "",
+          "newsletter_title": "sadas",
           "newsletter_description": "",
           "enable_language_selector": true,
           "enable_country_selector": true
