@@ -163,7 +163,6 @@
         <div class="footer-select-wrap">
           {% form 'localization', id: 'FooterCountryForm', class: 'localization-form' %}
             <div class="no-js-hidden">
-              <span id="FooterCountryLabel" class="visually-hidden">Country</span>
               <select class="footer-select" name="country_code" aria-labelledby="FooterCountryLabel">
                 {%- for country in localization.available_countries -%}
                   <option
