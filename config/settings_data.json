@@ -131,108 +131,20 @@
         "type": "header",
         "settings": {
           "menu": "main-menu",
+          "logo": "shopify://shop_images/Logo.png",
           "submenu_width": "full"
         }
       },
       "footer": {
         "type": "footer",
-        "blocks": {
-          "link_category_qrfrpN": {
-            "type": "link_category",
-            "settings": {
-              "button_text": "Special Offers",
-              "button_url": ""
-            }
-          },
-          "link_category_HWT3BP": {
-            "type": "link_category",
-            "settings": {
-              "button_text": "Performance",
-              "button_url": "#"
-            }
-          },
-          "link_category_7iJAJb": {
-            "type": "link_category",
-            "settings": {
-              "button_text": "T-Shirt",
-              "button_url": "#"
-            }
-          },
-          "link_category_7mWBVb": {
-            "type": "link_category",
-            "settings": {
-              "button_text": "Underware",
-              "button_url": "#"
-            }
-          },
-          "link_category_ma4rKE": {
-            "type": "link_category",
-            "settings": {
-              "button_text": "Top Brands",
-              "button_url": "#"
-            }
-          },
-          "link_category_XdnCY9": {
-            "type": "link_category",
-            "settings": {
-              "button_text": "Online Exclusive",
-              "button_url": "#"
-            }
-          },
-          "customer_service_cYkxWf": {
-            "type": "customer_service",
-            "settings": {
-              "link_text": "Privacy Policy",
-              "link_url": ""
-            }
-          },
-          "customer_service_DMHxUD": {
-            "type": "customer_service",
-            "settings": {
-              "link_text": "Privacy Policy",
-              "link_url": ""
-            }
-          },
-          "customer_service_kEVDJQ": {
-            "type": "customer_service",
-            "settings": {
-              "link_text": "Privacy Policy",
-              "link_url": ""
-            }
-          },
-          "customer_service_c9ChgG": {
-            "type": "customer_service",
-            "settings": {
-              "link_text": "Privacy Policy",
-              "link_url": ""
-            }
-          },
-          "customer_service_QjwED4": {
-            "type": "customer_service",
-            "settings": {
-              "link_text": "Privacy Policy",
-              "link_url": ""
-            }
-          }
-        },
-        "block_order": [
-          "link_category_qrfrpN",
-          "link_category_HWT3BP",
-          "link_category_7iJAJb",
-          "link_category_7mWBVb",
-          "link_category_ma4rKE",
-          "link_category_XdnCY9",
-          "customer_service_cYkxWf",
-          "customer_service_DMHxUD",
-          "customer_service_kEVDJQ",
-          "customer_service_c9ChgG",
-          "customer_service_QjwED4"
-        ],
         "settings": {
+          "logo": "shopify://shop_images/Logo.svg",
           "hot_category": "Hot Categories",
+          "category_menu": "hot-categories",
           "customer_service_title": "Customer Service",
-          "newsletter_title": "",
-          "newsletter_description": "",
+          "customer_service_menu": "customer-service",
+          "newsletter_title": "Sign Up to Newsletter",
+          "newsletter_description": "Enter your email address to get $10 off your first order and free  shipping. Updates information on Sales and Offers.",
           "enable_language_selector": true,
           "enable_country_selector": true
         }
