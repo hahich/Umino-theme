@@ -125,6 +125,11 @@ class ProductIconsController {
 
       // dispatch event for any listeners
       document.dispatchEvent(new CustomEvent('cart:updated'));
+      
+      // Open cart drawer
+      if (window.cartDrawer) {
+        window.cartDrawer.open();
+      }
     } catch (err) {
       // revert optimistic update on error
       if (badge) {

@@ -26,6 +26,9 @@
     <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'recently-viewed.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'product-icons.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'wishlist-modal.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'login-modal.js' | asset_url }}" defer="defer"></script>
     <noscript>
       <link
         rel="stylesheet"
@@ -65,6 +68,10 @@
 
     {% render 'divider' %}
     {% section 'footer' %}
+
+    {% render 'cart-drawer' %}
+    {% render 'wishlist-modal' %}
+    {% render 'login-modal' %}
 
   </body>
 </html>

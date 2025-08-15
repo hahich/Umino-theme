@@ -1,0 +1,32 @@
+<div id="login-modal" class="modal" aria-hidden="true" role="dialog" aria-label="Login">
+	<div class="modal__overlay" data-close></div>
+	<div class="modal__content" role="document">
+		<header class="modal__header">
+			<h3 class="modal__title">Sign in</h3>
+			<button type="button" class="modal__close" aria-label="Close" data-close>&#215;</button>
+		</header>
+		<section class="modal__body">
+			{%- if customer -%}
+				<p>You are signed in as {{ customer.email }}.</p>
+			{%- else -%}
+				{%- form 'customer_login', novalidate: 'novalidate', class: 'login-form' -%}
+					<div class="field">
+						<label for="CustomerEmail">Email</label>
+						<input type="email" id="CustomerEmail" name="customer[email]" required>
+					</div>
+					<div class="field">
+						<label for="CustomerPassword">Password</label>
+						<input type="password" id="CustomerPassword" name="customer[password]" required>
+					</div>
+					<button type="submit" class="btn btn--primary" style="width:100%">Sign in</button>
+				{%- endform -%}
+			{%- endif -%}
+		</section>
+	</div>
+</div>
+
+{% style %}
+.login-form .field{display:flex; flex-direction:column; gap:6px; margin-bottom:12px;}
+.login-form label{font-size:13px; color:#444;}
+.login-form input{padding:10px 12px; border:1px solid #ddd; border-radius:8px; font-size:14px;}
+{% endstyle %} 
