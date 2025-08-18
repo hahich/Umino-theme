@@ -82,7 +82,12 @@ class ProductForm {
     if (!variantId || !productId) return;
 
     try {
-      const response = await fetch(`/products/${productId}.js`);
+      // Prefer handle-based endpoint; derive handle from container data-url or current path
+      const container = select.closest('[data-url]') || document.querySelector('[data-url]');
+      const productUrl = container?.getAttribute('data-url') || window.location.pathname;
+      const match = productUrl.match(/\/products\/(.+?)(?:[\/?]|$)/);
+      const handle = match ? match[1] : productId;
+      const response = await fetch(`/products/${handle}.js`);
       if (response.ok) {
         const product = await response.json();
         const variant = product.variants.find(v => v.id.toString() === variantId);

@@ -69,7 +69,12 @@ class ProductModal {
   }
 
   async fetchProductData(productId) {
-    const response = await fetch(`/products/${productId}.js`);
+    // Prefer handle-based endpoint; get handle from a nearby element or fallback to current URL
+    const triggerEl = document.querySelector(`[data-product-modal-open][data-product-id="${productId}"]`);
+    const handleAttr = triggerEl?.getAttribute('data-product-handle');
+    const fromUrl = window.location.pathname.match(/\/products\/(.+?)(?:[\/?]|$)/)?.[1];
+    const handle = handleAttr || fromUrl || productId;
+    const response = await fetch(`/products/${handle}.js`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch product data');

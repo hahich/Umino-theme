@@ -24,16 +24,21 @@
         assign new_arrivals_collection = collections[collection_handle]
       %}
 
+      <script>
+        console.log('=== COLLECTION STOCK DEBUG ===');
+        console.log('Collection Handle:', '{{ collection_handle }}');
+        console.log('Collection Object:', {{ new_arrivals_collection | json }});
+        console.log('Products in collection:');
+        {% for product in new_arrivals_collection.products limit: product_limit %}
+          {% for variant in product.variants %}
+            console.log('    * Stock={{ variant.inventory_quantity }}, Policy={{ variant.inventory_policy }}, Available={{ variant.available }}');
+          {% endfor %}
+        {% endfor %}
+        console.log('=== END COLLECTION STOCK DEBUG ===');
+      </script>
+
       {% for product in new_arrivals_collection.products reversed limit: product_limit %}
         <div class="new-arrivals-item">
-          {% comment %} Debug info - remove this after testing {% endcomment %}
-          <div style="font-size: 10px; background: #f0f0f0; padding: 2px; margin-bottom: 5px; border-radius: 3px;">
-            {{ product.title }} - Variants: {{ product.variants.size }} | 
-            {% for variant in product.variants %}
-              V{{ variant.id }}({{ variant.available }},{{ variant.inventory_quantity }}) 
-            {% endfor %}
-          </div>
-          
           {% if forloop.index == 1 %}
             <span class="badge badge-soldout">Sold Out</span>
             <div class="na-mobile-container">
@@ -75,7 +80,15 @@
                   {% render 'wishlist-button', product: product %}
                 </div>
                 <div class="product-icon-eye product-icon">
-                  <a href="#" aria-label="icon-eye" data-quick-view data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}" data-product-title="{{ product.title | escape }}" data-product-image="{{ product.featured_image | image_url: width: 600 }}">
+                  <a
+                    href="#"
+                    aria-label="icon-eye"
+                    data-quick-view
+                    data-product-id="{{ product.id }}"
+                    data-product-handle="{{ product.handle }}"
+                    data-product-title="{{ product.title | escape }}"
+                    data-product-image="{{ product.featured_image | image_url: width: 600 }}"
+                  >
                     <svg width="14" height="14" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0.0683594 5.9043C0.0683594 5.9043 0.123047 5.80404 0.232422 5.60352C0.341797 5.39388 0.501302 5.13867 0.710938 4.83789C0.847656 4.64648 0.998047 4.44141 1.16211 4.22266C1.33529 3.99479 1.52669 3.76693 1.73633 3.53906C2.00065 3.25651 2.29232 2.97396 2.61133 2.69141C2.93945 2.40885 3.29492 2.14909 3.67773 1.91211C4.14258 1.62044 4.65299 1.38346 5.20898 1.20117C5.76497 1.00977 6.36198 0.914062 7 0.914062C7.63802 0.914062 8.23503 1.00977 8.79102 1.20117C9.34701 1.38346 9.85742 1.62044 10.3223 1.91211C10.7051 2.14909 11.056 2.40885 11.375 2.69141C11.7031 2.97396 11.9993 3.25651 12.2637 3.53906C12.4733 3.76693 12.6602 3.99479 12.8242 4.22266C12.9974 4.44141 13.1523 4.64648 13.2891 4.83789C13.4987 5.13867 13.6582 5.39388 13.7676 5.60352C13.877 5.80404 13.9316 5.9043 13.9316 5.9043C13.9772 5.99544 14 6.08659 14 6.17773C14 6.26888 13.9772 6.35091 13.9316 6.42383C13.9316 6.42383 13.877 6.52865 13.7676 6.73828C13.6582 6.9388 13.4987 7.19401 13.2891 7.50391C13.1523 7.69531 12.9974 7.90495 12.8242 8.13281C12.6602 8.35156 12.4733 8.57487 12.2637 8.80273C11.9993 9.08529 11.7031 9.36784 11.375 9.65039C11.056 9.93294 10.7051 10.1927 10.3223 10.4297C9.85742 10.7214 9.34701 10.9583 8.79102 11.1406C8.23503 11.3229 7.63802 11.4141 7 11.4141C6.36198 11.4141 5.76497 11.3229 5.20898 11.1406C4.65299 10.9583 4.14258 10.7214 3.67773 10.4297C3.29492 10.1927 2.93945 9.93294 2.61133 9.65039C2.29232 9.36784 2.00065 9.08529 1.73633 8.80273C1.52669 8.57487 1.33529 8.35156 1.16211 8.13281C0.998047 7.90495 0.847656 7.69531 0.710938 7.50391C0.501302 7.19401 0.341797 6.9388 0.232422 6.73828C0.123047 6.52865 0.0683594 6.42383 0.0683594 6.42383C0.0227865 6.3418 0 6.25521 0 6.16406C0 6.07292 0.0227865 5.98633 0.0683594 5.9043ZM1.24414 6.16406C1.29883 6.24609 1.35807 6.34635 1.42188 6.46484C1.49479 6.57422 1.58138 6.70182 1.68164 6.84766C1.80013 7.02083 1.93685 7.20768 2.0918 7.4082C2.24674 7.60872 2.41536 7.80924 2.59766 8.00977C2.83464 8.26497 3.0944 8.51562 3.37695 8.76172C3.65951 9.00781 3.96484 9.23568 4.29297 9.44531C4.6849 9.68229 5.10417 9.87826 5.55078 10.0332C6.00651 10.179 6.48958 10.252 7 10.252C7.51042 10.252 7.98893 10.179 8.43555 10.0332C8.89128 9.87826 9.3151 9.68229 9.70703 9.44531C10.0352 9.23568 10.3405 9.00781 10.623 8.76172C10.9056 8.51562 11.1654 8.26497 11.4023 8.00977C11.5846 7.80924 11.7533 7.60872 11.9082 7.4082C12.0632 7.20768 12.1999 7.02083 12.3184 6.84766C12.4186 6.70182 12.5007 6.57422 12.5645 6.46484C12.6374 6.34635 12.7012 6.24609 12.7559 6.16406C12.7012 6.08203 12.6374 5.98633 12.5645 5.87695C12.5007 5.75846 12.4186 5.63086 12.3184 5.49414C12.1999 5.32096 12.0632 5.13411 11.9082 4.93359C11.7533 4.73307 11.5846 4.53255 11.4023 4.33203C11.1654 4.06771 10.9056 3.8125 10.623 3.56641C10.3405 3.32031 10.0352 3.09701 9.70703 2.89648C9.3151 2.65039 8.89128 2.45443 8.43555 2.30859C7.98893 2.16276 7.51042 2.08984 7 2.08984C6.48958 2.08984 6.00651 2.16276 5.55078 2.30859C5.10417 2.45443 4.6849 2.65039 4.29297 2.89648C3.96484 3.09701 3.65951 3.32031 3.37695 3.56641C3.0944 3.8125 2.83464 4.06771 2.59766 4.33203C2.41536 4.53255 2.24674 4.73307 2.0918 4.93359C1.93685 5.13411 1.80013 5.32096 1.68164 5.49414C1.58138 5.63086 1.49479 5.75846 1.42188 5.87695C1.35807 5.98633 1.29883 6.08203 1.24414 6.16406ZM9.33789 6.16406C9.33789 6.49219 9.27409 6.79753 9.14648 7.08008C9.02799 7.36263 8.86393 7.60872 8.6543 7.81836C8.44466 8.02799 8.19401 8.19661 7.90234 8.32422C7.61979 8.44271 7.31901 8.50195 7 8.50195C6.68099 8.50195 6.37565 8.44271 6.08398 8.32422C5.80143 8.19661 5.55534 8.02799 5.3457 7.81836C5.13607 7.60872 4.96745 7.36263 4.83984 7.08008C4.72135 6.79753 4.66211 6.49219 4.66211 6.16406C4.66211 5.84505 4.72135 5.54427 4.83984 5.26172C4.96745 4.97917 5.13607 4.73307 5.3457 4.52344C5.55534 4.3138 5.80143 4.14974 6.08398 4.03125C6.37565 3.90365 6.68099 3.83984 7 3.83984C7.31901 3.83984 7.61979 3.90365 7.90234 4.03125C8.19401 4.14974 8.44466 4.3138 8.6543 4.52344C8.86393 4.73307 9.02799 4.97917 9.14648 5.26172C9.27409 5.54427 9.33789 5.84505 9.33789 6.16406ZM8.16211 6.16406C8.16211 6.00911 8.13021 5.86328 8.06641 5.72656C8.01172 5.58073 7.92969 5.45312 7.82031 5.34375C7.72005 5.23438 7.59701 5.15234 7.45117 5.09766C7.31445 5.03385 7.16406 5.00195 7 5.00195C6.83594 5.00195 6.68099 5.03385 6.53516 5.09766C6.39844 5.15234 6.27995 5.23438 6.17969 5.34375C6.07031 5.45312 5.98372 5.58073 5.91992 5.72656C5.86523 5.86328 5.83789 6.00911 5.83789 6.16406C5.83789 6.32812 5.86523 6.48307 5.91992 6.62891C5.98372 6.76562 6.07031 6.88867 6.17969 6.99805C6.27995 7.09831 6.39844 7.18034 6.53516 7.24414C6.68099 7.30794 6.83594 7.33984 7 7.33984C7.16406 7.33984 7.31445 7.30794 7.45117 7.24414C7.59701 7.18034 7.72005 7.09831 7.82031 6.99805C7.92969 6.88867 8.01172 6.76562 8.06641 6.62891C8.13021 6.48307 8.16211 6.32812 8.16211 6.16406Z" fill="#111111"/>
                     </svg>
@@ -83,22 +96,24 @@
                 </div>
                 <div class="product-icon-cart product-icon">
                   {% assign available_variant = null %}
-                  {% comment %} Debug: Show product info {% endcomment %}
-                  {% comment %} Product: {{ product.title }} - Variants: {{ product.variants.size }} {% endcomment %}
-                  
+
                   {% for variant in product.variants %}
-                    {% comment %} Debug: Variant {{ variant.id }} - Available: {{ variant.available }} - Inventory: {{ variant.inventory_quantity }} {% endcomment %}
-                    {% comment %} Check if variant is available OR has inventory policy that allows continuing {% endcomment %}
-                    {% if variant.available or variant.inventory_policy == 'continue' or variant.inventory_quantity > 0 %}
+                    {% if variant.available
+                      or variant.inventory_policy == 'continue'
+                      or variant.inventory_quantity > 0
+                    %}
                       {% assign available_variant = variant %}
                       {% break %}
                     {% endif %}
                   {% endfor %}
-                  
-                  {% comment %} Debug: Available variant: {{ available_variant.id | default: 'NONE' }} {% endcomment %}
-                  
                   {% if available_variant %}
-                    <a href="#" aria-label="icon-cart" data-add-to-cart data-product-id="{{ available_variant.id }}" title="Add to cart">
+                    <a
+                      href="#"
+                      aria-label="icon-cart"
+                      data-add-to-cart
+                      data-product-id="{{ available_variant.id }}"
+                      title="Add to cart"
+                    >
                       <svg width="14" height="14" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.0452 10.8307C9.89199 10.8307 9.74503 10.7691 9.63667 10.6595C9.52831 10.55 9.46743 10.4013 9.46743 10.2463H8.31182C8.31182 10.7113 8.49444 11.1572 8.81952 11.486C9.1446 11.8147 9.58551 11.9994 10.0452 11.9994C10.505 11.9994 10.9459 11.8147 11.271 11.486C11.596 11.1572 11.7787 10.7113 11.7787 10.2463H10.623C10.623 10.4013 10.5622 10.55 10.4538 10.6595C10.3454 10.7691 10.1985 10.8307 10.0452 10.8307Z" fill="#111111"/>
                         <path d="M
@@ -107,7 +122,13 @@
                       </svg>
                     </a>
                   {% else %}
-                    <a href="#" aria-label="icon-cart" aria-disabled="true" title="Sold out" style="opacity:.5; pointer-events:none;">
+                    <a
+                      href="#"
+                      aria-label="icon-cart"
+                      aria-disabled="true"
+                      title="Sold out"
+                      style="opacity:.5; pointer-events:none;"
+                    >
                       <svg width="14" height="14" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.0452 10.8307C9.89199 10.8307 9.74503 10.7691 9.63667 10.6595C9.52831 10.55 9.46743 10.4013 9.46743 10.2463H8.31182C8.31182 10.7113 8.49444 11.1572 8.81952 11.486C9.1446 11.8147 9.58551 11.9994 10.0452 11.9994C10.505 11.9994 10.9459 11.8147 11.271 11.486C11.596 11.1572 11.7787 10.7113 11.7787 10.2463H10.623C10.623 10.4013 10.5622 10.55 10.4538 10.6595C10.3454 10.7691 10.1985 10.8307 10.0452 10.8307Z" fill="#111111"/>
                         <path d="M

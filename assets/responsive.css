@@ -37,7 +37,7 @@
         width: 100%;
         height: 100vh;
         background-color: var(--bs-white);
-        z-index: var(--bs-z-index-dropdown);
+        z-index: var(--bs-z-index-fixed);
         transition: left var(--bs-transition-slow);
         overflow-y: auto;
         display: flex;
@@ -560,7 +560,7 @@
         width: 80%;
         height: 100vh;
         background-color: var(--bs-white);
-        z-index: var(--bs-z-index-dropdown);
+        z-index: var(--bs-z-index-fixed);
         transition: left var(--bs-transition-slow);
         overflow-y: auto;
         display: flex;
