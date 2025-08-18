@@ -24,19 +24,6 @@
         assign new_arrivals_collection = collections[collection_handle]
       %}
 
-      <script>
-        console.log('=== COLLECTION STOCK DEBUG ===');
-        console.log('Collection Handle:', '{{ collection_handle }}');
-        console.log('Collection Object:', {{ new_arrivals_collection | json }});
-        console.log('Products in collection:');
-        {% for product in new_arrivals_collection.products limit: product_limit %}
-          {% for variant in product.variants %}
-            console.log('    * Stock={{ variant.inventory_quantity }}, Policy={{ variant.inventory_policy }}, Available={{ variant.available }}');
-          {% endfor %}
-        {% endfor %}
-        console.log('=== END COLLECTION STOCK DEBUG ===');
-      </script>
-
       {% for product in new_arrivals_collection.products reversed limit: product_limit %}
         <div class="new-arrivals-item">
           {% if forloop.index == 1 %}
