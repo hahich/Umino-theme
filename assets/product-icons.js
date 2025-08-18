@@ -96,8 +96,6 @@ class ProductIconsController {
       return;
     }
 
-    console.log('Adding to cart - Variant ID:', variantId, 'Button:', button);
-
     // optimistic UI: increment header count immediately
     const badge = document.querySelector('[data-cart-count]');
     let prev = parseInt(badge?.textContent || '0', 10);
@@ -108,7 +106,6 @@ class ProductIconsController {
 
     try {
       const requestBody = { items: [{ id: Number(variantId), quantity: 1 }] };
-      console.log('Cart request body:', requestBody);
       
       const res = await fetch('/cart/add.js', {
         method: 'POST',
@@ -125,9 +122,7 @@ class ProductIconsController {
       }
 
       const result = await res.json();
-      console.log('Add to cart success:', result);
 
-      // dispatch event for any listeners
       document.dispatchEvent(new CustomEvent('cart:updated'));
       
       // Open cart drawer

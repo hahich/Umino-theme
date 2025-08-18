@@ -335,6 +335,13 @@
     },
     "slider": {
       "name": "Slider",
+      "default": {
+        "alt_text": "Slider image",
+        "heading1": "Stylish",
+        "heading2": "Top Trending",
+        "subheading": "So soft you don't want to take it off.",
+        "button_text": "Explore Now"
+      },
       "settings": {
         "content_position": {
           "label": "Content position",

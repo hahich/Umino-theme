@@ -30,7 +30,7 @@
               <div class="slide-image">
                 <img
                   src="{{ 'banner.png' | asset_url }}"
-                  alt="Slider image"
+                  alt="{{ 'sections.slider.default.alt_text' | t }}"
                   width="1200"
                   height="810"
                   {% if forloop.first %}
@@ -74,13 +74,15 @@
                 {% endif %}
 
                 {% if block.settings.button_text != blank %}
-                  <a
-                    href="#"
-                    class="slide-button"
-                    aria-label="{{ block.settings.button_text }}"
-                  >
-                    {{ block.settings.button_text }}
-                  </a>
+                  <div class="slide-button-wrapper">
+                    <a
+                      href="#"
+                      class="slide-button"
+                      aria-label="{{ block.settings.button_text }}"
+                    >
+                      {{ block.settings.button_text }}
+                    </a>
+                  </div>
                 {% endif %}
               </div>
             </div>
@@ -91,7 +93,7 @@
           <div class="slide-image">
             <img
               src="{{ 'banner.png' | asset_url }}"
-              alt="Slider image"
+              alt="{{ 'sections.slider.default.alt_text' | t }}"
               width="1200"
               height="810"
               fetchpriority="high"
@@ -101,15 +103,17 @@
           <div class="slide-content {{ section.settings.content_position }}">
             <div class="slide-text">
               <h2 class="slide-heading" style="color: #000; font-size: 80px;">
-                <span>Stylish<br></span>
-                <span>Top Trending</span>
+                <span>{{ 'sections.slider.default.heading1' | t }}<br></span>
+                <span>{{ 'sections.slider.default.heading2' | t }}</span>
               </h2>
               <p class="slide-subheading" style="color: #000; font-size: 16px;">
-                So soft you don't want to take it off.
+                {{ 'sections.slider.default.subheading' | t }}
               </p>
-              <a href="#" class="slide-button" aria-label="Explore Now">
-                Explore Now
-              </a>
+              <div class="slide-button-wrapper">
+                <a href="#" class="slide-button" aria-label="{{ 'sections.slider.default.button_text' | t }}">
+                  {{ 'sections.slider.default.button_text' | t }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -117,7 +121,7 @@
           <div class="slide-image">
             <img
               src="{{ 'banner.png' | asset_url }}"
-              alt="Slider image"
+              alt="{{ 'sections.slider.default.alt_text' | t }}"
               width="1200"
               height="810"
               loading="lazy"
@@ -127,14 +131,14 @@
           <div class="slide-content {{ section.settings.content_position }}">
             <div class="slide-text">
               <h2 class="slide-heading" style="color: #111; font-size: 80px;">
-                <span>Stylish<br></span>
-                <span>Top Trending</span>
+                <span>{{ 'sections.slider.default.heading1' | t }}<br></span>
+                <span>{{ 'sections.slider.default.heading2' | t }}</span>
               </h2>
               <p class="slide-subheading" style="color: #111; font-size: 16px;">
-                So soft you don't want to take it off.
+                {{ 'sections.slider.default.subheading' | t }}
               </p>
-              <a href="#" class="slide-button" aria-label="Shop Now">
-                Explore Now
+              <a href="#" class="slide-button" aria-label="{{ 'sections.slider.default.button_text' | t }}">
+                {{ 'sections.slider.default.button_text' | t }}
               </a>
             </div>
           </div>
@@ -143,7 +147,7 @@
           <div class="slide-image">
             <img
               src="{{ 'banner.png' | asset_url }}"
-              alt="Slider image"
+              alt="{{ 'sections.slider.default.alt_text' | t }}"
               width="1200"
               height="810"
               loading="lazy"
@@ -153,14 +157,14 @@
           <div class="slide-content {{ section.settings.content_position }}">
             <div class="slide-text">
               <h2 class="slide-heading" style="color: #222; font-size: 80px;">
-                <span>Stylish<br></span>
-                <span>Top Trending</span>
+                <span>{{ 'sections.slider.default.heading1' | t }}<br></span>
+                <span>{{ 'sections.slider.default.heading2' | t }}</span>
               </h2>
               <p class="slide-subheading" style="color: #222; font-size: 16px;">
-                So soft you don't want to take it off.
+                {{ 'sections.slider.default.subheading' | t }}
               </p>
-              <a href="#" class="slide-button" aria-label="Browse">
-                Explore Now
+              <a href="#" class="slide-button" aria-label="{{ 'sections.slider.default.button_text' | t }}">
+                {{ 'sections.slider.default.button_text' | t }}
               </a>
             </div>
           </div>
