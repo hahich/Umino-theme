@@ -377,10 +377,11 @@ ul {
     font-weight: var(--bs-font-weight-normal);
     margin: 0 0 var(--bs-spacing-2) 0;
     line-height: 80px;
+    color: var(--bs-gray-900);
 }
 
 .slide-subheading {
-    font-size: var(--bs-font-size-lg);
+    font-size: var(--bs-font-size-base);
     margin: 0 0 var(--bs-spacing-8) 0;
     line-height: var(--bs-line-height-normal);
     opacity: 0.9;
