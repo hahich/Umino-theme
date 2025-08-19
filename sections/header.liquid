@@ -37,6 +37,7 @@
                   </svg>
                 {% endif %}
               </div>
+              {% if link.links.size > 0 %}
               <ul class="header-menu-sublist">
                 {% for child_link in link.links %}
                   <li>
@@ -44,6 +45,7 @@
                   </li>
                 {% endfor %}
               </ul>
+              {% endif %}
             </li>
           {% endfor %}
         {% endif %}
@@ -107,6 +109,7 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
+      height: 70px;
       padding-right: 30px;
       letter-spacing: 0;
       line-height: 1.5;
@@ -142,6 +145,36 @@
 
   .header-menu-item-wrapper:hover svg {
     rotate: 180deg;
+  }
+
+  .header-menu-sublist::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #000;
+    transition: width 0.3s ease;
+  }
+
+  .header-menu-item:hover .header-menu-sublist::before {
+    width: 100%;
+  }
+
+  .header-menu-item:not(:has(.header-menu-sublist))::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #000;
+    transition: width 0.3s ease;
+  }
+
+  .header-menu-item:not(:has(.header-menu-sublist)):hover::after {
+    width: 100%;
   }
 {% endstyle %}
 
