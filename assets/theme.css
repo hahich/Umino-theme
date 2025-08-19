@@ -44,14 +44,14 @@ img {
 /* scroll fadein */
 .fade-in-left {
     opacity: 0;
-    transform: translateX(-40px);
+    transform: translateY(40px);
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: opacity, transform;
 }
 
 .fade-in-left.visible {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
 }
 
 :root {
